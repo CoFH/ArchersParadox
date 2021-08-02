@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "archers_paradox:item/projectiles/training_arrow"
+  }
+}
