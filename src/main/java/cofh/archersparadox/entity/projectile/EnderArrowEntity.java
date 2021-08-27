@@ -35,53 +35,53 @@ public class EnderArrowEntity extends AbstractArrowEntity {
     public EnderArrowEntity(EntityType<? extends EnderArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     public EnderArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(ENDER_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
-        this.origin = shooter.getPosition();
+        this.baseDamage = baseDamage;
+        this.origin = shooter.blockPosition();
     }
 
     public EnderArrowEntity(World worldIn, double x, double y, double z) {
 
         super(ENDER_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
         this.origin = new BlockPos(x, y, z);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return discharged ? new ItemStack(Items.ARROW) : new ItemStack(ENDER_ARROW_ITEM);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
-        super.onImpact(raytraceResultIn);
+        super.onHit(raytraceResultIn);
 
-        Entity shooter = func_234616_v_();
+        Entity shooter = getOwner();
         if (raytraceResultIn.getType() != RayTraceResult.Type.MISS && !discharged && shooter != null) {
             int duration = DURATION;
             if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
-                Utils.teleportEntityTo(shooter, this.getPosition());
+                Utils.teleportEntityTo(shooter, this.blockPosition());
                 if (shooter instanceof LivingEntity && !Utils.isFakePlayer(shooter)) {
-                    ((LivingEntity) shooter).addPotionEffect(new EffectInstance(ENDERFERENCE, duration, 0, false, false));
+                    ((LivingEntity) shooter).addEffect(new EffectInstance(ENDERFERENCE, duration, 0, false, false));
                 }
             }
             if (raytraceResultIn.getType() == RayTraceResult.Type.ENTITY) {
-                BlockPos originPos = origin == null ? shooter.getPosition() : origin;
-                Utils.teleportEntityTo(shooter, getPosition());
+                BlockPos originPos = origin == null ? shooter.blockPosition() : origin;
+                Utils.teleportEntityTo(shooter, blockPosition());
                 if (shooter instanceof LivingEntity && !Utils.isFakePlayer(shooter)) {
-                    ((LivingEntity) shooter).addPotionEffect(new EffectInstance(ENDERFERENCE, duration, 0, false, false));
+                    ((LivingEntity) shooter).addEffect(new EffectInstance(ENDERFERENCE, duration, 0, false, false));
                 }
                 Entity entity = ((EntityRayTraceResult) raytraceResultIn).getEntity();
-                if (entity instanceof LivingEntity && entity.isNonBoss()) {
+                if (entity instanceof LivingEntity && entity.canChangeDimensions()) {
                     Utils.teleportEntityTo(entity, originPos);
-                    ((LivingEntity) entity).addPotionEffect(new EffectInstance(ENDERFERENCE, duration, 0, false, false));
+                    ((LivingEntity) entity).addEffect(new EffectInstance(ENDERFERENCE, duration, 0, false, false));
                 }
             }
             discharged = true;
@@ -89,17 +89,17 @@ public class EnderArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public void setFire(int seconds) {
+    public void setSecondsOnFire(int seconds) {
 
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
     }
 
@@ -113,33 +113,33 @@ public class EnderArrowEntity extends AbstractArrowEntity {
 
         super.tick();
 
-        if (!this.inGround || this.getNoClip()) {
-            if (Utils.isClientWorld(world)) {
-                Vector3d vec3d = this.getMotion();
+        if (!this.inGround || this.isNoPhysics()) {
+            if (Utils.isClientWorld(level)) {
+                Vector3d vec3d = this.getDeltaMovement();
                 double d1 = vec3d.x;
                 double d2 = vec3d.y;
                 double d0 = vec3d.z;
-                this.world.addParticle(ParticleTypes.PORTAL, this.getPosX() + d1 * 0.25D, this.getPosY() + d2 * 0.25D, this.getPosZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
+                this.level.addParticle(ParticleTypes.PORTAL, this.getX() + d1 * 0.25D, this.getY() + d2 * 0.25D, this.getZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
             }
         }
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundNBT compound) {
 
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putBoolean(TAG_ARROW_DATA, discharged);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         discharged = compound.getBoolean(TAG_ARROW_DATA);
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

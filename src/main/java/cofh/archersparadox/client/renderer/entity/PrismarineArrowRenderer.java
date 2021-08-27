@@ -18,7 +18,7 @@ public class PrismarineArrowRenderer extends ArrowRenderer<PrismarineArrowEntity
     }
 
     @Override
-    public ResourceLocation getEntityTexture(PrismarineArrowEntity entity) {
+    public ResourceLocation getTextureLocation(PrismarineArrowEntity entity) {
 
         return TEXTURE;
     }

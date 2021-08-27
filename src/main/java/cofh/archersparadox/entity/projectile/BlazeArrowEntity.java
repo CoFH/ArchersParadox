@@ -36,38 +36,38 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
     public BlazeArrowEntity(EntityType<? extends BlazeArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     public BlazeArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(BLAZE_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     public BlazeArrowEntity(World worldIn, double x, double y, double z) {
 
         super(BLAZE_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return discharged ? new ItemStack(Items.ARROW) : new ItemStack(BLAZE_ARROW_ITEM);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
-        super.onImpact(raytraceResultIn);
+        super.onHit(raytraceResultIn);
 
-        if (Utils.isServerWorld(world) && !discharged && !isInWater() && effectRadius > 0) {
+        if (Utils.isServerWorld(level) && !discharged && !isInWater() && effectRadius > 0) {
             if (effectDuration - 5 > 0) {
-                AreaUtils.igniteNearbyEntities(this, world, this.getPosition(), effectRadius, effectDuration - 5);
+                AreaUtils.igniteNearbyEntities(this, level, this.blockPosition(), effectRadius, effectDuration - 5);
             }
-            AreaUtils.igniteSpecial(this, world, this.getPosition(), effectRadius, true, true, (LivingEntity) func_234616_v_());
-            AreaUtils.igniteNearbyGround(this, world, this.getPosition(), effectRadius, 0.1);
+            AreaUtils.igniteSpecial(this, level, this.blockPosition(), effectRadius, true, true, (LivingEntity) getOwner());
+            AreaUtils.igniteNearbyGround(this, level, this.blockPosition(), effectRadius, 0.1);
             makeAreaOfEffectCloud();
             discharged = true;
         }
@@ -78,7 +78,7 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
         //                    if (effectDuration - 5 > 0) {
         //                        AreaUtils.igniteNearbyEntities(this, world, this.getPosition(), effectRadius, effectDuration - 5);
         //                    }
-        //                    AreaUtils.igniteSpecial(this, world, this.getPosition(), effectRadius, true, true, (LivingEntity) func_234616_v_());
+        //                    AreaUtils.igniteSpecial(this, world, this.getPosition(), effectRadius, true, true, (LivingEntity) getOwner());
         //                    AreaUtils.igniteNearbyGround(this, world, this.getPosition(), effectRadius, 0.1);
         //                    makeAreaOfEffectCloud();
         //                }
@@ -88,28 +88,28 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
 
-        super.onEntityHit(raytraceResultIn);
+        super.onHitEntity(raytraceResultIn);
 
         Entity entity = raytraceResultIn.getEntity();
-        if (!entity.isInvulnerable() && !entity.isImmuneToFire() && !isInWater() && !(entity instanceof EndermanEntity)) {
-            entity.setFire(effectDuration);
+        if (!entity.isInvulnerable() && !entity.fireImmune() && !isInWater() && !(entity instanceof EndermanEntity)) {
+            entity.setSecondsOnFire(effectDuration);
         }
     }
 
     @Override
-    public void setFire(int seconds) {
+    public void setSecondsOnFire(int seconds) {
 
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
     }
 
@@ -123,53 +123,53 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
 
         super.tick();
 
-        if (!this.inGround || this.getNoClip()) {
-            if (Utils.isClientWorld(world) && !isInWater()) {
-                Vector3d vec3d = this.getMotion();
+        if (!this.inGround || this.isNoPhysics()) {
+            if (Utils.isClientWorld(level) && !isInWater()) {
+                Vector3d vec3d = this.getDeltaMovement();
                 double d1 = vec3d.x;
                 double d2 = vec3d.y;
                 double d0 = vec3d.z;
-                this.world.addParticle(ParticleTypes.LAVA, this.getPosX() + d1 * 0.25D, this.getPosY() + d2 * 0.25D, this.getPosZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
+                this.level.addParticle(ParticleTypes.LAVA, this.getX() + d1 * 0.25D, this.getY() + d2 * 0.25D, this.getZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
             }
         }
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundNBT compound) {
 
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putBoolean(TAG_ARROW_DATA, discharged);
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         discharged = compound.getBoolean(TAG_ARROW_DATA);
     }
 
     @Override
-    public boolean isBurning() {
+    public boolean isOnFire() {
 
-        return !this.world.isRemote;
+        return !this.level.isClientSide;
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private void makeAreaOfEffectCloud() {
 
-        AreaEffectCloudEntity cloud = new AreaEffectCloudEntity(world, getPosX(), getPosY(), getPosZ());
+        AreaEffectCloudEntity cloud = new AreaEffectCloudEntity(level, getX(), getY(), getZ());
         cloud.setRadius(1);
-        cloud.setParticleData(ParticleTypes.FLAME);
+        cloud.setParticle(ParticleTypes.FLAME);
         cloud.setDuration(CLOUD_DURATION);
         cloud.setWaitTime(0);
         cloud.setRadiusPerTick((effectRadius - cloud.getRadius()) / (float) cloud.getDuration());
 
-        world.addEntity(cloud);
+        level.addFreshEntity(cloud);
     }
 
 }

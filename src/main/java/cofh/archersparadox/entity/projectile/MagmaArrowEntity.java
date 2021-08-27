@@ -40,98 +40,98 @@ public class MagmaArrowEntity extends AbstractArrowEntity {
     public MagmaArrowEntity(EntityType<? extends MagmaArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = DAMAGE;
-        this.knockbackStrength = KNOCKBACK;
+        this.baseDamage = DAMAGE;
+        this.knockback = KNOCKBACK;
     }
 
     public MagmaArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(MAGMA_ARROW_ENTITY, shooter, worldIn);
-        this.damage = DAMAGE;
-        this.knockbackStrength = KNOCKBACK;
+        this.baseDamage = DAMAGE;
+        this.knockback = KNOCKBACK;
     }
 
     public MagmaArrowEntity(World worldIn, double x, double y, double z) {
 
         super(MAGMA_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = DAMAGE;
-        this.knockbackStrength = KNOCKBACK;
+        this.baseDamage = DAMAGE;
+        this.knockback = KNOCKBACK;
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(Items.ARROW);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
         if (raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            this.setHitSound(SoundEvents.ENTITY_MAGMA_CUBE_SQUISH);
-            AreaUtils.igniteNearbyEntities(this, world, this.getPosition(), RADIUS, DURATION);
-            AreaUtils.igniteNearbyGround(this, world, this.getPosition(), RADIUS, 0.1);
+            this.setSoundEvent(SoundEvents.MAGMA_CUBE_SQUISH);
+            AreaUtils.igniteNearbyEntities(this, level, this.blockPosition(), RADIUS, DURATION);
+            AreaUtils.igniteNearbyGround(this, level, this.blockPosition(), RADIUS, 0.1);
 
             if (raytraceResultIn.getType() == RayTraceResult.Type.ENTITY) {
-                this.onEntityHit((EntityRayTraceResult) raytraceResultIn);
+                this.onHitEntity((EntityRayTraceResult) raytraceResultIn);
             } else if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
-                Vector3d motion = getMotion();
-                if (motion.lengthSquared() < MIN_VELOCITY || isInWater() || bounces >= maxBounces) {
-                    super.onImpact(raytraceResultIn);
+                Vector3d motion = getDeltaMovement();
+                if (motion.lengthSqr() < MIN_VELOCITY || isInWater() || bounces >= maxBounces) {
+                    super.onHit(raytraceResultIn);
                     return;
                 }
                 BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceResultIn;
-                switch (blockraytraceresult.getFace()) {
+                switch (blockraytraceresult.getDirection()) {
                     case DOWN:
                     case UP:
-                        this.setMotion(motion.x, motion.y * -1, motion.z);
+                        this.setDeltaMovement(motion.x, motion.y * -1, motion.z);
                         break;
                     case NORTH:
                     case SOUTH:
-                        this.setMotion(motion.x, motion.y, motion.z * -1);
+                        this.setDeltaMovement(motion.x, motion.y, motion.z * -1);
                         break;
                     case WEST:
                     case EAST:
-                        this.setMotion(motion.x * -1, motion.y, motion.z);
+                        this.setDeltaMovement(motion.x * -1, motion.y, motion.z);
                         break;
                 }
-                float f = MathHelper.sqrt(horizontalMag(motion));
-                this.rotationYaw = (float) (MathHelper.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI));
-                this.rotationPitch = (float) (MathHelper.atan2(motion.y, f) * (double) (180F / (float) Math.PI));
-                this.prevRotationYaw = this.rotationYaw;
-                this.prevRotationPitch = this.rotationPitch;
+                float f = MathHelper.sqrt(getHorizontalDistanceSqr(motion));
+                this.yRot = (float) (MathHelper.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI));
+                this.xRot = (float) (MathHelper.atan2(motion.y, f) * (double) (180F / (float) Math.PI));
+                this.yRotO = this.yRot;
+                this.xRotO = this.xRot;
                 ++bounces;
-                --knockbackStrength;
+                --knockback;
             }
         }
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
 
-        super.onEntityHit(raytraceResultIn);
+        super.onHitEntity(raytraceResultIn);
 
         Entity entity = raytraceResultIn.getEntity();
         if (!isInWater() && !(entity instanceof EndermanEntity)) {
-            entity.setFire(DURATION);
+            entity.setSecondsOnFire(DURATION);
         }
     }
 
     @Override
-    public void setFire(int seconds) {
+    public void setSecondsOnFire(int seconds) {
 
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
-        super.setKnockbackStrength(KNOCKBACK + knockbackStrengthIn * KNOCKBACK_FACTOR);
-        this.maxBounces = this.knockbackStrength;
+        super.setKnockback(KNOCKBACK + knockbackStrengthIn * KNOCKBACK_FACTOR);
+        this.maxBounces = this.knockback;
     }
 
     @Override
@@ -150,34 +150,34 @@ public class MagmaArrowEntity extends AbstractArrowEntity {
 
         super.tick();
 
-        if (!this.inGround || this.getNoClip()) {
-            if (Utils.isClientWorld(world)) {
-                Vector3d vec3d = this.getMotion();
+        if (!this.inGround || this.isNoPhysics()) {
+            if (Utils.isClientWorld(level)) {
+                Vector3d vec3d = this.getDeltaMovement();
                 double d1 = vec3d.x;
                 double d2 = vec3d.y;
                 double d0 = vec3d.z;
-                this.world.addParticle(ParticleTypes.LAVA, this.getPosX() + d1 * 0.25D, this.getPosY() + d2 * 0.25D, this.getPosZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
+                this.level.addParticle(ParticleTypes.LAVA, this.getX() + d1 * 0.25D, this.getY() + d2 * 0.25D, this.getZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
             }
         }
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundNBT compound) {
 
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putInt(TAG_ARROW_DATA, bounces);
 
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         bounces = compound.getInt(TAG_ARROW_DATA);
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

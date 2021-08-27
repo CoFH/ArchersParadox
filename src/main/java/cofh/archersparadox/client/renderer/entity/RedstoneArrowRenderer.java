@@ -18,7 +18,7 @@ public class RedstoneArrowRenderer extends ArrowRenderer<RedstoneArrowEntity> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(RedstoneArrowEntity entity) {
+    public ResourceLocation getTextureLocation(RedstoneArrowEntity entity) {
 
         return TEXTURE;
     }

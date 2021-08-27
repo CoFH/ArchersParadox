@@ -22,7 +22,7 @@ public class LightningArrowRenderer extends ArrowRenderer<LightningArrowEntity> 
     }
 
     @Override
-    public ResourceLocation getEntityTexture(LightningArrowEntity entity) {
+    public ResourceLocation getTextureLocation(LightningArrowEntity entity) {
 
         return entity.discharged ? ARROW : TEXTURE;
     }

@@ -27,50 +27,50 @@ public class ExplosiveArrowEntity extends AbstractArrowEntity {
     public ExplosiveArrowEntity(EntityType<? extends ExplosiveArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     public ExplosiveArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(EXPLOSIVE_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     public ExplosiveArrowEntity(World worldIn, double x, double y, double z) {
 
         super(EXPLOSIVE_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = baseDamage;
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(EXPLOSIVE_ARROW_ITEM);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
-        super.onImpact(raytraceResultIn);
+        super.onHit(raytraceResultIn);
 
-        if (Utils.isServerWorld(world)) {
-            world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float) (explosionStrength + (knockbackBoost ? knockbackStrength : 0)), explosionsCauseFire && isBurning(), explosionsBreakBlocks ? Explosion.Mode.BREAK : Explosion.Mode.NONE);
-            this.world.setEntityState(this, (byte) 3);
+        if (Utils.isServerWorld(level)) {
+            level.explode(this, this.getX(), this.getY(), this.getZ(), (float) (explosionStrength + (knockbackBoost ? knockback : 0)), explosionsCauseFire && isOnFire(), explosionsBreakBlocks ? Explosion.Mode.BREAK : Explosion.Mode.NONE);
+            this.level.broadcastEntityEvent(this, (byte) 3);
             this.remove();
         }
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
 
-        super.onEntityHit(raytraceResultIn);
+        super.onHitEntity(raytraceResultIn);
 
         Entity entity = raytraceResultIn.getEntity();
-        entity.hurtResistantTime = 0;
+        entity.invulnerableTime = 0;
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
@@ -80,7 +80,7 @@ public class ExplosiveArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }
