@@ -25,7 +25,7 @@ public class RedstoneArrowEntity extends AbstractArrowEntity {
 
     private static final int CLOUD_DURATION = 20;
 
-    public static float baseDamage = 0.5F;
+    public static float defaultDamage = 0.5F;
     public static int effectRadius = 4;
 
     public boolean discharged;
@@ -33,19 +33,19 @@ public class RedstoneArrowEntity extends AbstractArrowEntity {
     public RedstoneArrowEntity(EntityType<? extends RedstoneArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public RedstoneArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(REDSTONE_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public RedstoneArrowEntity(World worldIn, double x, double y, double z) {
 
         super(REDSTONE_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override

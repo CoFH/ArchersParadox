@@ -21,14 +21,14 @@ import static cofh.archersparadox.init.APReferences.PRISMARINE_ARROW_ITEM;
 
 public class PrismarineArrowEntity extends AbstractArrowEntity {
 
-    public static float baseDamage = 2.0F;
-    public static int baseKnockback = 0;
-    public static byte basePierce = 0;
+    public static float defaultDamage = 2.0F;
+    public static int defaultKnockback = 0;
+    public static byte defaultPierce = 0;
 
     public PrismarineArrowEntity(EntityType<? extends PrismarineArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
     }
@@ -36,7 +36,7 @@ public class PrismarineArrowEntity extends AbstractArrowEntity {
     public PrismarineArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(PRISMARINE_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
     }
@@ -44,7 +44,7 @@ public class PrismarineArrowEntity extends AbstractArrowEntity {
     public PrismarineArrowEntity(World worldIn, double x, double y, double z) {
 
         super(PRISMARINE_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
     }
@@ -58,13 +58,13 @@ public class PrismarineArrowEntity extends AbstractArrowEntity {
     @Override
     public void setKnockback(int knockbackStrengthIn) {
 
-        super.setKnockback(baseKnockback + knockbackStrengthIn);
+        super.setKnockback(defaultKnockback + knockbackStrengthIn);
     }
 
     @Override
     public void setPierceLevel(byte level) {
 
-        super.setPierceLevel((byte) (basePierce + level));
+        super.setPierceLevel((byte) (defaultPierce + level));
     }
 
     @Override

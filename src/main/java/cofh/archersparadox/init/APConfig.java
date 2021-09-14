@@ -80,14 +80,14 @@ public class APConfig {
 
         SERVER_CONFIG.push("Diamond");
         diamondArrowDamage = SERVER_CONFIG
-                .comment("Adjust this to set the damage for the Diamond Arrow. Base Arrow value is 2.0.")
-                .defineInRange("Damage", DiamondArrowEntity.baseDamage, 0.5, 16.0);
+                .comment("Adjust this to set the damage for the Diamond Arrow. Default Arrow value is 2.0.")
+                .defineInRange("Damage", DiamondArrowEntity.defaultDamage, 0.5, 16.0);
         diamondArrowKnockback = SERVER_CONFIG
-                .comment("Adjust this to set the inherent knockback strength of the Diamond Arrow. Base Arrow value is 0.")
-                .defineInRange("Knockback", DiamondArrowEntity.baseKnockback, 0, 16);
+                .comment("Adjust this to set the inherent knockback strength of the Diamond Arrow. Default Arrow value is 0.")
+                .defineInRange("Knockback", DiamondArrowEntity.defaultKnockback, 0, 16);
         diamondArrowPierce = SERVER_CONFIG
-                .comment("Adjust this to set the inherent pierce of the Diamond Arrow. Base Arrow value is 0.")
-                .defineInRange("Piercing", DiamondArrowEntity.basePierce, 0, 16);
+                .comment("Adjust this to set the inherent pierce of the Diamond Arrow. Default Arrow value is 0.")
+                .defineInRange("Piercing", DiamondArrowEntity.defaultPierce, 0, 16);
         SERVER_CONFIG.pop();
 
         SERVER_CONFIG.push("Displacement");
@@ -131,26 +131,26 @@ public class APConfig {
 
         SERVER_CONFIG.push("Prismarine");
         prismarineArrowDamage = SERVER_CONFIG
-                .comment("Adjust this to set the damage for the Prismarine Arrow. Base Arrow value is 2.0.")
-                .defineInRange("Damage", PrismarineArrowEntity.baseDamage, 0.5, 16.0);
+                .comment("Adjust this to set the damage for the Prismarine Arrow. Default Arrow value is 2.0.")
+                .defineInRange("Damage", PrismarineArrowEntity.defaultDamage, 0.5, 16.0);
         prismarineArrowKnockback = SERVER_CONFIG
-                .comment("Adjust this to set the inherent knockback strength of the Prismarine Arrow. Base Arrow value is 0.")
-                .defineInRange("Knockback", PrismarineArrowEntity.baseKnockback, 0, 16);
+                .comment("Adjust this to set the inherent knockback strength of the Prismarine Arrow. Default Arrow value is 0.")
+                .defineInRange("Knockback", PrismarineArrowEntity.defaultKnockback, 0, 16);
         prismarineArrowPierce = SERVER_CONFIG
-                .comment("Adjust this to set the inherent pierce of the Prismarine Arrow. Base Arrow value is 0.")
-                .defineInRange("Piercing", PrismarineArrowEntity.basePierce, 0, 16);
+                .comment("Adjust this to set the inherent pierce of the Prismarine Arrow. Default Arrow value is 0.")
+                .defineInRange("Piercing", PrismarineArrowEntity.defaultPierce, 0, 16);
         SERVER_CONFIG.pop();
 
         SERVER_CONFIG.push("Quartz");
         quartzArrowDamage = SERVER_CONFIG
-                .comment("Adjust this to set the damage for the Quartz Arrow. Base Arrow value is 2.0.")
-                .defineInRange("Damage", QuartzArrowEntity.baseDamage, 0.5, 16.0);
+                .comment("Adjust this to set the damage for the Quartz Arrow. Default Arrow value is 2.0.")
+                .defineInRange("Damage", QuartzArrowEntity.defaultDamage, 0.5, 16.0);
         quartzArrowKnockback = SERVER_CONFIG
-                .comment("Adjust this to set the inherent knockback strength of the Quartz Arrow. Base Arrow value is 0.")
-                .defineInRange("Knockback", QuartzArrowEntity.baseKnockback, 0, 16);
+                .comment("Adjust this to set the inherent knockback strength of the Quartz Arrow. Default Arrow value is 0.")
+                .defineInRange("Knockback", QuartzArrowEntity.defaultKnockback, 0, 16);
         quartzArrowPierce = SERVER_CONFIG
-                .comment("Adjust this to set the inherent pierce of the Quartz Arrow. Base Arrow value is 0.")
-                .defineInRange("Piercing", QuartzArrowEntity.basePierce, 0, 16);
+                .comment("Adjust this to set the inherent pierce of the Quartz Arrow. Default Arrow value is 0.")
+                .defineInRange("Piercing", QuartzArrowEntity.defaultPierce, 0, 16);
         SERVER_CONFIG.pop();
 
         SERVER_CONFIG.push("Redstone");
@@ -168,10 +168,10 @@ public class APConfig {
         SERVER_CONFIG.push("Slime");
         slimeArrowBounces = SERVER_CONFIG
                 .comment("Adjust this to set the number of bounces for the Slime Arrow.")
-                .defineInRange("Bounces", SlimeArrowEntity.baseBounces, 1, 16);
+                .defineInRange("Bounces", SlimeArrowEntity.defaultBounces, 1, 16);
         slimeArrowKnockback = SERVER_CONFIG
-                .comment("Adjust this to set the inherent knockback strength of the Slime Arrow. Base Arrow value is 0.")
-                .defineInRange("Knockback", SlimeArrowEntity.baseKnockback, 0, 16);
+                .comment("Adjust this to set the inherent knockback strength of the Slime Arrow. Default Arrow value is 0.")
+                .defineInRange("Knockback", SlimeArrowEntity.defaultKnockback, 0, 16);
         slimeArrowKnockbackBoost = SERVER_CONFIG
                 .comment("If TRUE, bounces are modified by knockback bonuses, such as the Punch Enchantment.")
                 .define("Knockback Boost", SlimeArrowEntity.knockbackBoost);
@@ -204,9 +204,9 @@ public class APConfig {
         BlazeArrowEntity.effectDuration = blazeArrowDuration.get();
         BlazeArrowEntity.effectRadius = blazeArrowRadius.get();
 
-        DiamondArrowEntity.baseDamage = diamondArrowDamage.get().floatValue();
-        DiamondArrowEntity.baseKnockback = diamondArrowKnockback.get();
-        DiamondArrowEntity.basePierce = diamondArrowPierce.get().byteValue();
+        DiamondArrowEntity.defaultDamage = diamondArrowDamage.get().floatValue();
+        DiamondArrowEntity.defaultKnockback = diamondArrowKnockback.get();
+        DiamondArrowEntity.defaultPierce = diamondArrowPierce.get().byteValue();
 
         DisplacementArrowEntity.effectRadius = displacementArrowRadius.get();
 
@@ -221,20 +221,20 @@ public class APConfig {
 
         GlowstoneArrowEntity.effectRadius = glowstoneArrowRadius.get();
 
-        PrismarineArrowEntity.baseDamage = prismarineArrowDamage.get().floatValue();
-        PrismarineArrowEntity.baseKnockback = prismarineArrowKnockback.get();
-        PrismarineArrowEntity.basePierce = prismarineArrowPierce.get().byteValue();
+        PrismarineArrowEntity.defaultDamage = prismarineArrowDamage.get().floatValue();
+        PrismarineArrowEntity.defaultKnockback = prismarineArrowKnockback.get();
+        PrismarineArrowEntity.defaultPierce = prismarineArrowPierce.get().byteValue();
 
-        QuartzArrowEntity.baseDamage = quartzArrowDamage.get().floatValue();
-        QuartzArrowEntity.baseKnockback = quartzArrowKnockback.get();
-        QuartzArrowEntity.basePierce = quartzArrowPierce.get().byteValue();
+        QuartzArrowEntity.defaultDamage = quartzArrowDamage.get().floatValue();
+        QuartzArrowEntity.defaultKnockback = quartzArrowKnockback.get();
+        QuartzArrowEntity.defaultPierce = quartzArrowPierce.get().byteValue();
 
         RedstoneArrowEntity.effectRadius = redstoneArrowRadius.get();
 
         ShulkerArrowEntity.effectDuration = shulkerArrowDuration.get();
 
-        SlimeArrowEntity.baseBounces = slimeArrowBounces.get();
-        SlimeArrowEntity.baseKnockback = slimeArrowKnockback.get();
+        SlimeArrowEntity.defaultBounces = slimeArrowBounces.get();
+        SlimeArrowEntity.defaultKnockback = slimeArrowKnockback.get();
         SlimeArrowEntity.knockbackBoost = slimeArrowKnockbackBoost.get();
 
         SporeArrowEntity.effectRadius = sporeArrowRadius.get();

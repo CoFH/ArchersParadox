@@ -26,32 +26,32 @@ public class SlimeArrowEntity extends AbstractArrowEntity {
     private static float MAX_VELOCITY = 3.0F;
     private static float MIN_VELOCITY = 0.5F;
 
-    public static float baseDamage = 0.5F;
-    public static int baseBounces = 4;
-    public static int baseKnockback = 4;
+    public static float defaultDamage = 0.5F;
+    public static int defaultBounces = 4;
+    public static int defaultKnockback = 4;
     public static boolean knockbackBoost = true;
 
     private int curBounces = 0;
-    private int maxBounces = baseBounces;
+    private int maxBounces = defaultBounces;
 
     public SlimeArrowEntity(EntityType<? extends SlimeArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
     }
 
     public SlimeArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(SLIME_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
     }
 
     public SlimeArrowEntity(World worldIn, double x, double y, double z) {
 
         super(SLIME_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
     }
 
@@ -114,9 +114,9 @@ public class SlimeArrowEntity extends AbstractArrowEntity {
     @Override
     public void setKnockback(int knockbackStrengthIn) {
 
-        super.setKnockback(baseKnockback + knockbackStrengthIn);
+        super.setKnockback(defaultKnockback + knockbackStrengthIn);
         if (knockbackBoost) {
-            this.maxBounces = baseBounces + this.knockback;
+            this.maxBounces = defaultBounces + this.knockback;
         }
     }
 

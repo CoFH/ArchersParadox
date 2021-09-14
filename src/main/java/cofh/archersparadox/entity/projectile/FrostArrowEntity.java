@@ -32,7 +32,7 @@ public class FrostArrowEntity extends AbstractArrowEntity {
 
     private static final int CLOUD_DURATION = 20;
 
-    public static float baseDamage = 1.5F;
+    public static float defaultDamage = 1.5F;
     public static int effectAmplifier = 1;
     public static int effectDuration = 100;
     public static int effectRadius = 4;
@@ -44,19 +44,19 @@ public class FrostArrowEntity extends AbstractArrowEntity {
     public FrostArrowEntity(EntityType<? extends FrostArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public FrostArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(FROST_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public FrostArrowEntity(World worldIn, double x, double y, double z) {
 
         super(FROST_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override

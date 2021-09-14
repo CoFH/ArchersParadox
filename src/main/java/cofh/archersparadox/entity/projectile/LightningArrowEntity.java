@@ -19,26 +19,26 @@ import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class LightningArrowEntity extends AbstractArrowEntity {
 
-    public static float baseDamage = 1.5F;
+    public static float defaultDamage = 1.5F;
 
     public boolean discharged;
 
     public LightningArrowEntity(EntityType<? extends LightningArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public LightningArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(LIGHTNING_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public LightningArrowEntity(World worldIn, double x, double y, double z) {
 
         super(LIGHTNING_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override

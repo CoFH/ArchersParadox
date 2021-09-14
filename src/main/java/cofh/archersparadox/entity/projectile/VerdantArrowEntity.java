@@ -25,7 +25,7 @@ public class VerdantArrowEntity extends AbstractArrowEntity {
 
     private static final int CLOUD_DURATION = 20;
 
-    public static float baseDamage = 0.5F;
+    public static float defaultDamage = 0.5F;
     public static int effectRadius = 4;
     public static int effectGrowCount = 16;
     public static boolean transform = true;
@@ -35,19 +35,19 @@ public class VerdantArrowEntity extends AbstractArrowEntity {
     public VerdantArrowEntity(EntityType<? extends VerdantArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public VerdantArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(VERDANT_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public VerdantArrowEntity(World worldIn, double x, double y, double z) {
 
         super(VERDANT_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override

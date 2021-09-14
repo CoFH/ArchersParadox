@@ -25,7 +25,7 @@ import static cofh.lib.util.references.CoreReferences.ENDERFERENCE;
 
 public class EnderArrowEntity extends AbstractArrowEntity {
 
-    private static float baseDamage = 0.5F;
+    private static float defaultDamage = 0.5F;
     private static final int DURATION = 80;
     private static final int DURATION_FACTOR = 2;
 
@@ -35,20 +35,20 @@ public class EnderArrowEntity extends AbstractArrowEntity {
     public EnderArrowEntity(EntityType<? extends EnderArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public EnderArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(ENDER_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         this.origin = shooter.blockPosition();
     }
 
     public EnderArrowEntity(World worldIn, double x, double y, double z) {
 
         super(ENDER_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         this.origin = new BlockPos(x, y, z);
     }
 

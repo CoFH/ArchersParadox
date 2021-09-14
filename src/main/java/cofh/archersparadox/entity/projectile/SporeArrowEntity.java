@@ -25,7 +25,7 @@ public class SporeArrowEntity extends AbstractArrowEntity {
 
     private static final int CLOUD_DURATION = 20;
 
-    public static float baseDamage = 0.5F;
+    public static float defaultDamage = 0.5F;
     public static int effectRadius = 4;
     public static int effectGrowCount = 4;
     public static boolean transform = true;
@@ -35,19 +35,19 @@ public class SporeArrowEntity extends AbstractArrowEntity {
     public SporeArrowEntity(EntityType<? extends SporeArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public SporeArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(SPORE_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public SporeArrowEntity(World worldIn, double x, double y, double z) {
 
         super(SPORE_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override

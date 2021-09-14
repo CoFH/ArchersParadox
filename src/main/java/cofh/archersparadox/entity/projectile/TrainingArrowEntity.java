@@ -20,7 +20,7 @@ import static cofh.archersparadox.init.APReferences.*;
 
 public class TrainingArrowEntity extends AbstractArrowEntity {
 
-    private static float baseDamage = 0.0F;
+    private static float defaultDamage = 0.0F;
     private static final int DISTANCE_FACTOR = 4;
     private static final int MAX_DISTANCE = 10;
     private static final int DURATION = 200;
@@ -31,20 +31,20 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
     public TrainingArrowEntity(EntityType<? extends TrainingArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public TrainingArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(TRAINING_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         this.origin = shooter.position();
     }
 
     public TrainingArrowEntity(World worldIn, double x, double y, double z) {
 
         super(TRAINING_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         this.origin = new Vector3d(x, y, z);
     }
 

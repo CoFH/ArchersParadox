@@ -18,7 +18,7 @@ import static cofh.archersparadox.init.APReferences.EXPLOSIVE_ARROW_ITEM;
 
 public class ExplosiveArrowEntity extends AbstractArrowEntity {
 
-    public static float baseDamage = 0.5F;
+    public static float defaultDamage = 0.5F;
     public static double explosionStrength = 1.9;
     public static boolean explosionsBreakBlocks = true;
     public static boolean explosionsCauseFire = true;
@@ -27,19 +27,19 @@ public class ExplosiveArrowEntity extends AbstractArrowEntity {
     public ExplosiveArrowEntity(EntityType<? extends ExplosiveArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public ExplosiveArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(EXPLOSIVE_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public ExplosiveArrowEntity(World worldIn, double x, double y, double z) {
 
         super(EXPLOSIVE_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override

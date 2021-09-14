@@ -13,14 +13,14 @@ import static cofh.archersparadox.init.APReferences.DIAMOND_ARROW_ITEM;
 
 public class DiamondArrowEntity extends AbstractArrowEntity {
 
-    public static float baseDamage = 4.0F;
-    public static int baseKnockback = 0;
-    public static byte basePierce = 1;
+    public static float defaultDamage = 4.0F;
+    public static int defaultKnockback = 0;
+    public static byte defaultPierce = 1;
 
     public DiamondArrowEntity(EntityType<? extends DiamondArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
     }
@@ -28,7 +28,7 @@ public class DiamondArrowEntity extends AbstractArrowEntity {
     public DiamondArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(DIAMOND_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
     }
@@ -36,7 +36,7 @@ public class DiamondArrowEntity extends AbstractArrowEntity {
     public DiamondArrowEntity(World worldIn, double x, double y, double z) {
 
         super(DIAMOND_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
     }
@@ -50,13 +50,13 @@ public class DiamondArrowEntity extends AbstractArrowEntity {
     @Override
     public void setKnockback(int knockbackStrengthIn) {
 
-        super.setKnockback(baseKnockback + knockbackStrengthIn);
+        super.setKnockback(defaultKnockback + knockbackStrengthIn);
     }
 
     @Override
     public void setPierceLevel(byte level) {
 
-        super.setPierceLevel((byte) (basePierce + level));
+        super.setPierceLevel((byte) (defaultPierce + level));
     }
 
     @Override

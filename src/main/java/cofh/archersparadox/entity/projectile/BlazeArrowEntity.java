@@ -27,7 +27,7 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
 
     private static final int CLOUD_DURATION = 20;
 
-    public static float baseDamage = 1.5F;
+    public static float defaultDamage = 1.5F;
     public static int effectDuration = 10;
     public static int effectRadius = 2;
 
@@ -36,19 +36,19 @@ public class BlazeArrowEntity extends AbstractArrowEntity {
     public BlazeArrowEntity(EntityType<? extends BlazeArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public BlazeArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(BLAZE_ARROW_ENTITY, shooter, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public BlazeArrowEntity(World worldIn, double x, double y, double z) {
 
         super(BLAZE_ARROW_ENTITY, x, y, z, worldIn);
-        this.baseDamage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override
