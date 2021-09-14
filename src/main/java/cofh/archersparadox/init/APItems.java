@@ -2,7 +2,7 @@ package cofh.archersparadox.init;
 
 import cofh.archersparadox.ArchersParadox;
 import cofh.archersparadox.entity.projectile.*;
-import cofh.core.item.ArrowItemCoFH;
+import cofh.lib.item.impl.ArrowItemCoFH;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.item.Item;
