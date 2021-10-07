@@ -3,6 +3,8 @@ package cofh.archersparadox.item;
 import cofh.archersparadox.inventory.container.QuiverContainer;
 import cofh.core.item.InventoryContainerItem;
 import cofh.core.util.ProxyUtils;
+import cofh.lib.inventory.ItemStorageCoFH;
+import cofh.lib.inventory.SimpleItemInv;
 import cofh.lib.item.IColorableItem;
 import cofh.lib.util.Utils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +14,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
@@ -20,7 +24,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class QuiverItem extends InventoryContainerItem implements IColorableItem, IDyeableArmorItem, INamedContainerProvider {
 
@@ -57,6 +63,31 @@ public class QuiverItem extends InventoryContainerItem implements IColorableItem
         }
         return true;
     }
+
+    @Override
+    protected SimpleItemInv readInventoryFromNBT(ItemStack container) {
+
+        CompoundNBT containerTag = getOrCreateInvTag(container);
+        int numSlots = getContainerSlots(container);
+        ArrayList<ItemStorageCoFH> invSlots = new ArrayList<>(numSlots);
+        for (int i = 0; i < numSlots; ++i) {
+            invSlots.add(new ItemStorageCoFH());
+        }
+        SimpleItemInv inventory = new SimpleItemInv(invSlots) {
+
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+
+                if (slot < 0 || slot >= getSlots()) {
+                    return false;
+                }
+                return stack.getItem().is(ItemTags.ARROWS);
+            }
+        };
+        inventory.read(containerTag);
+        return inventory;
+    }
+    // endregion
 
     // region INamedContainerProvider
     @Override
