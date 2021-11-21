@@ -4,6 +4,7 @@ import cofh.archersparadox.inventory.container.QuiverContainer;
 import cofh.core.client.gui.ContainerScreenCoFH;
 import cofh.core.util.helpers.RenderHelper;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
@@ -12,14 +13,14 @@ import net.minecraft.util.text.ITextComponent;
 
 import static cofh.core.util.helpers.GuiHelper.createSlot;
 import static cofh.core.util.helpers.GuiHelper.generatePanelInfo;
-import static cofh.lib.util.constants.Constants.ID_COFH_CORE;
+import static cofh.lib.util.constants.Constants.PATH_ELEMENTS;
+import static cofh.lib.util.constants.Constants.PATH_GUI;
 
 public class QuiverScreen extends ContainerScreenCoFH<QuiverContainer> {
 
-    public static final String TEX_PATH = ID_COFH_CORE + ":textures/gui/generic.png";
-    public static final String TEX_PATH_EXT = ID_COFH_CORE + ":textures/gui/generic_extension.png";
-    public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);
-    public static final ResourceLocation TEXTURE_EXT = new ResourceLocation(TEX_PATH_EXT);
+    public static final ResourceLocation TEXTURE = new ResourceLocation(PATH_GUI + "generic.png");
+    public static final ResourceLocation TEXTURE_EXT = new ResourceLocation(PATH_GUI + "generic_extension.png");
+    public static final ResourceLocation SLOT_OVERLAY = new ResourceLocation(PATH_ELEMENTS + "locked_overlay_slot.png");
 
     protected int renderExtension;
 
@@ -63,6 +64,17 @@ public class QuiverScreen extends ContainerScreenCoFH<QuiverContainer> {
         drawElements(matrixStack, false);
 
         RenderSystem.popMatrix();
+    }
+
+    @Override
+    protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+
+        super.renderLabels(matrixStack, mouseX, mouseY);
+
+        GlStateManager._enableBlend();
+        RenderHelper.bindTexture(SLOT_OVERLAY);
+        drawTexturedModalRect(menu.lockedSlot.x, menu.lockedSlot.y, 0, 0, 16, 16, 16, 16);
+        GlStateManager._disableBlend();
     }
 
 }

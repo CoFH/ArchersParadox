@@ -24,6 +24,8 @@ public class QuiverContainer extends ContainerCoFH {
     protected InvWrapperCoFH invWrapper;
     protected ItemStack containerStack;
 
+    public SlotLocked lockedSlot;
+
     protected int numSlots;
     protected int rows;
 
@@ -71,7 +73,8 @@ public class QuiverContainer extends ContainerCoFH {
         }
         for (int i = 0; i < 9; ++i) {
             if (i == inventory.selected) {
-                addSlot(new SlotLocked(inventory, i, xOffset + i * 18, yOffset + 58));
+                lockedSlot = new SlotLocked(inventory, i, xOffset + i * 18, yOffset + 58);
+                addSlot(lockedSlot);
             } else {
                 addSlot(new Slot(inventory, i, xOffset + i * 18, yOffset + 58));
             }
