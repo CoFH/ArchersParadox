@@ -100,6 +100,8 @@ public class ArchersParadox {
                     return new ItemStack(ITEMS.get(ID_BLAZE_ARROW));
                 }
             };
+        } else {
+            itemGroup = ItemGroup.TAB_COMBAT;
         }
     }
     // endregion

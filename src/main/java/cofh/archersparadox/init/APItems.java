@@ -36,7 +36,7 @@ public class APItems {
 
                 return new BlazeArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_CHALLENGE_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -51,7 +51,7 @@ public class APItems {
 
                 return new ChallengeArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group).rarity(Rarity.UNCOMMON)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties().rarity(Rarity.UNCOMMON)).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_DIAMOND_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -66,7 +66,7 @@ public class APItems {
 
                 return new DiamondArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_DISPLACEMENT_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -81,7 +81,7 @@ public class APItems {
 
                 return new DisplacementArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_ENDER_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -96,7 +96,7 @@ public class APItems {
 
                 return new EnderArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_EXPLOSIVE_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -111,7 +111,7 @@ public class APItems {
 
                 return new ExplosiveArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_FROST_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -126,7 +126,7 @@ public class APItems {
 
                 return new FrostArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_GLOWSTONE_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -141,7 +141,7 @@ public class APItems {
 
                 return new GlowstoneArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_LIGHTNING_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -156,7 +156,7 @@ public class APItems {
 
                 return new LightningArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         // ITEMS.register(ID_MAGMA_ARROW, () -> new ArrowItemCoFH(MagmaArrowEntity::new, new Item.Properties().group(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
@@ -173,7 +173,7 @@ public class APItems {
 
                 return new PhantasmalArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_PRISMARINE_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -188,7 +188,7 @@ public class APItems {
 
                 return new PrismarineArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_QUARTZ_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -203,7 +203,7 @@ public class APItems {
 
                 return new QuartzArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_REDSTONE_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -218,7 +218,7 @@ public class APItems {
 
                 return new RedstoneArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_SHULKER_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -233,7 +233,7 @@ public class APItems {
 
                 return new ShulkerArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group).rarity(Rarity.UNCOMMON)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties().rarity(Rarity.UNCOMMON)).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_SLIME_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -248,7 +248,7 @@ public class APItems {
 
                 return new SlimeArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_SPORE_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -263,7 +263,7 @@ public class APItems {
 
                 return new SporeArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
 
         ITEMS.register(ID_TRAINING_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -278,7 +278,7 @@ public class APItems {
 
                 return new TrainingArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup).setInfinitySupport(true));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup).setInfinitySupport(true));
 
         ITEMS.register(ID_VERDANT_ARROW, () -> new ArrowItemCoFH(new ArrowItemCoFH.IArrowFactory<AbstractArrowEntity>() {
 
@@ -293,7 +293,7 @@ public class APItems {
 
                 return new VerdantArrowEntity(world, posX, posY, posZ);
             }
-        }, new Item.Properties().tab(group)).setDisplayGroup(() -> ArchersParadox.itemGroup));
+        }, new Item.Properties()).setDisplayGroup(() -> ArchersParadox.itemGroup));
     }
 
 }
