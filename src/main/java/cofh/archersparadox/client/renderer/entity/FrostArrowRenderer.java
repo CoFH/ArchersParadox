@@ -22,7 +22,7 @@ public class FrostArrowRenderer extends ArrowRenderer<FrostArrowEntity> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(FrostArrowEntity entity) {
+    public ResourceLocation getTextureLocation(FrostArrowEntity entity) {
 
         return entity.discharged ? ARROW : TEXTURE;
     }

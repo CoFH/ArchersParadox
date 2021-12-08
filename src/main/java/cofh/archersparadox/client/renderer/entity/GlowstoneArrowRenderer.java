@@ -18,7 +18,7 @@ public class GlowstoneArrowRenderer extends ArrowRenderer<GlowstoneArrowEntity> 
     }
 
     @Override
-    public ResourceLocation getEntityTexture(GlowstoneArrowEntity entity) {
+    public ResourceLocation getTextureLocation(GlowstoneArrowEntity entity) {
 
         return TEXTURE;
     }

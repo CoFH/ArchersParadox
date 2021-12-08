@@ -18,7 +18,7 @@ public class DisplacementArrowRenderer extends ArrowRenderer<DisplacementArrowEn
     }
 
     @Override
-    public ResourceLocation getEntityTexture(DisplacementArrowEntity entity) {
+    public ResourceLocation getTextureLocation(DisplacementArrowEntity entity) {
 
         return TEXTURE;
     }

@@ -13,54 +13,54 @@ import static cofh.archersparadox.init.APReferences.DIAMOND_ARROW_ITEM;
 
 public class DiamondArrowEntity extends AbstractArrowEntity {
 
-    public static float baseDamage = 4.0F;
-    public static int baseKnockback = 0;
-    public static byte basePierce = 1;
+    public static float defaultDamage = 4.0F;
+    public static int defaultKnockback = 0;
+    public static byte defaultPierce = 1;
 
     public DiamondArrowEntity(EntityType<? extends DiamondArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
-        setKnockbackStrength(0);
+        this.baseDamage = defaultDamage;
+        setKnockback(0);
         setPierceLevel((byte) 0);
     }
 
     public DiamondArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(DIAMOND_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
-        setKnockbackStrength(0);
+        this.baseDamage = defaultDamage;
+        setKnockback(0);
         setPierceLevel((byte) 0);
     }
 
     public DiamondArrowEntity(World worldIn, double x, double y, double z) {
 
         super(DIAMOND_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
-        setKnockbackStrength(0);
+        this.baseDamage = defaultDamage;
+        setKnockback(0);
         setPierceLevel((byte) 0);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(DIAMOND_ARROW_ITEM);
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
-        super.setKnockbackStrength(baseKnockback + knockbackStrengthIn);
+        super.setKnockback(defaultKnockback + knockbackStrengthIn);
     }
 
     @Override
     public void setPierceLevel(byte level) {
 
-        super.setPierceLevel((byte) (basePierce + level));
+        super.setPierceLevel((byte) (defaultPierce + level));
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

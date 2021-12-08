@@ -18,7 +18,7 @@ public class VerdantArrowRenderer extends ArrowRenderer<VerdantArrowEntity> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(VerdantArrowEntity entity) {
+    public ResourceLocation getTextureLocation(VerdantArrowEntity entity) {
 
         return TEXTURE;
     }

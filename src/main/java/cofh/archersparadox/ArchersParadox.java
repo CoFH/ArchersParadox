@@ -95,11 +95,13 @@ public class ArchersParadox {
 
                 @Override
                 @OnlyIn(Dist.CLIENT)
-                public ItemStack createIcon() {
+                public ItemStack makeIcon() {
 
                     return new ItemStack(ITEMS.get(ID_BLAZE_ARROW));
                 }
             };
+        } else {
+            itemGroup = ItemGroup.TAB_COMBAT;
         }
     }
     // endregion

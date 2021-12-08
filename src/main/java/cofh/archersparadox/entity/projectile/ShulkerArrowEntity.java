@@ -27,7 +27,7 @@ import static cofh.archersparadox.init.APReferences.SHULKER_ARROW_ITEM;
 
 public class ShulkerArrowEntity extends AbstractArrowEntity {
 
-    private static final DataParameter<Integer> TARGET = EntityDataManager.createKey(ShulkerArrowEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TARGET = EntityDataManager.defineId(ShulkerArrowEntity.class, DataSerializers.INT);
     private static final int ID_NO_TARGET = -1;
 
     private static final float MAX_VELOCITY = 3.0F;
@@ -54,32 +54,32 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void registerData() {
+    protected void defineSynchedData() {
 
-        super.registerData();
-        this.getDataManager().register(TARGET, ID_NO_TARGET);
+        super.defineSynchedData();
+        this.getEntityData().define(TARGET, ID_NO_TARGET);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(SHULKER_ARROW_ITEM);
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
 
-        super.onEntityHit(raytraceResultIn);
+        super.onHitEntity(raytraceResultIn);
 
         Entity entity = raytraceResultIn.getEntity();
         if (!entity.isInvulnerable() && entity instanceof LivingEntity && effectDuration > 0) {
             LivingEntity living = (LivingEntity) entity;
-            living.addPotionEffect(new EffectInstance(Effects.LEVITATION, effectDuration));
+            living.addEffect(new EffectInstance(Effects.LEVITATION, effectDuration));
         }
     }
 
     @Override
-    public void setFire(int seconds) {
+    public void setSecondsOnFire(int seconds) {
 
     }
 
@@ -87,31 +87,31 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
     public void tick() {
 
         if (!inGround) {
-            if (Utils.isServerWorld(world)) {
+            if (Utils.isServerWorld(level)) {
                 updateTarget();
             }
             Entity target = getTarget();
             if (target != null) {
                 Vector3d targetVec = getVectorToTarget(target).scale(SEEK_FACTOR);
-                Vector3d courseVec = getMotion();
+                Vector3d courseVec = getDeltaMovement();
 
                 double courseLen = courseVec.length();
                 double targetLen = targetVec.length();
                 double totalLen = Math.sqrt(courseLen * courseLen + targetLen * targetLen);
-                double dotProduct = courseVec.dotProduct(targetVec) / (courseLen * targetLen);
+                double dotProduct = courseVec.dot(targetVec) / (courseLen * targetLen);
 
                 if (dotProduct > SEEK_THRESHOLD) {
                     Vector3d newMotion = (courseVec.scale(courseLen / totalLen).add(targetVec.scale(targetLen / totalLen))).normalize().scale(MAX_VELOCITY);
-                    this.setMotion(newMotion.x, newMotion.y + 0.05F, newMotion.z);
-                } else if (Utils.isServerWorld(world)) {
+                    this.setDeltaMovement(newMotion.x, newMotion.y + 0.05F, newMotion.z);
+                } else if (Utils.isServerWorld(level)) {
                     setTarget(null);
                 }
-                if (Utils.isClientWorld(world)) {
-                    Vector3d vec3d = this.getMotion().scale(0.25D);
+                if (Utils.isClientWorld(level)) {
+                    Vector3d vec3d = this.getDeltaMovement().scale(0.25D);
                     double d1 = vec3d.x;
                     double d2 = vec3d.y;
                     double d0 = vec3d.z;
-                    this.world.addParticle(ParticleTypes.END_ROD, this.getPosX() + d1, this.getPosY() + d2, this.getPosZ() + d0, -d1, -d2 + 0.2D, -d0);
+                    this.level.addParticle(ParticleTypes.END_ROD, this.getX() + d1, this.getY() + d2, this.getZ() + d0, -d1, -d2 + 0.2D, -d0);
                 }
             }
         }
@@ -119,7 +119,7 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -136,27 +136,27 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
             setTarget(target = null);
         }
         if (target == null) {
-            AxisAlignedBB positionBB = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), getPosX(), getPosY(), getPosZ());
+            AxisAlignedBB positionBB = new AxisAlignedBB(getX(), getY(), getZ(), getX(), getY(), getZ());
             AxisAlignedBB targetBB = positionBB;
 
-            Vector3d courseVec = getMotion().scale(SEEK_DISTANCE).rotateYaw((float) SEEK_ANGLE);
-            targetBB = targetBB.union(positionBB.offset(courseVec));
+            Vector3d courseVec = getDeltaMovement().scale(SEEK_DISTANCE).yRot((float) SEEK_ANGLE);
+            targetBB = targetBB.minmax(positionBB.move(courseVec));
 
-            courseVec = getMotion().scale(SEEK_DISTANCE).rotateYaw((float) -SEEK_ANGLE);
-            targetBB = targetBB.union(positionBB.offset(courseVec));
-            targetBB = targetBB.grow(0, SEEK_DISTANCE * 0.5, 0);
+            courseVec = getDeltaMovement().scale(SEEK_DISTANCE).yRot((float) -SEEK_ANGLE);
+            targetBB = targetBB.minmax(positionBB.move(courseVec));
+            targetBB = targetBB.inflate(0, SEEK_DISTANCE * 0.5, 0);
 
             double closestDot = -1.0;
             Entity closestTarget = null;
 
-            for (LivingEntity living : this.world.getEntitiesWithinAABB(LivingEntity.class, targetBB)) {
+            for (LivingEntity living : this.level.getEntitiesOfClass(LivingEntity.class, targetBB)) {
                 if (living instanceof PlayerEntity) {
                     continue;
                 }
-                Vector3d motionVec = getMotion().normalize();
+                Vector3d motionVec = getDeltaMovement().normalize();
                 Vector3d targetVec = getVectorToTarget(living).normalize();
 
-                double dot = motionVec.dotProduct(targetVec);
+                double dot = motionVec.dot(targetVec);
                 if (dot > Math.max(closestDot, SEEK_THRESHOLD)) {
                     closestDot = dot;
                     closestTarget = living;
@@ -170,18 +170,18 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
 
     private Vector3d getVectorToTarget(Entity target) {
 
-        return new Vector3d(target.getPosX() - this.getPosX(), (target.getPosY() + (double) target.getEyeHeight()) - this.getPosY(), target.getPosZ() - this.getPosZ());
+        return new Vector3d(target.getX() - this.getX(), (target.getY() + (double) target.getEyeHeight()) - this.getY(), target.getZ() - this.getZ());
     }
 
     @Nullable
     private Entity getTarget() {
 
-        return world.getEntityByID(dataManager.get(TARGET));
+        return level.getEntity(entityData.get(TARGET));
     }
 
     private void setTarget(@Nullable Entity e) {
 
-        dataManager.set(TARGET, e == null ? ID_NO_TARGET : e.getEntityId());
+        entityData.set(TARGET, e == null ? ID_NO_TARGET : e.getId());
     }
     // endregion
 }

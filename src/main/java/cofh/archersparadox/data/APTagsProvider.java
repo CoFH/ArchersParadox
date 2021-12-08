@@ -25,7 +25,7 @@ public class APTagsProvider {
         }
 
         @Override
-        protected void registerTags() {
+        protected void addTags() {
 
         }
 
@@ -45,9 +45,9 @@ public class APTagsProvider {
         }
 
         @Override
-        protected void registerTags() {
+        protected void addTags() {
 
-            getOrCreateBuilder(ItemTags.ARROWS).add(
+            tag(ItemTags.ARROWS).add(
                     BLAZE_ARROW_ITEM,
                     CHALLENGE_ARROW_ITEM,
                     DIAMOND_ARROW_ITEM,

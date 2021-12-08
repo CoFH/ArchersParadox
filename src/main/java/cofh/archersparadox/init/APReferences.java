@@ -1,7 +1,9 @@
 package cofh.archersparadox.init;
 
 import cofh.archersparadox.entity.projectile.*;
+import cofh.archersparadox.inventory.container.QuiverContainer;
 import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraftforge.registries.ObjectHolder;
@@ -149,5 +151,10 @@ public class APReferences {
 
     @ObjectHolder(ID_VERDANT_ARROW)
     public static final Item VERDANT_ARROW_ITEM = null;
+    // endregion
+
+    // region CONTAINERS
+    @ObjectHolder(ID_QUIVER)
+    public static final ContainerType<QuiverContainer> QUIVER_CONTAINER = null;
     // endregion
 }

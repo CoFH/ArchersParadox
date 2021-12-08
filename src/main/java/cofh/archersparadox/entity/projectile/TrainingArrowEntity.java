@@ -20,7 +20,7 @@ import static cofh.archersparadox.init.APReferences.*;
 
 public class TrainingArrowEntity extends AbstractArrowEntity {
 
-    private static float baseDamage = 0.0F;
+    private static float defaultDamage = 0.0F;
     private static final int DISTANCE_FACTOR = 4;
     private static final int MAX_DISTANCE = 10;
     private static final int DURATION = 200;
@@ -31,92 +31,92 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
     public TrainingArrowEntity(EntityType<? extends TrainingArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public TrainingArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(TRAINING_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
-        this.origin = shooter.getPositionVec();
+        this.baseDamage = defaultDamage;
+        this.origin = shooter.position();
     }
 
     public TrainingArrowEntity(World worldIn, double x, double y, double z) {
 
         super(TRAINING_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = defaultDamage;
         this.origin = new Vector3d(x, y, z);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(TRAINING_ARROW_ITEM);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
         if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
-            if (func_234616_v_() instanceof PlayerEntity && !Utils.isFakePlayer(func_234616_v_())) {
-                PlayerEntity shooter = (PlayerEntity) func_234616_v_();
-                if (shooter.isPotionActive(TRAINING_STREAK)) {
-                    EffectInstance effect = shooter.getActivePotionEffect(TRAINING_STREAK);
-                    shooter.onFinishedPotionEffect(effect);
-                    shooter.removeActivePotionEffect(TRAINING_STREAK);
+            if (getOwner() instanceof PlayerEntity && !Utils.isFakePlayer(getOwner())) {
+                PlayerEntity shooter = (PlayerEntity) getOwner();
+                if (shooter.hasEffect(TRAINING_STREAK)) {
+                    EffectInstance effect = shooter.getEffect(TRAINING_STREAK);
+                    shooter.onEffectRemoved(effect);
+                    shooter.removeEffectNoUpdate(TRAINING_STREAK);
 
-                    Vector3d originVec = origin == null ? shooter.getPositionVec() : origin;
-                    double distance = originVec.distanceTo(this.getPositionVec());
+                    Vector3d originVec = origin == null ? shooter.position() : origin;
+                    double distance = originVec.distanceTo(this.position());
                     int distanceBonus = (int) (DISTANCE_FACTOR * distance);
 
-                    shooter.addPotionEffect(new EffectInstance(TRAINING_MISS, Math.max(MIN_DURATION, DURATION - distanceBonus), 0, false, false));
-                    shooter.world.playSound(null, shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), SoundEvents.BLOCK_GLASS_BREAK, shooter.getSoundCategory(), 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+                    shooter.addEffect(new EffectInstance(TRAINING_MISS, Math.max(MIN_DURATION, DURATION - distanceBonus), 0, false, false));
+                    shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.GLASS_BREAK, shooter.getSoundSource(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
             }
         }
-        super.onImpact(raytraceResultIn);
+        super.onHit(raytraceResultIn);
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
 
         Entity entity = raytraceResultIn.getEntity();
         if (entity instanceof LivingEntity) {
             LivingEntity target = (LivingEntity) entity;
 
-            if (func_234616_v_() instanceof PlayerEntity && !Utils.isFakePlayer(func_234616_v_())) {
-                PlayerEntity shooter = (PlayerEntity) func_234616_v_();
-                if (shooter != target && !shooter.isPotionActive(TRAINING_MISS)) {
+            if (getOwner() instanceof PlayerEntity && !Utils.isFakePlayer(getOwner())) {
+                PlayerEntity shooter = (PlayerEntity) getOwner();
+                if (shooter != target && !shooter.hasEffect(TRAINING_MISS)) {
                     int trainingCount = 0;
-                    if (shooter.isPotionActive(TRAINING_STREAK)) {
-                        trainingCount = shooter.getActivePotionEffect(TRAINING_STREAK).getAmplifier() + 1;
+                    if (shooter.hasEffect(TRAINING_STREAK)) {
+                        trainingCount = shooter.getEffect(TRAINING_STREAK).getAmplifier() + 1;
                     }
-                    Vector3d originVec = origin == null ? shooter.getPositionVec() : origin;
-                    double distance = originVec.distanceTo(this.getPositionVec());
+                    Vector3d originVec = origin == null ? shooter.position() : origin;
+                    double distance = originVec.distanceTo(this.position());
 
                     if (distance >= Math.min(MAX_DISTANCE, trainingCount)) {
                         int distanceBonus = (int) (DISTANCE_FACTOR * distance);
-                        shooter.addPotionEffect(new EffectInstance(TRAINING_STREAK, DURATION + distanceBonus, trainingCount, false, false));
-                        shooter.playSound(SoundEvents.BLOCK_NOTE_BLOCK_CHIME, 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
-                        shooter.world.playSound(null, shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, shooter.getSoundCategory(), 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
+                        shooter.addEffect(new EffectInstance(TRAINING_STREAK, DURATION + distanceBonus, trainingCount, false, false));
+                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME, 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
+                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME, shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
                     }
                 }
             }
         }
-        if (this.pickupStatus == AbstractArrowEntity.PickupStatus.ALLOWED) {
-            this.entityDropItem(this.getArrowStack(), 0.1F);
+        if (this.pickup == AbstractArrowEntity.PickupStatus.ALLOWED) {
+            this.spawnAtLocation(this.getPickupItem(), 0.1F);
         }
         this.remove();
-        this.playSound(SoundEvents.BLOCK_SAND_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+        this.playSound(SoundEvents.SAND_HIT, 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
     }
 
     @Override
-    public void setFire(int seconds) {
+    public void setSecondsOnFire(int seconds) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
     }
 
@@ -126,7 +126,7 @@ public class TrainingArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

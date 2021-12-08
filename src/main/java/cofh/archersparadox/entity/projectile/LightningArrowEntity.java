@@ -19,43 +19,43 @@ import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class LightningArrowEntity extends AbstractArrowEntity {
 
-    public static float baseDamage = 1.5F;
+    public static float defaultDamage = 1.5F;
 
     public boolean discharged;
 
     public LightningArrowEntity(EntityType<? extends LightningArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public LightningArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(LIGHTNING_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     public LightningArrowEntity(World worldIn, double x, double y, double z) {
 
         super(LIGHTNING_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
+        this.baseDamage = defaultDamage;
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return discharged ? new ItemStack(Items.ARROW) : new ItemStack(LIGHTNING_ARROW_ITEM);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
-        super.onImpact(raytraceResultIn);
+        super.onHit(raytraceResultIn);
 
-        if (Utils.isServerWorld(world) && !discharged && !isInWater() && !isInLava()) {
-            BlockPos pos = this.getPosition();
-            if (this.world.canSeeSky(pos)) {
-                Utils.spawnLightningBolt(world, pos, func_234616_v_());
+        if (Utils.isServerWorld(level) && !discharged && !isInWater() && !isInLava()) {
+            BlockPos pos = this.blockPosition();
+            if (this.level.canSeeSky(pos)) {
+                Utils.spawnLightningBolt(level, pos, getOwner());
                 discharged = true;
             }
         }
@@ -64,7 +64,7 @@ public class LightningArrowEntity extends AbstractArrowEntity {
         //            if (!isInWater() && !isInLava()) {
         //                BlockPos pos = this.getPosition();
         //                if (this.world.canSeeSky(pos)) {
-        //                    Utils.spawnLightningBolt(world, pos, func_234616_v_());
+        //                    Utils.spawnLightningBolt(world, pos, getOwner());
         //                    discharged = true;
         //                }
         //            }
@@ -72,12 +72,12 @@ public class LightningArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
     }
 
@@ -87,22 +87,22 @@ public class LightningArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundNBT compound) {
 
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putBoolean(TAG_ARROW_DATA, discharged);
 
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         discharged = compound.getBoolean(TAG_ARROW_DATA);
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

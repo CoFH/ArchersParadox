@@ -26,97 +26,97 @@ public class SlimeArrowEntity extends AbstractArrowEntity {
     private static float MAX_VELOCITY = 3.0F;
     private static float MIN_VELOCITY = 0.5F;
 
-    public static float baseDamage = 0.5F;
-    public static int baseBounces = 4;
-    public static int baseKnockback = 4;
+    public static float defaultDamage = 0.5F;
+    public static int defaultBounces = 4;
+    public static int defaultKnockback = 4;
     public static boolean knockbackBoost = true;
 
     private int curBounces = 0;
-    private int maxBounces = baseBounces;
+    private int maxBounces = defaultBounces;
 
     public SlimeArrowEntity(EntityType<? extends SlimeArrowEntity> entityIn, World worldIn) {
 
         super(entityIn, worldIn);
-        this.damage = baseDamage;
-        setKnockbackStrength(0);
+        this.baseDamage = defaultDamage;
+        setKnockback(0);
     }
 
     public SlimeArrowEntity(World worldIn, LivingEntity shooter) {
 
         super(SLIME_ARROW_ENTITY, shooter, worldIn);
-        this.damage = baseDamage;
-        setKnockbackStrength(0);
+        this.baseDamage = defaultDamage;
+        setKnockback(0);
     }
 
     public SlimeArrowEntity(World worldIn, double x, double y, double z) {
 
         super(SLIME_ARROW_ENTITY, x, y, z, worldIn);
-        this.damage = baseDamage;
-        setKnockbackStrength(0);
+        this.baseDamage = defaultDamage;
+        setKnockback(0);
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(SLIME_ARROW_ITEM);
     }
 
     @Override
-    protected void onImpact(RayTraceResult raytraceResultIn) {
+    protected void onHit(RayTraceResult raytraceResultIn) {
 
         if (raytraceResultIn.getType() != RayTraceResult.Type.MISS) {
-            this.setHitSound(SoundEvents.BLOCK_SLIME_BLOCK_HIT);
+            this.setSoundEvent(SoundEvents.SLIME_BLOCK_HIT);
 
             if (raytraceResultIn.getType() == RayTraceResult.Type.ENTITY) {
-                this.onEntityHit((EntityRayTraceResult) raytraceResultIn);
+                this.onHitEntity((EntityRayTraceResult) raytraceResultIn);
             } else if (raytraceResultIn.getType() == RayTraceResult.Type.BLOCK) {
-                Vector3d motion = getMotion();
-                if (motion.lengthSquared() < MIN_VELOCITY || isInWater() || curBounces >= maxBounces) {
-                    super.onImpact(raytraceResultIn);
+                Vector3d motion = getDeltaMovement();
+                if (motion.lengthSqr() < MIN_VELOCITY || isInWater() || curBounces >= maxBounces) {
+                    super.onHit(raytraceResultIn);
                     return;
                 }
                 BlockRayTraceResult blockraytraceresult = (BlockRayTraceResult) raytraceResultIn;
-                switch (blockraytraceresult.getFace()) {
+                switch (blockraytraceresult.getDirection()) {
                     case DOWN:
                     case UP:
-                        this.setMotion(motion.x, motion.y * -1, motion.z);
+                        this.setDeltaMovement(motion.x, motion.y * -1, motion.z);
                         break;
                     case NORTH:
                     case SOUTH:
-                        this.setMotion(motion.x, motion.y, motion.z * -1);
+                        this.setDeltaMovement(motion.x, motion.y, motion.z * -1);
                         break;
                     case WEST:
                     case EAST:
-                        this.setMotion(motion.x * -1, motion.y, motion.z);
+                        this.setDeltaMovement(motion.x * -1, motion.y, motion.z);
                         break;
                 }
-                float f = MathHelper.sqrt(horizontalMag(motion));
-                this.rotationYaw = (float) (MathHelper.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI));
-                this.rotationPitch = (float) (MathHelper.atan2(motion.y, f) * (double) (180F / (float) Math.PI));
-                this.prevRotationYaw = this.rotationYaw;
-                this.prevRotationPitch = this.rotationPitch;
+                float f = MathHelper.sqrt(getHorizontalDistanceSqr(motion));
+                this.yRot = (float) (MathHelper.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI));
+                this.xRot = (float) (MathHelper.atan2(motion.y, f) * (double) (180F / (float) Math.PI));
+                this.yRotO = this.yRot;
+                this.xRotO = this.xRot;
                 ++curBounces;
-                --knockbackStrength;
+                --knockback;
             }
         }
     }
 
     @Override
-    public void setFire(int seconds) {
+    public void setSecondsOnFire(int seconds) {
 
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
-        super.setKnockbackStrength(baseKnockback + knockbackStrengthIn);
+        super.setKnockback(defaultKnockback + knockbackStrengthIn);
         if (knockbackBoost) {
-            this.maxBounces = baseBounces + this.knockbackStrength;
+            this.maxBounces = defaultBounces + this.knockback;
         }
     }
 
@@ -136,34 +136,34 @@ public class SlimeArrowEntity extends AbstractArrowEntity {
 
         super.tick();
 
-        if (!this.inGround || this.getNoClip()) {
-            if (Utils.isClientWorld(world)) {
-                Vector3d vec3d = this.getMotion();
+        if (!this.inGround || this.isNoPhysics()) {
+            if (Utils.isClientWorld(level)) {
+                Vector3d vec3d = this.getDeltaMovement();
                 double d1 = vec3d.x;
                 double d2 = vec3d.y;
                 double d0 = vec3d.z;
-                this.world.addParticle(ParticleTypes.ITEM_SLIME, this.getPosX() + d1 * 0.25D, this.getPosY() + d2 * 0.25D, this.getPosZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
+                this.level.addParticle(ParticleTypes.ITEM_SLIME, this.getX() + d1 * 0.25D, this.getY() + d2 * 0.25D, this.getZ() + d0 * 0.25D, -d1, -d2 + 0.2D, -d0);
             }
         }
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
+    public void addAdditionalSaveData(CompoundNBT compound) {
 
-        super.writeAdditional(compound);
+        super.addAdditionalSaveData(compound);
         compound.putInt(TAG_ARROW_DATA, curBounces);
 
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditionalSaveData(CompoundNBT compound) {
 
-        super.readAdditional(compound);
+        super.readAdditionalSaveData(compound);
         curBounces = compound.getInt(TAG_ARROW_DATA);
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

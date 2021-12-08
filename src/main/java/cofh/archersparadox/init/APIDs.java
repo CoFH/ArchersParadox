@@ -32,4 +32,6 @@ public class APIDs {
     public static final String ID_EFFECT_TRAINING_MISS = "training_miss";
     public static final String ID_EFFECT_TRAINING_STREAK = "training_streak";
 
+    public static final String ID_QUIVER = "quiver";
+
 }

@@ -55,29 +55,29 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected ItemStack getArrowStack() {
+    protected ItemStack getPickupItem() {
 
         return new ItemStack(PHANTASMAL_ARROW_ITEM);
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
 
-        Vector3d motion = getMotion();
-        super.onEntityHit(raytraceResultIn);
+        Vector3d motion = getDeltaMovement();
+        super.onHitEntity(raytraceResultIn);
 
         if (isAlive()) {
-            setMotion(motion);
+            setDeltaMovement(motion);
         }
     }
 
     @Override
-    public void setIsCritical(boolean critical) {
+    public void setCritArrow(boolean critical) {
 
     }
 
     @Override
-    public void setKnockbackStrength(int knockbackStrengthIn) {
+    public void setKnockback(int knockbackStrengthIn) {
 
     }
 
@@ -96,19 +96,19 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
     @Override
     public void tick() {
 
-        if (!this.world.isRemote) {
-            this.setFlag(6, this.isGlowing());
+        if (!this.level.isClientSide) {
+            this.setSharedFlag(6, this.isGlowing());
         }
         this.baseTick();
 
-        boolean flag = this.getNoClip();
-        Vector3d vec3d = this.getMotion();
-        if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-            float f = MathHelper.sqrt(horizontalMag(vec3d));
-            this.rotationYaw = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
-            this.rotationPitch = (float) (MathHelper.atan2(vec3d.y, f) * (double) (180F / (float) Math.PI));
-            this.prevRotationYaw = this.rotationYaw;
-            this.prevRotationPitch = this.rotationPitch;
+        boolean flag = this.isNoPhysics();
+        Vector3d vec3d = this.getDeltaMovement();
+        if (this.xRotO == 0.0F && this.yRotO == 0.0F) {
+            float f = MathHelper.sqrt(getHorizontalDistanceSqr(vec3d));
+            this.yRot = (float) (MathHelper.atan2(vec3d.x, vec3d.z) * (double) (180F / (float) Math.PI));
+            this.xRot = (float) (MathHelper.atan2(vec3d.y, f) * (double) (180F / (float) Math.PI));
+            this.yRotO = this.yRot;
+            this.xRotO = this.xRot;
         }
         //        BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
         //        BlockState blockstate = this.world.getBlockState(blockpos);
@@ -145,35 +145,35 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
         if (this.ticksInAir >= MAX_TICKS) {
             this.remove();
         }
-        Vector3d vec3d1 = new Vector3d(this.getPosX(), this.getPosY(), this.getPosZ());
+        Vector3d vec3d1 = new Vector3d(this.getX(), this.getY(), this.getZ());
         Vector3d vec3d2 = vec3d1.add(vec3d);
-        RayTraceResult raytraceresult = this.world.rayTraceBlocks(new RayTraceContext(vec3d1, vec3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
+        RayTraceResult raytraceresult = this.level.clip(new RayTraceContext(vec3d1, vec3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, this));
         if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
-            vec3d2 = raytraceresult.getHitVec();
+            vec3d2 = raytraceresult.getLocation();
         }
         while (this.isAlive()) {
-            EntityRayTraceResult entityraytraceresult = this.rayTraceEntities(vec3d1, vec3d2);
+            EntityRayTraceResult entityraytraceresult = this.findHitEntity(vec3d1, vec3d2);
             if (entityraytraceresult != null) {
                 raytraceresult = entityraytraceresult;
             }
             if (raytraceresult != null && raytraceresult.getType() == RayTraceResult.Type.ENTITY) {
                 Entity entity = ((EntityRayTraceResult) raytraceresult).getEntity();
-                Entity entity1 = this.func_234616_v_();
-                if (entity instanceof PlayerEntity && entity1 instanceof PlayerEntity && !((PlayerEntity) entity1).canAttackPlayer((PlayerEntity) entity)) {
+                Entity entity1 = this.getOwner();
+                if (entity instanceof PlayerEntity && entity1 instanceof PlayerEntity && !((PlayerEntity) entity1).canHarmPlayer((PlayerEntity) entity)) {
                     raytraceresult = null;
                     entityraytraceresult = null;
                 }
             }
             if (raytraceresult != null && raytraceresult.getType() == RayTraceResult.Type.ENTITY && !ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-                this.onImpact(raytraceresult);
-                this.isAirBorne = true;
+                this.onHit(raytraceresult);
+                this.hasImpulse = true;
             }
             if (entityraytraceresult == null || this.getPierceLevel() <= 0) {
                 break;
             }
             raytraceresult = null;
         }
-        vec3d = this.getMotion();
+        vec3d = this.getDeltaMovement();
         double d1 = vec3d.x;
         double d2 = vec3d.y;
         double d0 = vec3d.z;
@@ -182,28 +182,28 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
         //                    this.world.addParticle(ParticleTypes.CRIT, this.posX + d1 * (double) i / 4.0D, this.posY + d2 * (double) i / 4.0D, this.posZ + d0 * (double) i / 4.0D, -d1, -d2 + 0.2D, -d0);
         //                }
         //            }
-        this.setRawPosition(this.getPosX() + d1, this.getPosY() + d2, this.getPosZ() + d0);
-        float f4 = MathHelper.sqrt(horizontalMag(vec3d));
+        this.setPosRaw(this.getX() + d1, this.getY() + d2, this.getZ() + d0);
+        float f4 = MathHelper.sqrt(getHorizontalDistanceSqr(vec3d));
         if (flag) {
-            this.rotationYaw = (float) (MathHelper.atan2(-d1, -d0) * (double) (180F / (float) Math.PI));
+            this.yRot = (float) (MathHelper.atan2(-d1, -d0) * (double) (180F / (float) Math.PI));
         } else {
-            this.rotationYaw = (float) (MathHelper.atan2(d1, d0) * (double) (180F / (float) Math.PI));
+            this.yRot = (float) (MathHelper.atan2(d1, d0) * (double) (180F / (float) Math.PI));
         }
-        this.rotationPitch = (float) (MathHelper.atan2(d2, f4) * (double) (180F / (float) Math.PI));
-        while (this.rotationPitch - this.prevRotationPitch < -180.0F) {
-            this.prevRotationPitch -= 360.0F;
+        this.xRot = (float) (MathHelper.atan2(d2, f4) * (double) (180F / (float) Math.PI));
+        while (this.xRot - this.xRotO < -180.0F) {
+            this.xRotO -= 360.0F;
         }
-        while (this.rotationPitch - this.prevRotationPitch >= 180.0F) {
-            this.prevRotationPitch += 360.0F;
+        while (this.xRot - this.xRotO >= 180.0F) {
+            this.xRotO += 360.0F;
         }
-        while (this.rotationYaw - this.prevRotationYaw < -180.0F) {
-            this.prevRotationYaw -= 360.0F;
+        while (this.yRot - this.yRotO < -180.0F) {
+            this.yRotO -= 360.0F;
         }
-        while (this.rotationYaw - this.prevRotationYaw >= 180.0F) {
-            this.prevRotationYaw += 360.0F;
+        while (this.yRot - this.yRotO >= 180.0F) {
+            this.yRotO += 360.0F;
         }
-        this.rotationPitch = MathHelper.lerp(0.2F, this.prevRotationPitch, this.rotationPitch);
-        this.rotationYaw = MathHelper.lerp(0.2F, this.prevRotationYaw, this.rotationYaw);
+        this.xRot = MathHelper.lerp(0.2F, this.xRotO, this.xRot);
+        this.yRot = MathHelper.lerp(0.2F, this.yRotO, this.yRot);
         //            float f1 = 0.99F;
         //            if (this.isInWater()) {
         //                for (int j = 0; j < 4; ++j) {
@@ -216,13 +216,13 @@ public class PhantasmalArrowEntity extends AbstractArrowEntity {
         //                Vector3d vec3d3 = this.getMotion();
         //                this.setMotion(vec3d3.x, vec3d3.y - 0.05D, vec3d3.z);
         //            }
-        this.setPosition(this.getPosX(), this.getPosY(), this.getPosZ());
+        this.setPos(this.getX(), this.getY(), this.getZ());
         //            this.doBlockCollisions();
         //    }
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }

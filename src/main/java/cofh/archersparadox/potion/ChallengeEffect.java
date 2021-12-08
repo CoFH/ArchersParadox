@@ -19,21 +19,21 @@ public class ChallengeEffect extends EffectCoFH {
     }
 
     @Override
-    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+    public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
 
         int level = amplifier + 1;
 
         if (entityLivingBaseIn instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
-            if (Utils.isServerWorld(entityLivingBaseIn.world)) {
+            if (Utils.isServerWorld(entityLivingBaseIn.level)) {
                 player.giveExperiencePoints(Math.min(level * level + level, maxExperience));
             }
-            player.addPotionEffect(new EffectInstance(CHALLENGE_COMPLETE, 960 * level, 0, false, false));
+            player.addEffect(new EffectInstance(CHALLENGE_COMPLETE, 960 * level, 0, false, false));
         }
     }
 
     @Override
-    public boolean isReady(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
 
         return duration == 1;
     }

@@ -18,7 +18,7 @@ public class MagmaArrowRenderer extends ArrowRenderer<MagmaArrowEntity> {
     }
 
     @Override
-    public ResourceLocation getEntityTexture(MagmaArrowEntity entity) {
+    public ResourceLocation getTextureLocation(MagmaArrowEntity entity) {
 
         return TEXTURE;
     }
