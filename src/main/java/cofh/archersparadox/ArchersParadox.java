@@ -29,7 +29,7 @@ import static cofh.core.init.CoreFlags.FLAG_ECTOPLASM;
 import static cofh.core.init.CoreFlags.setFlag;
 import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
 
-@Mod(ID_ARCHERS_PARADOX)
+@Mod (ID_ARCHERS_PARADOX)
 public class ArchersParadox {
 
     public static final Logger LOG = LogManager.getLogger(ID_ARCHERS_PARADOX);
@@ -94,7 +94,7 @@ public class ArchersParadox {
             itemGroup = new ItemGroup(-1, ID_ARCHERS_PARADOX) {
 
                 @Override
-                @OnlyIn(Dist.CLIENT)
+                @OnlyIn (Dist.CLIENT)
                 public ItemStack makeIcon() {
 
                     return new ItemStack(ITEMS.get(ID_BLAZE_ARROW));

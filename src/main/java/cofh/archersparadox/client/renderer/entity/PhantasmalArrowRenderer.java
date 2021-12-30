@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+@OnlyIn (Dist.CLIENT)
 public class PhantasmalArrowRenderer extends ArrowRenderer<PhantasmalArrowEntity> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation("archers_paradox:textures/entity/projectiles/phantasmal_arrow.png");

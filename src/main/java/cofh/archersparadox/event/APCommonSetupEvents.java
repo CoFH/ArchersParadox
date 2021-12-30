@@ -17,7 +17,7 @@ import static cofh.archersparadox.init.APIDs.*;
 import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
 import static cofh.lib.util.helpers.ItemHelper.cloneStack;
 
-@Mod.EventBusSubscriber(modid = ID_ARCHERS_PARADOX)
+@Mod.EventBusSubscriber (modid = ID_ARCHERS_PARADOX)
 public class APCommonSetupEvents {
 
     private APCommonSetupEvents() {

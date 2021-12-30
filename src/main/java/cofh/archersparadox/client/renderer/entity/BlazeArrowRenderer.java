@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
 import static cofh.lib.util.constants.Constants.ID_MINECRAFT;
 
-@OnlyIn(Dist.CLIENT)
+@OnlyIn (Dist.CLIENT)
 public class BlazeArrowRenderer extends ArrowRenderer<BlazeArrowEntity> {
 
     public static final ResourceLocation ARROW = new ResourceLocation(ID_MINECRAFT + ":textures/entity/projectiles/arrow.png");

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = ID_ARCHERS_PARADOX)
+@Mod.EventBusSubscriber (bus = Mod.EventBusSubscriber.Bus.MOD, modid = ID_ARCHERS_PARADOX)
 public class APDataGen {
 
     @SubscribeEvent
