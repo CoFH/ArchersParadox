@@ -3,10 +3,10 @@ package cofh.archersparadox.data;
 import cofh.core.CoFHCore;
 import cofh.lib.data.RecipeProviderCoFH;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ShapedRecipeBuilder;
-import net.minecraft.item.Items;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 
 import java.util.function.Consumer;
@@ -30,7 +30,7 @@ public class APRecipeProvider extends RecipeProviderCoFH {
     }
 
     @Override
-    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 
         ShapedRecipeBuilder.shaped(ITEMS.get(ID_BLAZE_ARROW), 4)
                 .define('X', Items.BLAZE_POWDER)

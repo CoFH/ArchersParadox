@@ -1,11 +1,11 @@
 package cofh.archersparadox.potion;
 
-import cofh.lib.potion.EffectCoFH;
+import cofh.lib.effect.EffectCoFH;
 import cofh.lib.util.Utils;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectType;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 import static cofh.archersparadox.init.APReferences.CHALLENGE_COMPLETE;
 
@@ -13,7 +13,7 @@ public class ChallengeEffect extends EffectCoFH {
 
     public static int maxExperience = 500;
 
-    public ChallengeEffect(EffectType typeIn, int liquidColorIn) {
+    public ChallengeEffect(MobEffectCategory typeIn, int liquidColorIn) {
 
         super(typeIn, liquidColorIn);
     }
@@ -23,12 +23,12 @@ public class ChallengeEffect extends EffectCoFH {
 
         int level = amplifier + 1;
 
-        if (entityLivingBaseIn instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) entityLivingBaseIn;
+        if (entityLivingBaseIn instanceof Player) {
+            Player player = (Player) entityLivingBaseIn;
             if (Utils.isServerWorld(entityLivingBaseIn.level)) {
                 player.giveExperiencePoints(Math.min(level * level + level, maxExperience));
             }
-            player.addEffect(new EffectInstance(CHALLENGE_COMPLETE, 960 * level, 0, false, false));
+            player.addEffect(new MobEffectInstance(CHALLENGE_COMPLETE, 960 * level, 0, false, false));
         }
     }
 

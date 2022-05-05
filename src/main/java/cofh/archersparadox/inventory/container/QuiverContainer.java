@@ -7,10 +7,10 @@ import cofh.lib.inventory.container.slot.SlotCoFH;
 import cofh.lib.inventory.container.slot.SlotLocked;
 import cofh.lib.inventory.wrapper.InvWrapperCoFH;
 import cofh.lib.util.helpers.MathHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import static cofh.archersparadox.init.APReferences.QUIVER_CONTAINER;
 
@@ -29,9 +29,9 @@ public class QuiverContainer extends ContainerCoFH {
     protected int numSlots;
     protected int rows;
 
-    public QuiverContainer(int id, PlayerInventory inventory, PlayerEntity player) {
+    public QuiverContainer(int windowId, Inventory inventory, Player player) {
 
-        super(QUIVER_CONTAINER, id, inventory, player);
+        super(QUIVER_CONTAINER, windowId, inventory, player);
 
         allowSwap = false;
 
@@ -61,7 +61,7 @@ public class QuiverContainer extends ContainerCoFH {
     }
 
     @Override
-    protected void bindPlayerInventory(PlayerInventory inventory) {
+    protected void bindPlayerInventory(Inventory inventory) {
 
         int xOffset = getPlayerInventoryHorizontalOffset();
         int yOffset = getPlayerInventoryVerticalOffset();
@@ -104,13 +104,13 @@ public class QuiverContainer extends ContainerCoFH {
     }
 
     @Override
-    public boolean stillValid(PlayerEntity playerIn) {
+    public boolean stillValid(Player playerIn) {
 
         return true;
     }
 
     @Override
-    public void removed(PlayerEntity playerIn) {
+    public void removed(Player playerIn) {
 
         itemInventory.write(containerItem.getOrCreateInvTag(containerStack));
         containerItem.onContainerInventoryChanged(containerStack);

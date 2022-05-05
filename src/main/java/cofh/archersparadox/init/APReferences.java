@@ -2,10 +2,10 @@ package cofh.archersparadox.init;
 
 import cofh.archersparadox.entity.projectile.*;
 import cofh.archersparadox.inventory.container.QuiverContainer;
-import net.minecraft.entity.EntityType;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
 import static cofh.archersparadox.init.APIDs.*;
@@ -20,19 +20,19 @@ public class APReferences {
 
     // region EFFECTS
     @ObjectHolder (ID_EFFECT_CHALLENGE_COMPLETE)
-    public static final Effect CHALLENGE_COMPLETE = null;
+    public static final MobEffect CHALLENGE_COMPLETE = null;
 
     @ObjectHolder (ID_EFFECT_CHALLENGE_MISS)
-    public static final Effect CHALLENGE_MISS = null;
+    public static final MobEffect CHALLENGE_MISS = null;
 
     @ObjectHolder (ID_EFFECT_CHALLENGE_STREAK)
-    public static final Effect CHALLENGE_STREAK = null;
+    public static final MobEffect CHALLENGE_STREAK = null;
 
     @ObjectHolder (ID_EFFECT_TRAINING_MISS)
-    public static final Effect TRAINING_MISS = null;
+    public static final MobEffect TRAINING_MISS = null;
 
     @ObjectHolder (ID_EFFECT_TRAINING_STREAK)
-    public static final Effect TRAINING_STREAK = null;
+    public static final MobEffect TRAINING_STREAK = null;
     // endregion
 
     // region ENTITIES
@@ -155,6 +155,6 @@ public class APReferences {
 
     // region CONTAINERS
     @ObjectHolder (ID_QUIVER)
-    public static final ContainerType<QuiverContainer> QUIVER_CONTAINER = null;
+    public static final MenuType<QuiverContainer> QUIVER_CONTAINER = null;
     // endregion
 }
