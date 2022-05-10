@@ -1,6 +1,6 @@
 package cofh.archersparadox.init;
 
-import cofh.archersparadox.potion.ChallengeEffect;
+import cofh.archersparadox.effect.ChallengeEffect;
 import cofh.core.effect.NeutralEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 

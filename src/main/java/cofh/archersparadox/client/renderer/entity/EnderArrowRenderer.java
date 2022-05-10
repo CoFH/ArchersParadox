@@ -1,30 +1,26 @@
 package cofh.archersparadox.client.renderer.entity;
 
-import cofh.archersparadox.entity.projectile.EnderArrowEntity;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
-import static cofh.lib.util.constants.Constants.ID_MINECRAFT;
-
 @OnlyIn (Dist.CLIENT)
-public class EnderArrowRenderer extends ArrowRenderer<EnderArrowEntity> {
+public class EnderArrowRenderer extends ArrowRenderer<AbstractArrow> {
 
-    public static final ResourceLocation ARROW = new ResourceLocation(ID_MINECRAFT + ":textures/entity/projectiles/arrow.png");
-    public static final ResourceLocation TEXTURE = new ResourceLocation(ID_ARCHERS_PARADOX + ":textures/entity/projectiles/ender_arrow.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation("archers_paradox:textures/entity/projectiles/ender_arrow.png");
 
-    public EnderArrowRenderer(EntityRendererManager manager) {
+    public EnderArrowRenderer(EntityRendererProvider.Context ctx) {
 
-        super(manager);
+        super(ctx);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EnderArrowEntity entity) {
+    public ResourceLocation getTextureLocation(AbstractArrow entity) {
 
-        return entity.discharged ? ARROW : TEXTURE;
+        return TEXTURE;
     }
 
 }

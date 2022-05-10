@@ -8,6 +8,8 @@
 
   "itemGroup.archers_paradox": "Archer's Paradox",
 
+  "item.archers_paradox.quiver": "Quiver",
+
   "item.archers_paradox.blaze_arrow": "Blaze Arrow",
   "item.archers_paradox.blaze_arrow.desc": "Ignites target and nearby blocks on impact.",
   "item.archers_paradox.challenge_arrow": "Challenge Arrow",

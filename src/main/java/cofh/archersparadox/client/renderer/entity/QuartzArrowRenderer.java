@@ -1,24 +1,24 @@
 package cofh.archersparadox.client.renderer.entity;
 
-import cofh.archersparadox.entity.projectile.QuartzArrowEntity;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn (Dist.CLIENT)
-public class QuartzArrowRenderer extends ArrowRenderer<QuartzArrowEntity> {
+public class QuartzArrowRenderer extends ArrowRenderer<AbstractArrow> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation("archers_paradox:textures/entity/projectiles/quartz_arrow.png");
 
-    public QuartzArrowRenderer(EntityRendererManager manager) {
+    public QuartzArrowRenderer(EntityRendererProvider.Context ctx) {
 
-        super(manager);
+        super(ctx);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(QuartzArrowEntity entity) {
+    public ResourceLocation getTextureLocation(AbstractArrow entity) {
 
         return TEXTURE;
     }

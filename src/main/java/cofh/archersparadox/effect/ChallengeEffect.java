@@ -1,4 +1,4 @@
-package cofh.archersparadox.potion;
+package cofh.archersparadox.effect;
 
 import cofh.lib.effect.EffectCoFH;
 import cofh.lib.util.Utils;

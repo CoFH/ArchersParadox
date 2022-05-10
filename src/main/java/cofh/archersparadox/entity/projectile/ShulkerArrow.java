@@ -1,33 +1,34 @@
 package cofh.archersparadox.entity.projectile;
 
+import cofh.lib.item.impl.ArrowItemCoFH;
 import cofh.lib.util.Utils;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
 import static cofh.archersparadox.init.APReferences.SHULKER_ARROW_ENTITY;
 import static cofh.archersparadox.init.APReferences.SHULKER_ARROW_ITEM;
 
-public class ShulkerArrowEntity extends AbstractArrowEntity {
+public class ShulkerArrow extends AbstractArrow {
 
-    private static final DataParameter<Integer> TARGET = EntityDataManager.defineId(ShulkerArrowEntity.class, DataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TARGET = SynchedEntityData.defineId(ShulkerArrow.class, EntityDataSerializers.INT);
     private static final int ID_NO_TARGET = -1;
 
     private static final float MAX_VELOCITY = 3.0F;
@@ -38,17 +39,17 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
 
     public static int effectDuration = 100;
 
-    public ShulkerArrowEntity(EntityType<? extends ShulkerArrowEntity> entityIn, World worldIn) {
+    public ShulkerArrow(EntityType<? extends ShulkerArrow> entityIn, Level worldIn) {
 
         super(entityIn, worldIn);
     }
 
-    public ShulkerArrowEntity(World worldIn, LivingEntity shooter) {
+    public ShulkerArrow(Level worldIn, LivingEntity shooter) {
 
         super(SHULKER_ARROW_ENTITY, shooter, worldIn);
     }
 
-    public ShulkerArrowEntity(World worldIn, double x, double y, double z) {
+    public ShulkerArrow(Level worldIn, double x, double y, double z) {
 
         super(SHULKER_ARROW_ENTITY, x, y, z, worldIn);
     }
@@ -67,14 +68,14 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    protected void onHitEntity(EntityRayTraceResult raytraceResultIn) {
+    protected void onHitEntity(EntityHitResult raytraceResultIn) {
 
         super.onHitEntity(raytraceResultIn);
 
         Entity entity = raytraceResultIn.getEntity();
         if (!entity.isInvulnerable() && entity instanceof LivingEntity && effectDuration > 0) {
             LivingEntity living = (LivingEntity) entity;
-            living.addEffect(new EffectInstance(Effects.LEVITATION, effectDuration));
+            living.addEffect(new MobEffectInstance(MobEffects.LEVITATION, effectDuration));
         }
     }
 
@@ -92,8 +93,8 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
             }
             Entity target = getTarget();
             if (target != null) {
-                Vector3d targetVec = getVectorToTarget(target).scale(SEEK_FACTOR);
-                Vector3d courseVec = getDeltaMovement();
+                Vec3 targetVec = getVectorToTarget(target).scale(SEEK_FACTOR);
+                Vec3 courseVec = getDeltaMovement();
 
                 double courseLen = courseVec.length();
                 double targetLen = targetVec.length();
@@ -101,13 +102,13 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
                 double dotProduct = courseVec.dot(targetVec) / (courseLen * targetLen);
 
                 if (dotProduct > SEEK_THRESHOLD) {
-                    Vector3d newMotion = (courseVec.scale(courseLen / totalLen).add(targetVec.scale(targetLen / totalLen))).normalize().scale(MAX_VELOCITY);
+                    Vec3 newMotion = (courseVec.scale(courseLen / totalLen).add(targetVec.scale(targetLen / totalLen))).normalize().scale(MAX_VELOCITY);
                     this.setDeltaMovement(newMotion.x, newMotion.y + 0.05F, newMotion.z);
                 } else if (Utils.isServerWorld(level)) {
                     setTarget(null);
                 }
                 if (Utils.isClientWorld(level)) {
-                    Vector3d vec3d = this.getDeltaMovement().scale(0.25D);
+                    Vec3 vec3d = this.getDeltaMovement().scale(0.25D);
                     double d1 = vec3d.x;
                     double d2 = vec3d.y;
                     double d0 = vec3d.z;
@@ -119,7 +120,7 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
 
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -136,10 +137,10 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
             setTarget(target = null);
         }
         if (target == null) {
-            AxisAlignedBB positionBB = new AxisAlignedBB(getX(), getY(), getZ(), getX(), getY(), getZ());
-            AxisAlignedBB targetBB = positionBB;
+            AABB positionBB = new AABB(getX(), getY(), getZ(), getX(), getY(), getZ());
+            AABB targetBB = positionBB;
 
-            Vector3d courseVec = getDeltaMovement().scale(SEEK_DISTANCE).yRot((float) SEEK_ANGLE);
+            Vec3 courseVec = getDeltaMovement().scale(SEEK_DISTANCE).yRot((float) SEEK_ANGLE);
             targetBB = targetBB.minmax(positionBB.move(courseVec));
 
             courseVec = getDeltaMovement().scale(SEEK_DISTANCE).yRot((float) -SEEK_ANGLE);
@@ -150,11 +151,11 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
             Entity closestTarget = null;
 
             for (LivingEntity living : this.level.getEntitiesOfClass(LivingEntity.class, targetBB)) {
-                if (living instanceof PlayerEntity) {
+                if (living instanceof Player) {
                     continue;
                 }
-                Vector3d motionVec = getDeltaMovement().normalize();
-                Vector3d targetVec = getVectorToTarget(living).normalize();
+                Vec3 motionVec = getDeltaMovement().normalize();
+                Vec3 targetVec = getVectorToTarget(living).normalize();
 
                 double dot = motionVec.dot(targetVec);
                 if (dot > Math.max(closestDot, SEEK_THRESHOLD)) {
@@ -168,9 +169,9 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
         }
     }
 
-    private Vector3d getVectorToTarget(Entity target) {
+    private Vec3 getVectorToTarget(Entity target) {
 
-        return new Vector3d(target.getX() - this.getX(), (target.getY() + (double) target.getEyeHeight()) - this.getY(), target.getZ() - this.getZ());
+        return new Vec3(target.getX() - this.getX(), (target.getY() + (double) target.getEyeHeight()) - this.getY(), target.getZ() - this.getZ());
     }
 
     @Nullable
@@ -183,5 +184,22 @@ public class ShulkerArrowEntity extends AbstractArrowEntity {
 
         entityData.set(TARGET, e == null ? ID_NO_TARGET : e.getId());
     }
+    // endregion
+
+    // region FACTORY
+    public static final ArrowItemCoFH.IArrowFactory<AbstractArrow> FACTORY = new ArrowItemCoFH.IArrowFactory<>() {
+
+        @Override
+        public AbstractArrow createArrow(Level world, LivingEntity living) {
+
+            return new ShulkerArrow(world, living);
+        }
+
+        @Override
+        public AbstractArrow createArrow(Level world, double posX, double posY, double posZ) {
+
+            return new ShulkerArrow(world, posX, posY, posZ);
+        }
+    };
     // endregion
 }

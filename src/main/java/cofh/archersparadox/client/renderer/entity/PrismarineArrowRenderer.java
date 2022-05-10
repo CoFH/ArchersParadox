@@ -1,24 +1,24 @@
 package cofh.archersparadox.client.renderer.entity;
 
-import cofh.archersparadox.entity.projectile.PrismarineArrowEntity;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn (Dist.CLIENT)
-public class PrismarineArrowRenderer extends ArrowRenderer<PrismarineArrowEntity> {
+public class PrismarineArrowRenderer extends ArrowRenderer<AbstractArrow> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation("archers_paradox:textures/entity/projectiles/prismarine_arrow.png");
 
-    public PrismarineArrowRenderer(EntityRendererManager manager) {
+    public PrismarineArrowRenderer(EntityRendererProvider.Context ctx) {
 
-        super(manager);
+        super(ctx);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(PrismarineArrowEntity entity) {
+    public ResourceLocation getTextureLocation(AbstractArrow entity) {
 
         return TEXTURE;
     }
