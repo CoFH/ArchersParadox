@@ -123,7 +123,7 @@ public class PhantasmalArrow extends AbstractArrow {
         }
         ++this.ticksInAir;
         if (this.ticksInAir >= MAX_TICKS) {
-            this.remove(RemovalReason.KILLED);
+            this.discard();
         }
         Vec3 vec32 = this.position();
         Vec3 vec33 = vec32.add(vec3);

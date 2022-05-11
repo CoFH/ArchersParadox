@@ -80,18 +80,9 @@ public class SlimeArrow extends AbstractArrow {
                 }
                 BlockHitResult blockraytraceresult = (BlockHitResult) raytraceResultIn;
                 switch (blockraytraceresult.getDirection()) {
-                    case DOWN:
-                    case UP:
-                        this.setDeltaMovement(motion.x, motion.y * -1, motion.z);
-                        break;
-                    case NORTH:
-                    case SOUTH:
-                        this.setDeltaMovement(motion.x, motion.y, motion.z * -1);
-                        break;
-                    case WEST:
-                    case EAST:
-                        this.setDeltaMovement(motion.x * -1, motion.y, motion.z);
-                        break;
+                    case DOWN, UP -> this.setDeltaMovement(motion.x, motion.y * -1, motion.z);
+                    case NORTH, SOUTH -> this.setDeltaMovement(motion.x, motion.y, motion.z * -1);
+                    case WEST, EAST -> this.setDeltaMovement(motion.x * -1, motion.y, motion.z);
                 }
                 double f = motion.horizontalDistance();
                 this.yRot = (float) (Mth.atan2(motion.x, motion.z) * (double) (180F / (float) Math.PI));

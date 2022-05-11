@@ -59,7 +59,7 @@ public class ExplosiveArrow extends AbstractArrow {
         if (Utils.isServerWorld(level)) {
             level.explode(this, this.getX(), this.getY(), this.getZ(), (float) (explosionStrength + (knockbackBoost ? knockback : 0)), explosionsCauseFire && isOnFire(), explosionsBreakBlocks ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE);
             this.level.broadcastEntityEvent(this, (byte) 3);
-            this.remove(RemovalReason.KILLED);
+            this.discard();
         }
     }
 
