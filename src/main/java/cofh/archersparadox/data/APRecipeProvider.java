@@ -71,11 +71,10 @@ public class APRecipeProvider extends RecipeProviderCoFH {
 
         ShapedRecipeBuilder.shaped(ITEMS.get(ID_SLIME_ARROW), 4)
                 .define('X', Tags.Items.SLIMEBALLS)
-                .define('#', Items.STICK)
-                .define('Y', Items.FEATHER)
-                .pattern("X")
-                .pattern("#")
-                .pattern("Y")
+                .define('#', Items.ARROW)
+                .pattern(" # ")
+                .pattern("#X#")
+                .pattern(" # ")
                 .unlockedBy("has_components", has(Tags.Items.SLIMEBALLS))
                 .save(consumer);
 
@@ -109,7 +108,7 @@ public class APRecipeProvider extends RecipeProviderCoFH {
                 .unlockedBy("has_components", has(Items.EXPERIENCE_BOTTLE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(ITEMS.get(ID_PHANTASMAL_ARROW), 2)
+        ShapedRecipeBuilder.shaped(ITEMS.get(ID_PHANTASMAL_ARROW), 4)
                 .define('X', Items.GHAST_TEAR)
                 .define('#', Items.ARROW)
                 .pattern(" # ")

@@ -1,19 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "X",
-    "#",
-    "Y"
+    " # ",
+    "#X#",
+    " # "
   ],
   "key": {
     "X": {
       "tag": "forge:slimeballs"
     },
     "#": {
-      "item": "minecraft:stick"
-    },
-    "Y": {
-      "item": "minecraft:feather"
+      "item": "minecraft:arrow"
     }
   },
   "result": {
