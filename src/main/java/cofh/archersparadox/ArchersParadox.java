@@ -1,6 +1,5 @@
 package cofh.archersparadox;
 
-import cofh.archersparadox.client.gui.QuiverScreen;
 import cofh.archersparadox.client.renderer.entity.*;
 import cofh.archersparadox.config.APClientConfig;
 import cofh.archersparadox.entity.projectile.*;
@@ -9,7 +8,6 @@ import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
 import cofh.lib.config.ConfigManager;
 import cofh.lib.util.DeferredRegisterCoFH;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.MenuType;
@@ -22,7 +20,6 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
@@ -51,7 +48,6 @@ public class ArchersParadox {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::entityRendererSetup);
-        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
 
         ITEMS.register(modEventBus);
@@ -73,8 +69,7 @@ public class ArchersParadox {
                 .addServerConfig(VerdantArrow.CONFIG)
                 .addServerConfig(SporeArrow.CONFIG);
         CONFIG_MANAGER.setupClient();
-
-        // APConfig.register();
+        CONFIG_MANAGER.setupServer();
 
         APItems.register();
 
@@ -102,27 +97,24 @@ public class ArchersParadox {
         event.registerEntityRenderer(SPORE_ARROW_ENTITY, SporeArrowRenderer::new);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-
-        CONFIG_MANAGER.setupServer();
-    }
-
     private void clientSetup(final FMLClientSetupEvent event) {
 
-        if (APClientConfig.enableCreativeTab.get()) {
-            itemGroup = new CreativeModeTab(-1, ID_ARCHERS_PARADOX) {
+        event.enqueueWork(() -> {
+            if (APClientConfig.enableCreativeTab.get()) {
+                itemGroup = new CreativeModeTab(-1, ID_ARCHERS_PARADOX) {
 
-                @Override
-                @OnlyIn (Dist.CLIENT)
-                public ItemStack makeIcon() {
+                    @Override
+                    @OnlyIn (Dist.CLIENT)
+                    public ItemStack makeIcon() {
 
-                    return new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW));
-                }
-            };
-        } else {
-            itemGroup = CreativeModeTab.TAB_COMBAT;
-        }
-        MenuScreens.register(QUIVER_CONTAINER, QuiverScreen::new);
+                        return new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW));
+                    }
+                };
+            } else {
+                itemGroup = CreativeModeTab.TAB_COMBAT;
+            }
+        });
+        // event.enqueueWork(() -> MenuScreens.register(QUIVER_CONTAINER, QuiverScreen::new));
     }
     // endregion
 }
