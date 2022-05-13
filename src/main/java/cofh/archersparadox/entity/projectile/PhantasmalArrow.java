@@ -23,12 +23,12 @@ import static cofh.archersparadox.init.APReferences.PHANTASMAL_ARROW_ITEM;
 
 public class PhantasmalArrow extends AbstractArrow {
 
-    private static boolean GLOWING = true;
-    private static boolean NO_GRAVITY = true;
+    private static final boolean GLOWING = true;
+    private static final boolean NO_GRAVITY = true;
 
-    private static int MAX_TICKS = 200;
-    private static float MAX_VELOCITY = 2.5F;
-    private static byte PIERCE = 64;
+    private static final int MAX_TICKS = 200;
+    private static final float MAX_VELOCITY = 2.5F;
+    private static final byte PIERCE = 64;
 
     private int ticksInAir;
 
@@ -157,11 +157,7 @@ public class PhantasmalArrow extends AbstractArrow {
         double d5 = vec3.x;
         double d6 = vec3.y;
         double d1 = vec3.z;
-        //        if (this.isCritArrow()) {
-        //            for (int i = 0; i < 4; ++i) {
-        //                this.level.addParticle(ParticleTypes.CRIT, this.getX() + d5 * (double) i / 4.0D, this.getY() + d6 * (double) i / 4.0D, this.getZ() + d1 * (double) i / 4.0D, -d5, -d6 + 0.2D, -d1);
-        //            }
-        //        }
+
         double d7 = this.getX() + d5;
         double d2 = this.getY() + d6;
         double d3 = this.getZ() + d1;
@@ -175,22 +171,8 @@ public class PhantasmalArrow extends AbstractArrow {
         this.setXRot((float) (Mth.atan2(d6, d4) * (double) (180F / (float) Math.PI)));
         this.setXRot(lerpRotation(this.xRotO, this.getXRot()));
         this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
-        //        float f = 0.99F;
-        //        float f1 = 0.05F;
-        //        if (this.isInWater()) {
-        //            for (int j = 0; j < 4; ++j) {
-        //                float f2 = 0.25F;
-        //                this.level.addParticle(ParticleTypes.BUBBLE, d7 - d5 * 0.25D, d2 - d6 * 0.25D, d3 - d1 * 0.25D, d5, d6, d1);
-        //            }
-        //            f = this.getWaterInertia();
-        //        }
-        //        this.setDeltaMovement(vec3.scale((double) f));
-        //        if (!this.isNoGravity() && !flag) {
-        //            Vec3 vec34 = this.getDeltaMovement();
-        //            this.setDeltaMovement(vec34.x, vec34.y - (double) 0.05F, vec34.z);
-        //        }
+
         this.setPos(d7, d2, d3);
-        //        this.checkInsideBlocks();
     }
 
     @Override

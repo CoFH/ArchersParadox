@@ -4,6 +4,7 @@ import cofh.archersparadox.client.gui.QuiverScreen;
 import cofh.archersparadox.client.renderer.entity.*;
 import cofh.archersparadox.config.APClientConfig;
 import cofh.archersparadox.entity.projectile.*;
+import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
 import cofh.lib.config.ConfigManager;
@@ -65,17 +66,17 @@ public class ArchersParadox {
                 .addServerConfig(QuartzArrow.CONFIG)
                 .addServerConfig(DiamondArrow.CONFIG)
                 .addServerConfig(PrismarineArrow.CONFIG)
-                .addServerConfig(SlimeArrow.CONFIG);
+                .addServerConfig(SlimeArrow.CONFIG)
+                .addServerConfig(BlazeArrow.CONFIG)
+                .addServerConfig(FrostArrow.CONFIG);
         CONFIG_MANAGER.setupClient();
 
         // APConfig.register();
 
         APItems.register();
 
-        // APEffects.register();
+        APEffects.register();
         APEntities.register();
-
-        // setFlag(FLAG_ECTOPLASM, true);
     }
 
     // region INITIALIZATION
@@ -87,8 +88,15 @@ public class ArchersParadox {
         event.registerEntityRenderer(PRISMARINE_ARROW_ENTITY, PrismarineArrowRenderer::new);
         event.registerEntityRenderer(SLIME_ARROW_ENTITY, SlimeArrowRenderer::new);
         event.registerEntityRenderer(ENDER_ARROW_ENTITY, EnderArrowRenderer::new);
+        event.registerEntityRenderer(TRAINING_ARROW_ENTITY, TrainingArrowRenderer::new);
+        event.registerEntityRenderer(CHALLENGE_ARROW_ENTITY, ChallengeArrowRenderer::new);
         event.registerEntityRenderer(PHANTASMAL_ARROW_ENTITY, PhantasmalArrowRenderer::new);
         event.registerEntityRenderer(SHULKER_ARROW_ENTITY, ShulkerArrowRenderer::new);
+        event.registerEntityRenderer(BLAZE_ARROW_ENTITY, BlazeArrowRenderer::new);
+        event.registerEntityRenderer(FROST_ARROW_ENTITY, FrostArrowRenderer::new);
+        event.registerEntityRenderer(LIGHTNING_ARROW_ENTITY, LightningArrowRenderer::new);
+        event.registerEntityRenderer(VERDANT_ARROW_ENTITY, VerdantArrowRenderer::new);
+        event.registerEntityRenderer(SPORE_ARROW_ENTITY, SporeArrowRenderer::new);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

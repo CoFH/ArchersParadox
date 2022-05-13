@@ -36,82 +36,99 @@ public class APReferences {
     // endregion
 
     // region ENTITIES
-    //    @ObjectHolder (ID_BLAZE_ARROW)
-    //    public static final EntityType<BlazeArrowEntity> BLAZE_ARROW_ENTITY = null;
-    //
-    //    @ObjectHolder (ID_CHALLENGE_ARROW)
-    //    public static final EntityType<ChallengeArrowEntity> CHALLENGE_ARROW_ENTITY = null;
-
-    @ObjectHolder (ID_DIAMOND_ARROW)
-    public static final EntityType<DiamondArrow> DIAMOND_ARROW_ENTITY = null;
-
-    //    @ObjectHolder (ID_DISPLACEMENT_ARROW)
-    //    public static final EntityType<DisplacementArrowEntity> DISPLACEMENT_ARROW_ENTITY = null;
-
-    @ObjectHolder (ID_ENDER_ARROW)
-    public static final EntityType<EnderArrow> ENDER_ARROW_ENTITY = null;
-
     @ObjectHolder (ID_EXPLOSIVE_ARROW)
     public static final EntityType<ExplosiveArrow> EXPLOSIVE_ARROW_ENTITY = null;
-
-    //    @ObjectHolder (ID_FROST_ARROW)
-    //    public static final EntityType<FrostArrowEntity> FROST_ARROW_ENTITY = null;
-    //
-    //    @ObjectHolder (ID_GLOWSTONE_ARROW)
-    //    public static final EntityType<GlowstoneArrowEntity> GLOWSTONE_ARROW_ENTITY = null;
-    //
-    //    @ObjectHolder (ID_LIGHTNING_ARROW)
-    //    public static final EntityType<LightningArrowEntity> LIGHTNING_ARROW_ENTITY = null;
-    //
-    //    @ObjectHolder (ID_MAGMA_ARROW)
-    //    public static final EntityType<MagmaArrowEntity> MAGMA_ARROW_ENTITY = null;
-
-    @ObjectHolder (ID_PHANTASMAL_ARROW)
-    public static final EntityType<PhantasmalArrow> PHANTASMAL_ARROW_ENTITY = null;
-
-    @ObjectHolder (ID_PRISMARINE_ARROW)
-    public static final EntityType<PrismarineArrow> PRISMARINE_ARROW_ENTITY = null;
 
     @ObjectHolder (ID_QUARTZ_ARROW)
     public static final EntityType<QuartzArrow> QUARTZ_ARROW_ENTITY = null;
 
-    //    @ObjectHolder (ID_REDSTONE_ARROW)
-    //    public static final EntityType<RedstoneArrowEntity> REDSTONE_ARROW_ENTITY = null;
+    @ObjectHolder (ID_DIAMOND_ARROW)
+    public static final EntityType<DiamondArrow> DIAMOND_ARROW_ENTITY = null;
 
-    @ObjectHolder (ID_SHULKER_ARROW)
-    public static final EntityType<ShulkerArrow> SHULKER_ARROW_ENTITY = null;
+    @ObjectHolder (ID_PRISMARINE_ARROW)
+    public static final EntityType<PrismarineArrow> PRISMARINE_ARROW_ENTITY = null;
 
     @ObjectHolder (ID_SLIME_ARROW)
     public static final EntityType<SlimeArrow> SLIME_ARROW_ENTITY = null;
 
-    //    @ObjectHolder (ID_SPORE_ARROW)
-    //    public static final EntityType<SporeArrowEntity> SPORE_ARROW_ENTITY = null;
+    @ObjectHolder (ID_ENDER_ARROW)
+    public static final EntityType<EnderArrow> ENDER_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_TRAINING_ARROW)
+    public static final EntityType<TrainingArrow> TRAINING_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_CHALLENGE_ARROW)
+    public static final EntityType<ChallengeArrow> CHALLENGE_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_PHANTASMAL_ARROW)
+    public static final EntityType<PhantasmalArrow> PHANTASMAL_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_SHULKER_ARROW)
+    public static final EntityType<ShulkerArrow> SHULKER_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_BLAZE_ARROW)
+    public static final EntityType<BlazeArrow> BLAZE_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_FROST_ARROW)
+    public static final EntityType<FrostArrow> FROST_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_LIGHTNING_ARROW)
+    public static final EntityType<LightningArrow> LIGHTNING_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_SPORE_ARROW)
+    public static final EntityType<SporeArrow> SPORE_ARROW_ENTITY = null;
+
+    @ObjectHolder (ID_VERDANT_ARROW)
+    public static final EntityType<VerdantArrow> VERDANT_ARROW_ENTITY = null;
+
+    //    @ObjectHolder (ID_DISPLACEMENT_ARROW)
+    //    public static final EntityType<DisplacementArrowEntity> DISPLACEMENT_ARROW_ENTITY = null;
     //
-    //    @ObjectHolder (ID_TRAINING_ARROW)
-    //    public static final EntityType<TrainingArrowEntity> TRAINING_ARROW_ENTITY = null;
+    //    @ObjectHolder (ID_GLOWSTONE_ARROW)
+    //    public static final EntityType<GlowstoneArrowEntity> GLOWSTONE_ARROW_ENTITY = null;
     //
-    //    @ObjectHolder (ID_VERDANT_ARROW)
-    //    public static final EntityType<VerdantArrowEntity> VERDANT_ARROW_ENTITY = null;
+    //    @ObjectHolder (ID_REDSTONE_ARROW)
+    //    public static final EntityType<RedstoneArrowEntity> REDSTONE_ARROW_ENTITY = null;
+
+
     // endregion
 
     // region ITEMS
-    @ObjectHolder (ID_BLAZE_ARROW)
-    public static final Item BLAZE_ARROW_ITEM = null;
+    @ObjectHolder (ID_EXPLOSIVE_ARROW)
+    public static final Item EXPLOSIVE_ARROW_ITEM = null;
 
-    @ObjectHolder (ID_CHALLENGE_ARROW)
-    public static final Item CHALLENGE_ARROW_ITEM = null;
+    @ObjectHolder (ID_QUARTZ_ARROW)
+    public static final Item QUARTZ_ARROW_ITEM = null;
 
     @ObjectHolder (ID_DIAMOND_ARROW)
     public static final Item DIAMOND_ARROW_ITEM = null;
 
-    @ObjectHolder (ID_DISPLACEMENT_ARROW)
-    public static final Item DISPLACEMENT_ARROW_ITEM = null;
+    @ObjectHolder (ID_PRISMARINE_ARROW)
+    public static final Item PRISMARINE_ARROW_ITEM = null;
+
+    @ObjectHolder (ID_SLIME_ARROW)
+    public static final Item SLIME_ARROW_ITEM = null;
 
     @ObjectHolder (ID_ENDER_ARROW)
     public static final Item ENDER_ARROW_ITEM = null;
 
-    @ObjectHolder (ID_EXPLOSIVE_ARROW)
-    public static final Item EXPLOSIVE_ARROW_ITEM = null;
+    @ObjectHolder (ID_TRAINING_ARROW)
+    public static final Item TRAINING_ARROW_ITEM = null;
+
+    @ObjectHolder (ID_CHALLENGE_ARROW)
+    public static final Item CHALLENGE_ARROW_ITEM = null;
+
+    @ObjectHolder (ID_PHANTASMAL_ARROW)
+    public static final Item PHANTASMAL_ARROW_ITEM = null;
+
+    @ObjectHolder (ID_SHULKER_ARROW)
+    public static final Item SHULKER_ARROW_ITEM = null;
+
+    @ObjectHolder (ID_BLAZE_ARROW)
+    public static final Item BLAZE_ARROW_ITEM = null;
+
+    @ObjectHolder (ID_DISPLACEMENT_ARROW)
+    public static final Item DISPLACEMENT_ARROW_ITEM = null;
 
     @ObjectHolder (ID_FROST_ARROW)
     public static final Item FROST_ARROW_ITEM = null;
@@ -125,29 +142,11 @@ public class APReferences {
     @ObjectHolder (ID_MAGMA_ARROW)
     public static final Item MAGMA_ARROW_ITEM = null;
 
-    @ObjectHolder (ID_PHANTASMAL_ARROW)
-    public static final Item PHANTASMAL_ARROW_ITEM = null;
-
-    @ObjectHolder (ID_PRISMARINE_ARROW)
-    public static final Item PRISMARINE_ARROW_ITEM = null;
-
-    @ObjectHolder (ID_QUARTZ_ARROW)
-    public static final Item QUARTZ_ARROW_ITEM = null;
-
     @ObjectHolder (ID_REDSTONE_ARROW)
     public static final Item REDSTONE_ARROW_ITEM = null;
 
-    @ObjectHolder (ID_SHULKER_ARROW)
-    public static final Item SHULKER_ARROW_ITEM = null;
-
-    @ObjectHolder (ID_SLIME_ARROW)
-    public static final Item SLIME_ARROW_ITEM = null;
-
     @ObjectHolder (ID_SPORE_ARROW)
     public static final Item SPORE_ARROW_ITEM = null;
-
-    @ObjectHolder (ID_TRAINING_ARROW)
-    public static final Item TRAINING_ARROW_ITEM = null;
 
     @ObjectHolder (ID_VERDANT_ARROW)
     public static final Item VERDANT_ARROW_ITEM = null;

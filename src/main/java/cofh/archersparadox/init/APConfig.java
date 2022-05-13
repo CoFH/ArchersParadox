@@ -69,14 +69,6 @@
 //
 //        SERVER_CONFIG.push("Arrows");
 //
-//        SERVER_CONFIG.push("Blaze");
-//        blazeArrowDuration = SERVER_CONFIG
-//                .comment("Adjust this to set the burn duration for the Blaze Arrow (in seconds). Nearby targets will burn for 5 seconds less than a direct target.")
-//                .defineInRange("Burn Duration", BlazeArrowEntity.effectDuration, 5, 30);
-//        blazeArrowRadius = SERVER_CONFIG
-//                .comment("Adjust this to set the effect radius for the Blaze Arrow. Set to 0 to disable, but that would be boring.")
-//                .defineInRange("Radius", BlazeArrowEntity.effectRadius, 0, 16);
-//        SERVER_CONFIG.pop();
 
 //
 //        SERVER_CONFIG.push("Displacement");
