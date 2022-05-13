@@ -315,7 +315,7 @@ public class FrostArrow extends AbstractArrow {
                     .comment("Adjust this to set the damage for the " + name + ". Vanilla Arrow value is 2.0.")
                     .defineInRange("Damage", defaultDamage, 0.0, 16.0);
             cfgDuration = builder
-                    .comment("Adjust this to set the chill duration for the " + name + "  (in ticks; there are 20 ticks per second).")
+                    .comment("Adjust this to set the chill duration for the " + name + ". (In ticks; there are 20 ticks per second).")
                     .defineInRange("Chill Duration", effectDuration, 20, 1200);
             cfgRadius = builder
                     .comment("Adjust this to set the effect radius for the " + name + ". Set to 0 to disable, but that would be boring.")

@@ -1,5 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
+import cofh.lib.config.IBaseConfig;
 import cofh.lib.item.impl.ArrowItemCoFH;
 import cofh.lib.util.AreaUtils;
 import cofh.lib.util.Utils;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
 import static cofh.archersparadox.init.APReferences.VERDANT_ARROW_ENTITY;
@@ -165,6 +167,36 @@ public class VerdantArrow extends AbstractArrow {
 
             return new VerdantArrow(world, posX, posY, posZ);
         }
+    };
+    // endregion
+
+    // region CONFIG
+    public static final IBaseConfig CONFIG = new IBaseConfig() {
+
+        @Override
+        public void apply(ForgeConfigSpec.Builder builder) {
+
+            String name = "Verdant Arrow";
+
+            builder.push(name);
+            cfgDamage = builder
+                    .comment("Adjust this to set the damage for the " + name + ". Vanilla Arrow value is 2.0.")
+                    .defineInRange("Damage", defaultDamage, 0.0, 16.0);
+            cfgRadius = builder
+                    .comment("Adjust this to set the effect radius for the " + name + ". Set to 0 to disable, but that would be boring.")
+                    .defineInRange("Radius", effectRadius, 0, 16);
+            builder.pop();
+        }
+
+        @Override
+        public void refresh() {
+
+            defaultDamage = cfgDamage.get().floatValue();
+            effectRadius = cfgRadius.get();
+        }
+
+        private ForgeConfigSpec.DoubleValue cfgDamage;
+        private ForgeConfigSpec.IntValue cfgRadius;
     };
     // endregion
 }

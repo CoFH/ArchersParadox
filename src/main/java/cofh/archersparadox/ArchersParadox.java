@@ -67,8 +67,11 @@ public class ArchersParadox {
                 .addServerConfig(DiamondArrow.CONFIG)
                 .addServerConfig(PrismarineArrow.CONFIG)
                 .addServerConfig(SlimeArrow.CONFIG)
+                .addServerConfig(ShulkerArrow.CONFIG)
                 .addServerConfig(BlazeArrow.CONFIG)
-                .addServerConfig(FrostArrow.CONFIG);
+                .addServerConfig(FrostArrow.CONFIG)
+                .addServerConfig(VerdantArrow.CONFIG)
+                .addServerConfig(SporeArrow.CONFIG);
         CONFIG_MANAGER.setupClient();
 
         // APConfig.register();

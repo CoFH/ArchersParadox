@@ -1,5 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
+import cofh.lib.config.IBaseConfig;
 import cofh.lib.item.impl.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -37,21 +39,25 @@ public class ShulkerArrow extends AbstractArrow {
     private static final double SEEK_ANGLE = Math.PI / 6.0;
     private static final double SEEK_THRESHOLD = 0.5;
 
+    public static float defaultDamage = 2.5F;
     public static int effectDuration = 100;
 
     public ShulkerArrow(EntityType<? extends ShulkerArrow> entityIn, Level worldIn) {
 
         super(entityIn, worldIn);
+        this.baseDamage = defaultDamage;
     }
 
     public ShulkerArrow(Level worldIn, LivingEntity shooter) {
 
         super(SHULKER_ARROW_ENTITY, shooter, worldIn);
+        this.baseDamage = defaultDamage;
     }
 
     public ShulkerArrow(Level worldIn, double x, double y, double z) {
 
         super(SHULKER_ARROW_ENTITY, x, y, z, worldIn);
+        this.baseDamage = defaultDamage;
     }
 
     @Override
@@ -200,6 +206,37 @@ public class ShulkerArrow extends AbstractArrow {
 
             return new ShulkerArrow(world, posX, posY, posZ);
         }
+    };
+    // endregion
+
+    // region CONFIG
+    public static final IBaseConfig CONFIG = new IBaseConfig() {
+
+        @Override
+        public void apply(ForgeConfigSpec.Builder builder) {
+
+            String name = "Shulker Arrow";
+
+            builder.push(name);
+            cfgDamage = builder
+                    .comment("Adjust this to set the damage for the " + name + ". Vanilla Arrow value is 2.0.")
+                    .defineInRange("Damage", defaultDamage, 0.0, 16.0);
+            cfgDuration = builder
+                    .comment("Adjust this to set the effect duration (Levitation) for the " + name + ". (In ticks; there are 20 ticks per second).")
+                    .defineInRange("Effect Duration", effectDuration, 20, 1200);
+            builder.pop();
+        }
+
+        @Override
+        public void refresh() {
+
+            defaultDamage = cfgDamage.get().floatValue();
+            effectDuration = cfgDuration.get();
+
+        }
+
+        private ForgeConfigSpec.DoubleValue cfgDamage;
+        private ForgeConfigSpec.IntValue cfgDuration;
     };
     // endregion
 }
