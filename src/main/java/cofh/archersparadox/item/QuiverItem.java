@@ -121,7 +121,7 @@ public class QuiverItem extends InventoryContainerItem implements IColorableItem
     }
     // endregion
 
-    // region INamedContainerProvider
+    // region MenuProvider
     @Override
     public Component getDisplayName() {
 
