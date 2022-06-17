@@ -10,6 +10,7 @@ displayName = "Archer's Paradox"
 updateJSONURL = "https://raw.github.com/cofh/version/master/archers_paradox/update.json"
 displayURL = "https://teamcofh.com/"
 logoFile = "logo.png"
+itemIcon = "archers_paradox:prismarine_arrow"
 credits = "Team CoFH"
 authors = "King Lemming"
 description = '''
