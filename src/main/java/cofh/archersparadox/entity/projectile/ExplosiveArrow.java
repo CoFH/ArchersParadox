@@ -1,7 +1,7 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.config.IBaseConfig;
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.core.config.IBaseConfig;
+import cofh.lib.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.entity.Entity;
@@ -16,8 +16,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.EXPLOSIVE_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.EXPLOSIVE_ARROW_ITEM;
+import java.util.function.Supplier;
+
+import static cofh.archersparadox.init.APEntities.EXPLOSIVE_ARROW;
+import static cofh.archersparadox.init.APItems.EXPLOSIVE_ARROW_ITEM;
 
 public class ExplosiveArrow extends AbstractArrow {
 
@@ -35,20 +37,20 @@ public class ExplosiveArrow extends AbstractArrow {
 
     public ExplosiveArrow(Level worldIn, LivingEntity shooter) {
 
-        super(EXPLOSIVE_ARROW_ENTITY, shooter, worldIn);
+        super(EXPLOSIVE_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
     }
 
     public ExplosiveArrow(Level worldIn, double x, double y, double z) {
 
-        super(EXPLOSIVE_ARROW_ENTITY, x, y, z, worldIn);
+        super(EXPLOSIVE_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
     }
 
     @Override
     protected ItemStack getPickupItem() {
 
-        return new ItemStack(EXPLOSIVE_ARROW_ITEM);
+        return new ItemStack(EXPLOSIVE_ARROW_ITEM.get());
     }
 
     @Override
@@ -142,11 +144,11 @@ public class ExplosiveArrow extends AbstractArrow {
             knockbackBoost = cfgKnockbackBoost.get();
         }
 
-        private ForgeConfigSpec.DoubleValue cfgDamage;
-        private ForgeConfigSpec.DoubleValue cfgExplosiveStrength;
-        private ForgeConfigSpec.BooleanValue cfgBreakBlocks;
-        private ForgeConfigSpec.BooleanValue cfgCauseFire;
-        private ForgeConfigSpec.BooleanValue cfgKnockbackBoost;
+        private Supplier<Double> cfgDamage;
+        private Supplier<Double> cfgExplosiveStrength;
+        private Supplier<Boolean> cfgBreakBlocks;
+        private Supplier<Boolean> cfgCauseFire;
+        private Supplier<Boolean> cfgKnockbackBoost;
     };
     // endregion
 }

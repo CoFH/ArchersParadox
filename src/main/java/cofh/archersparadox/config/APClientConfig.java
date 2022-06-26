@@ -1,7 +1,9 @@
 package cofh.archersparadox.config;
 
-import cofh.lib.config.IBaseConfig;
+import cofh.core.config.IBaseConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
+
+import java.util.function.Supplier;
 
 public class APClientConfig implements IBaseConfig {
 
@@ -19,6 +21,6 @@ public class APClientConfig implements IBaseConfig {
     }
 
     // region VARIABLES
-    public static ForgeConfigSpec.BooleanValue enableCreativeTab;
+    public static Supplier<Boolean> enableCreativeTab;
     // endregion
 }

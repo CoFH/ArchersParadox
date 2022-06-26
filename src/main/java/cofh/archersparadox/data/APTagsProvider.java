@@ -6,8 +6,9 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static cofh.archersparadox.init.APReferences.*;
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.archersparadox.ArchersParadox.ITEMS;
+import static cofh.archersparadox.init.APIDs.*;
+import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 public class APTagsProvider {
 
@@ -48,21 +49,21 @@ public class APTagsProvider {
         protected void addTags() {
 
             tag(ItemTags.ARROWS).add(
-                    EXPLOSIVE_ARROW_ITEM,
-                    QUARTZ_ARROW_ITEM,
-                    DIAMOND_ARROW_ITEM,
-                    PRISMARINE_ARROW_ITEM,
-                    SLIME_ARROW_ITEM,
-                    ENDER_ARROW_ITEM,
-                    TRAINING_ARROW_ITEM,
-                    CHALLENGE_ARROW_ITEM,
-                    PHANTASMAL_ARROW_ITEM,
-                    SHULKER_ARROW_ITEM,
-                    BLAZE_ARROW_ITEM,
-                    FROST_ARROW_ITEM,
-                    LIGHTNING_ARROW_ITEM,
-                    VERDANT_ARROW_ITEM,
-                    SPORE_ARROW_ITEM
+                    ITEMS.get(ID_EXPLOSIVE_ARROW),
+                    ITEMS.get(ID_QUARTZ_ARROW),
+                    ITEMS.get(ID_DIAMOND_ARROW),
+                    ITEMS.get(ID_PRISMARINE_ARROW),
+                    ITEMS.get(ID_SLIME_ARROW),
+                    ITEMS.get(ID_ENDER_ARROW),
+                    ITEMS.get(ID_TRAINING_ARROW),
+                    ITEMS.get(ID_CHALLENGE_ARROW),
+                    ITEMS.get(ID_PHANTASMAL_ARROW),
+                    ITEMS.get(ID_SHULKER_ARROW),
+                    ITEMS.get(ID_BLAZE_ARROW),
+                    ITEMS.get(ID_FROST_ARROW),
+                    ITEMS.get(ID_LIGHTNING_ARROW),
+                    ITEMS.get(ID_VERDANT_ARROW),
+                    ITEMS.get(ID_SPORE_ARROW)
             );
         }
 

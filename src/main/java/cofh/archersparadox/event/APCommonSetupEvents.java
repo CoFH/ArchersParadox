@@ -4,7 +4,7 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 @Mod.EventBusSubscriber (modid = ID_ARCHERS_PARADOX)
 public class APCommonSetupEvents {

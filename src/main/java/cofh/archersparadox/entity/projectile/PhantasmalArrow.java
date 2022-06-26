@@ -1,6 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.lib.item.ArrowItemCoFH;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -18,8 +18,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.PHANTASMAL_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.PHANTASMAL_ARROW_ITEM;
+import static cofh.archersparadox.init.APEntities.PHANTASMAL_ARROW;
+import static cofh.archersparadox.init.APItems.PHANTASMAL_ARROW_ITEM;
 
 public class PhantasmalArrow extends AbstractArrow {
 
@@ -42,7 +42,7 @@ public class PhantasmalArrow extends AbstractArrow {
 
     public PhantasmalArrow(Level worldIn, LivingEntity shooter) {
 
-        super(PHANTASMAL_ARROW_ENTITY, shooter, worldIn);
+        super(PHANTASMAL_ARROW.get(), shooter, worldIn);
         setGlowingTag(GLOWING);
         setNoGravity(NO_GRAVITY);
         setPierceLevel(PIERCE);
@@ -50,7 +50,7 @@ public class PhantasmalArrow extends AbstractArrow {
 
     public PhantasmalArrow(Level worldIn, double x, double y, double z) {
 
-        super(PHANTASMAL_ARROW_ENTITY, x, y, z, worldIn);
+        super(PHANTASMAL_ARROW.get(), x, y, z, worldIn);
         setGlowingTag(GLOWING);
         setNoGravity(NO_GRAVITY);
         setPierceLevel(PIERCE);
@@ -59,7 +59,7 @@ public class PhantasmalArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return new ItemStack(PHANTASMAL_ARROW_ITEM);
+        return new ItemStack(PHANTASMAL_ARROW_ITEM.get());
     }
 
     @Override
@@ -104,7 +104,7 @@ public class PhantasmalArrow extends AbstractArrow {
         // The underlying Projectile and Entity tick() calls - we do NOT want to call super.tick().
         {
             if (!this.hasBeenShot) {
-                this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner(), this.blockPosition());
+                this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
                 this.hasBeenShot = true;
             }
             if (!this.leftOwner) {

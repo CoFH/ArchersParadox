@@ -1,7 +1,7 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.config.IBaseConfig;
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.core.config.IBaseConfig;
+import cofh.lib.item.ArrowItemCoFH;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
@@ -25,8 +25,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.PRISMARINE_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.PRISMARINE_ARROW_ITEM;
+import java.util.function.Supplier;
+
+import static cofh.archersparadox.init.APEntities.PRISMARINE_ARROW;
+import static cofh.archersparadox.init.APItems.PRISMARINE_ARROW_ITEM;
 
 public class PrismarineArrow extends AbstractArrow {
 
@@ -44,7 +46,7 @@ public class PrismarineArrow extends AbstractArrow {
 
     public PrismarineArrow(Level worldIn, LivingEntity shooter) {
 
-        super(PRISMARINE_ARROW_ENTITY, shooter, worldIn);
+        super(PRISMARINE_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -52,7 +54,7 @@ public class PrismarineArrow extends AbstractArrow {
 
     public PrismarineArrow(Level worldIn, double x, double y, double z) {
 
-        super(PRISMARINE_ARROW_ENTITY, x, y, z, worldIn);
+        super(PRISMARINE_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -61,7 +63,7 @@ public class PrismarineArrow extends AbstractArrow {
     @Override
     public ItemStack getPickupItem() {
 
-        return new ItemStack(PRISMARINE_ARROW_ITEM);
+        return new ItemStack(PRISMARINE_ARROW_ITEM.get());
     }
 
     @Override
@@ -88,7 +90,7 @@ public class PrismarineArrow extends AbstractArrow {
         // The underlying Projectile and Entity tick() calls - we do NOT want to call super.tick().
         {
             if (!this.hasBeenShot) {
-                this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner(), this.blockPosition());
+                this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
                 this.hasBeenShot = true;
             }
             if (!this.leftOwner) {
@@ -256,9 +258,9 @@ public class PrismarineArrow extends AbstractArrow {
             defaultPierce = cfgPierce.get().byteValue();
         }
 
-        private ForgeConfigSpec.DoubleValue cfgDamage;
-        private ForgeConfigSpec.IntValue cfgKnockback;
-        private ForgeConfigSpec.IntValue cfgPierce;
+        private Supplier<Double> cfgDamage;
+        private Supplier<Integer> cfgKnockback;
+        private Supplier<Integer> cfgPierce;
     };
     // endregion
 }

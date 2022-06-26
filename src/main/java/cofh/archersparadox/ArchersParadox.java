@@ -6,7 +6,7 @@ import cofh.archersparadox.entity.projectile.*;
 import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
-import cofh.lib.config.ConfigManager;
+import cofh.core.config.ConfigManager;
 import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -25,9 +25,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static cofh.archersparadox.init.APEntities.*;
 import static cofh.archersparadox.init.APIDs.ID_PRISMARINE_ARROW;
-import static cofh.archersparadox.init.APReferences.*;
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 @Mod (ID_ARCHERS_PARADOX)
 public class ArchersParadox {
@@ -39,7 +39,7 @@ public class ArchersParadox {
 
     public static final DeferredRegisterCoFH<MenuType<?>> CONTAINERS = DeferredRegisterCoFH.create(ForgeRegistries.CONTAINERS, ID_ARCHERS_PARADOX);
     public static final DeferredRegisterCoFH<MobEffect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.MOB_EFFECTS, ID_ARCHERS_PARADOX);
-    public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITIES, ID_ARCHERS_PARADOX).preventDataFixers(true);
+    public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITIES, ID_ARCHERS_PARADOX);
 
     public static CreativeModeTab itemGroup;
 
@@ -80,21 +80,21 @@ public class ArchersParadox {
     // region INITIALIZATION
     private void entityRendererSetup(final EntityRenderersEvent.RegisterRenderers event) {
 
-        event.registerEntityRenderer(EXPLOSIVE_ARROW_ENTITY, ExplosiveArrowRenderer::new);
-        event.registerEntityRenderer(QUARTZ_ARROW_ENTITY, QuartzArrowRenderer::new);
-        event.registerEntityRenderer(DIAMOND_ARROW_ENTITY, DiamondArrowRenderer::new);
-        event.registerEntityRenderer(PRISMARINE_ARROW_ENTITY, PrismarineArrowRenderer::new);
-        event.registerEntityRenderer(SLIME_ARROW_ENTITY, SlimeArrowRenderer::new);
-        event.registerEntityRenderer(ENDER_ARROW_ENTITY, EnderArrowRenderer::new);
-        event.registerEntityRenderer(TRAINING_ARROW_ENTITY, TrainingArrowRenderer::new);
-        event.registerEntityRenderer(CHALLENGE_ARROW_ENTITY, ChallengeArrowRenderer::new);
-        event.registerEntityRenderer(PHANTASMAL_ARROW_ENTITY, PhantasmalArrowRenderer::new);
-        event.registerEntityRenderer(SHULKER_ARROW_ENTITY, ShulkerArrowRenderer::new);
-        event.registerEntityRenderer(BLAZE_ARROW_ENTITY, BlazeArrowRenderer::new);
-        event.registerEntityRenderer(FROST_ARROW_ENTITY, FrostArrowRenderer::new);
-        event.registerEntityRenderer(LIGHTNING_ARROW_ENTITY, LightningArrowRenderer::new);
-        event.registerEntityRenderer(VERDANT_ARROW_ENTITY, VerdantArrowRenderer::new);
-        event.registerEntityRenderer(SPORE_ARROW_ENTITY, SporeArrowRenderer::new);
+        event.registerEntityRenderer(EXPLOSIVE_ARROW.get(), ExplosiveArrowRenderer::new);
+        event.registerEntityRenderer(QUARTZ_ARROW.get(), QuartzArrowRenderer::new);
+        event.registerEntityRenderer(DIAMOND_ARROW.get(), DiamondArrowRenderer::new);
+        event.registerEntityRenderer(PRISMARINE_ARROW.get(), PrismarineArrowRenderer::new);
+        event.registerEntityRenderer(SLIME_ARROW.get(), SlimeArrowRenderer::new);
+        event.registerEntityRenderer(ENDER_ARROW.get(), EnderArrowRenderer::new);
+        event.registerEntityRenderer(TRAINING_ARROW.get(), TrainingArrowRenderer::new);
+        event.registerEntityRenderer(CHALLENGE_ARROW.get(), ChallengeArrowRenderer::new);
+        event.registerEntityRenderer(PHANTASMAL_ARROW.get(), PhantasmalArrowRenderer::new);
+        event.registerEntityRenderer(SHULKER_ARROW.get(), ShulkerArrowRenderer::new);
+        event.registerEntityRenderer(BLAZE_ARROW.get(), BlazeArrowRenderer::new);
+        event.registerEntityRenderer(FROST_ARROW.get(), FrostArrowRenderer::new);
+        event.registerEntityRenderer(LIGHTNING_ARROW.get(), LightningArrowRenderer::new);
+        event.registerEntityRenderer(VERDANT_ARROW.get(), VerdantArrowRenderer::new);
+        event.registerEntityRenderer(SPORE_ARROW.get(), SporeArrowRenderer::new);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
@@ -114,7 +114,7 @@ public class ArchersParadox {
                 itemGroup = CreativeModeTab.TAB_COMBAT;
             }
         });
-        // event.enqueueWork(() -> MenuScreens.register(QUIVER_CONTAINER, QuiverScreen::new));
+        // event.enqueueWork(() -> MenuScreens.register(QUIVER_CONTAINER.get(), QuiverScreen::new));
     }
     // endregion
 }

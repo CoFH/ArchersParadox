@@ -1,6 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.lib.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvents;
@@ -17,7 +17,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.*;
+import static cofh.archersparadox.init.APEffects.*;
+import static cofh.archersparadox.init.APEntities.CHALLENGE_ARROW;
+import static cofh.archersparadox.init.APItems.CHALLENGE_ARROW_ITEM;
+import static cofh.archersparadox.init.APItems.TRAINING_ARROW_ITEM;
 
 public class ChallengeArrow extends AbstractArrow {
 
@@ -38,14 +41,14 @@ public class ChallengeArrow extends AbstractArrow {
 
     public ChallengeArrow(Level worldIn, LivingEntity shooter) {
 
-        super(CHALLENGE_ARROW_ENTITY, shooter, worldIn);
+        super(CHALLENGE_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         this.origin = shooter.position();
     }
 
     public ChallengeArrow(Level worldIn, double x, double y, double z) {
 
-        super(CHALLENGE_ARROW_ENTITY, x, y, z, worldIn);
+        super(CHALLENGE_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         this.origin = new Vec3(x, y, z);
     }
@@ -53,7 +56,7 @@ public class ChallengeArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return discharged ? new ItemStack(TRAINING_ARROW_ITEM) : new ItemStack(CHALLENGE_ARROW_ITEM);
+        return discharged ? new ItemStack(TRAINING_ARROW_ITEM.get()) : new ItemStack(CHALLENGE_ARROW_ITEM.get());
     }
 
     @Override
@@ -61,12 +64,12 @@ public class ChallengeArrow extends AbstractArrow {
 
         if (raytraceResultIn.getType() == HitResult.Type.BLOCK) {
             if (getOwner() instanceof Player shooter && !Utils.isFakePlayer(getOwner())) {
-                if (shooter.hasEffect(CHALLENGE_STREAK)) {
-                    MobEffectInstance effect = shooter.getEffect(CHALLENGE_STREAK);
+                if (shooter.hasEffect(CHALLENGE_STREAK.get())) {
+                    MobEffectInstance effect = shooter.getEffect(CHALLENGE_STREAK.get());
                     shooter.onEffectRemoved(effect);
-                    shooter.removeEffectNoUpdate(CHALLENGE_STREAK);
+                    shooter.removeEffectNoUpdate(CHALLENGE_STREAK.get());
 
-                    shooter.addEffect(new MobEffectInstance(CHALLENGE_MISS, MISS_DURATION, 0, false, false));
+                    shooter.addEffect(new MobEffectInstance(CHALLENGE_MISS.get(), MISS_DURATION, 0, false, false));
                     shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.GLASS_BREAK, shooter.getSoundSource(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
             }
@@ -80,17 +83,17 @@ public class ChallengeArrow extends AbstractArrow {
         Entity entity = raytraceResultIn.getEntity();
         if (entity instanceof LivingEntity target) {
             if (getOwner() instanceof Player shooter && !Utils.isFakePlayer(getOwner())) {
-                if (shooter != target && !shooter.hasEffect(CHALLENGE_MISS) && !shooter.hasEffect(CHALLENGE_COMPLETE)) {
+                if (shooter != target && !shooter.hasEffect(CHALLENGE_MISS.get()) && !shooter.hasEffect(CHALLENGE_COMPLETE.get())) {
                     int challengeCount = 0;
-                    if (shooter.hasEffect(CHALLENGE_STREAK)) {
-                        challengeCount = shooter.getEffect(CHALLENGE_STREAK).getAmplifier() + 1;
+                    if (shooter.hasEffect(CHALLENGE_STREAK.get())) {
+                        challengeCount = shooter.getEffect(CHALLENGE_STREAK.get()).getAmplifier() + 1;
                     }
                     Vec3 originVec = origin == null ? shooter.position() : origin;
                     double distance = originVec.distanceTo(this.position());
 
                     if (distance >= Math.min(MAX_DISTANCE, challengeCount)) {
                         int distanceBonus = (int) (DISTANCE_FACTOR * distance);
-                        shooter.addEffect(new MobEffectInstance(CHALLENGE_STREAK, DURATION + distanceBonus, challengeCount, false, false));
+                        shooter.addEffect(new MobEffectInstance(CHALLENGE_STREAK.get(), DURATION + distanceBonus, challengeCount, false, false));
                         shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME, 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
                         shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME, shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
                         discharged = true;

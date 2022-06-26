@@ -1,7 +1,7 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.config.IBaseConfig;
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.core.config.IBaseConfig;
+import cofh.lib.item.ArrowItemCoFH;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,8 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.QUARTZ_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.QUARTZ_ARROW_ITEM;
+import java.util.function.Supplier;
+
+import static cofh.archersparadox.init.APEntities.QUARTZ_ARROW;
+import static cofh.archersparadox.init.APItems.QUARTZ_ARROW_ITEM;
 
 public class QuartzArrow extends AbstractArrow {
 
@@ -30,7 +32,7 @@ public class QuartzArrow extends AbstractArrow {
 
     public QuartzArrow(Level worldIn, LivingEntity shooter) {
 
-        super(QUARTZ_ARROW_ENTITY, shooter, worldIn);
+        super(QUARTZ_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -38,7 +40,7 @@ public class QuartzArrow extends AbstractArrow {
 
     public QuartzArrow(Level worldIn, double x, double y, double z) {
 
-        super(QUARTZ_ARROW_ENTITY, x, y, z, worldIn);
+        super(QUARTZ_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -47,7 +49,7 @@ public class QuartzArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return new ItemStack(QUARTZ_ARROW_ITEM);
+        return new ItemStack(QUARTZ_ARROW_ITEM.get());
     }
 
     @Override
@@ -114,9 +116,9 @@ public class QuartzArrow extends AbstractArrow {
             defaultPierce = cfgPierce.get().byteValue();
         }
 
-        private ForgeConfigSpec.DoubleValue cfgDamage;
-        private ForgeConfigSpec.IntValue cfgKnockback;
-        private ForgeConfigSpec.IntValue cfgPierce;
+        private Supplier<Double> cfgDamage;
+        private Supplier<Integer> cfgKnockback;
+        private Supplier<Integer> cfgPierce;
     };
     // endregion
 }
