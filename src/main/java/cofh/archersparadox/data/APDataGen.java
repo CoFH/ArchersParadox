@@ -31,6 +31,7 @@ public class APDataGen {
 
         gen.addProvider(blockTags);
         gen.addProvider(new APTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(new APTagsProvider.Entity(gen, exFileHelper));
 
         gen.addProvider(new APRecipeProvider(gen));
     }

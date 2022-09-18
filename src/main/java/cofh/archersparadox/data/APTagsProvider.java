@@ -2,7 +2,9 @@ package cofh.archersparadox.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -63,6 +65,43 @@ public class APTagsProvider {
                     LIGHTNING_ARROW_ITEM,
                     VERDANT_ARROW_ITEM,
                     SPORE_ARROW_ITEM
+            );
+        }
+
+    }
+
+    public static class Entity extends EntityTypeTagsProvider {
+
+        public Entity(DataGenerator gen, ExistingFileHelper existingFileHelper) {
+
+            super(gen, ID_ARCHERS_PARADOX, existingFileHelper);
+        }
+
+        @Override
+        public String getName() {
+
+            return "Archer's Paradox: Entity Type Tags";
+        }
+
+        @Override
+        protected void addTags() {
+
+            tag(EntityTypeTags.ARROWS).add(
+                    EXPLOSIVE_ARROW_ENTITY,
+                    QUARTZ_ARROW_ENTITY,
+                    DIAMOND_ARROW_ENTITY,
+                    PRISMARINE_ARROW_ENTITY,
+                    SLIME_ARROW_ENTITY,
+                    ENDER_ARROW_ENTITY,
+                    TRAINING_ARROW_ENTITY,
+                    CHALLENGE_ARROW_ENTITY,
+                    PHANTASMAL_ARROW_ENTITY,
+                    SHULKER_ARROW_ENTITY,
+                    BLAZE_ARROW_ENTITY,
+                    FROST_ARROW_ENTITY,
+                    LIGHTNING_ARROW_ENTITY,
+                    VERDANT_ARROW_ENTITY,
+                    SPORE_ARROW_ENTITY
             );
         }
 
