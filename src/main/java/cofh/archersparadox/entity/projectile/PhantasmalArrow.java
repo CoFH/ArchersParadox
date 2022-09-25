@@ -1,6 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.lib.item.ArrowItemCoFH;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;

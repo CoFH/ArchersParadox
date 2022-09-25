@@ -4,7 +4,7 @@ import cofh.archersparadox.ArchersParadox;
 import cofh.archersparadox.entity.projectile.*;
 import cofh.archersparadox.inventory.container.QuiverContainer;
 import cofh.core.util.ProxyUtils;
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.lib.item.ArrowItemCoFH;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;

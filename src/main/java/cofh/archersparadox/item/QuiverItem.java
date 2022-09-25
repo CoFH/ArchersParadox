@@ -1,14 +1,14 @@
 package cofh.archersparadox.item;
 
 import cofh.archersparadox.inventory.container.QuiverContainer;
+import cofh.core.capability.CapabilityArchery;
+import cofh.core.item.IMultiModeItem;
 import cofh.core.item.InventoryContainerItem;
 import cofh.core.util.helpers.ChatHelper;
-import cofh.lib.capability.CapabilityArchery;
-import cofh.lib.capability.IArcheryAmmoItem;
+import cofh.lib.api.capability.IArcheryAmmoItem;
+import cofh.lib.api.item.IColorableItem;
 import cofh.lib.inventory.ItemStorageCoFH;
 import cofh.lib.inventory.SimpleItemInv;
-import cofh.lib.item.IColorableItem;
-import cofh.lib.item.IMultiModeItem;
 import cofh.lib.util.Utils;
 import cofh.lib.util.helpers.SecurityHelper;
 import net.minecraft.core.Direction;

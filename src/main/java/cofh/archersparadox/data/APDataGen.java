@@ -6,7 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 @Mod.EventBusSubscriber (bus = Mod.EventBusSubscriber.Bus.MOD, modid = ID_ARCHERS_PARADOX)
 public class APDataGen {

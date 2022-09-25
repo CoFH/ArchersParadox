@@ -27,7 +27,7 @@ import org.apache.logging.log4j.Logger;
 
 import static cofh.archersparadox.init.APIDs.ID_PRISMARINE_ARROW;
 import static cofh.archersparadox.init.APReferences.*;
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 @Mod (ID_ARCHERS_PARADOX)
 public class ArchersParadox {

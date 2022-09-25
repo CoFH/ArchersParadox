@@ -1,8 +1,8 @@
 package cofh.archersparadox.inventory.container;
 
-import cofh.lib.inventory.IInventoryContainerItem;
+import cofh.core.inventory.container.ContainerCoFH;
+import cofh.lib.api.item.IInventoryContainerItem;
 import cofh.lib.inventory.SimpleItemInv;
-import cofh.lib.inventory.container.ContainerCoFH;
 import cofh.lib.inventory.container.slot.SlotCoFH;
 import cofh.lib.inventory.container.slot.SlotLocked;
 import cofh.lib.inventory.wrapper.InvWrapperCoFH;

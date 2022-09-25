@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 import static cofh.archersparadox.ArchersParadox.ITEMS;
 import static cofh.archersparadox.init.APIDs.*;
-import static cofh.lib.util.constants.Constants.ID_ARCHERS_PARADOX;
+import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 public class APRecipeProvider extends RecipeProviderCoFH {
 

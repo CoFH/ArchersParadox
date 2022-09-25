@@ -1,7 +1,7 @@
 package cofh.archersparadox.entity.projectile;
 
 import cofh.lib.config.IBaseConfig;
-import cofh.lib.item.impl.ArrowItemCoFH;
+import cofh.lib.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
