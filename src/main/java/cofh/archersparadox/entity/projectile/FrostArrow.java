@@ -34,9 +34,9 @@ import net.minecraftforge.network.NetworkHooks;
 
 import static cofh.archersparadox.init.APReferences.FROST_ARROW_ENTITY;
 import static cofh.archersparadox.init.APReferences.FROST_ARROW_ITEM;
+import static cofh.core.util.references.CoreReferences.CHILLED;
+import static cofh.core.util.references.CoreReferences.FROST_PARTICLE;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
-import static cofh.lib.util.references.CoreReferences.CHILLED;
-import static cofh.lib.util.references.CoreReferences.FROST_PARTICLE;
 
 public class FrostArrow extends AbstractArrow {
 
