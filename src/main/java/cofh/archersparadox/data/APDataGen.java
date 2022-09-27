@@ -21,6 +21,7 @@ public class APDataGen {
 
         gen.addProvider(event.includeServer(), blockTags);
         gen.addProvider(event.includeServer(), new APTagsProvider.Item(gen, blockTags, exFileHelper));
+        gen.addProvider(event.includeServer(), new APTagsProvider.Entity(gen, exFileHelper));
 
         gen.addProvider(event.includeServer(), new APRecipeProvider(gen));
 
