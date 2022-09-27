@@ -1,6 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.config.IBaseConfig;
+import cofh.core.config.IBaseConfig;
 import cofh.lib.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,8 +20,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.SLIME_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.SLIME_ARROW_ITEM;
+import java.util.function.Supplier;
+
+import static cofh.archersparadox.init.APEntities.SLIME_ARROW;
+import static cofh.archersparadox.init.APItems.SLIME_ARROW_ITEM;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class SlimeArrow extends AbstractArrow {
@@ -46,14 +48,14 @@ public class SlimeArrow extends AbstractArrow {
 
     public SlimeArrow(Level worldIn, LivingEntity shooter) {
 
-        super(SLIME_ARROW_ENTITY, shooter, worldIn);
+        super(SLIME_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
     }
 
     public SlimeArrow(Level worldIn, double x, double y, double z) {
 
-        super(SLIME_ARROW_ENTITY, x, y, z, worldIn);
+        super(SLIME_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
     }
@@ -61,7 +63,7 @@ public class SlimeArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return new ItemStack(SLIME_ARROW_ITEM);
+        return new ItemStack(SLIME_ARROW_ITEM.get());
     }
 
     @Override
@@ -213,10 +215,10 @@ public class SlimeArrow extends AbstractArrow {
             knockbackBoost = cfgKnockbackBoost.get();
         }
 
-        private ForgeConfigSpec.DoubleValue cfgDamage;
-        private ForgeConfigSpec.IntValue cfgKnockback;
-        private ForgeConfigSpec.IntValue cfgBounces;
-        private ForgeConfigSpec.BooleanValue cfgKnockbackBoost;
+        private Supplier<Double> cfgDamage;
+        private Supplier<Integer> cfgKnockback;
+        private Supplier<Integer> cfgBounces;
+        private Supplier<Boolean> cfgKnockbackBoost;
     };
     // endregion
 }

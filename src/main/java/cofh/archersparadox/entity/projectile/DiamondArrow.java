@@ -1,6 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
-import cofh.lib.config.IBaseConfig;
+import cofh.core.config.IBaseConfig;
 import cofh.lib.item.ArrowItemCoFH;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.entity.EntityType;
@@ -11,8 +11,10 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.DIAMOND_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.DIAMOND_ARROW_ITEM;
+import java.util.function.Supplier;
+
+import static cofh.archersparadox.init.APEntities.DIAMOND_ARROW;
+import static cofh.archersparadox.init.APItems.DIAMOND_ARROW_ITEM;
 
 public class DiamondArrow extends AbstractArrow {
 
@@ -30,7 +32,7 @@ public class DiamondArrow extends AbstractArrow {
 
     public DiamondArrow(Level worldIn, LivingEntity shooter) {
 
-        super(DIAMOND_ARROW_ENTITY, shooter, worldIn);
+        super(DIAMOND_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -38,7 +40,7 @@ public class DiamondArrow extends AbstractArrow {
 
     public DiamondArrow(Level worldIn, double x, double y, double z) {
 
-        super(DIAMOND_ARROW_ENTITY, x, y, z, worldIn);
+        super(DIAMOND_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -47,7 +49,7 @@ public class DiamondArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return new ItemStack(DIAMOND_ARROW_ITEM);
+        return new ItemStack(DIAMOND_ARROW_ITEM.get());
     }
 
     @Override
@@ -114,9 +116,9 @@ public class DiamondArrow extends AbstractArrow {
             defaultPierce = cfgPierce.get().byteValue();
         }
 
-        private ForgeConfigSpec.DoubleValue cfgDamage;
-        private ForgeConfigSpec.IntValue cfgKnockback;
-        private ForgeConfigSpec.IntValue cfgPierce;
+        private Supplier<Double> cfgDamage;
+        private Supplier<Integer> cfgKnockback;
+        private Supplier<Integer> cfgPierce;
     };
     // endregion
 }

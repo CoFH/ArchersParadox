@@ -1,11 +1,12 @@
 package cofh.archersparadox.entity.projectile;
 
+import cofh.core.config.IBaseConfig;
 import cofh.core.util.AreaUtils;
-import cofh.lib.config.IBaseConfig;
 import cofh.lib.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.util.Mth;
@@ -32,10 +33,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.FROST_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.FROST_ARROW_ITEM;
-import static cofh.core.util.references.CoreReferences.CHILLED;
-import static cofh.core.util.references.CoreReferences.FROST_PARTICLE;
+import java.util.function.Supplier;
+
+import static cofh.archersparadox.init.APEntities.FROST_ARROW;
+import static cofh.archersparadox.init.APItems.FROST_ARROW_ITEM;
+import static cofh.core.init.CoreMobEffects.CHILLED;
+import static cofh.core.init.CoreParticles.FROST;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class FrostArrow extends AbstractArrow {
@@ -59,20 +62,20 @@ public class FrostArrow extends AbstractArrow {
 
     public FrostArrow(Level worldIn, LivingEntity shooter) {
 
-        super(FROST_ARROW_ENTITY, shooter, worldIn);
+        super(FROST_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
     }
 
     public FrostArrow(Level worldIn, double x, double y, double z) {
 
-        super(FROST_ARROW_ENTITY, x, y, z, worldIn);
+        super(FROST_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
     }
 
     @Override
     protected ItemStack getPickupItem() {
 
-        return discharged ? new ItemStack(Items.ARROW) : new ItemStack(FROST_ARROW_ITEM);
+        return discharged ? new ItemStack(Items.ARROW) : new ItemStack(FROST_ARROW_ITEM.get());
     }
 
     @Override
@@ -109,7 +112,7 @@ public class FrostArrow extends AbstractArrow {
         }
         if (!entity.isInvulnerable() && entity instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entity;
-            living.addEffect(new MobEffectInstance(CHILLED, effectDuration, effectAmplifier, false, false));
+            living.addEffect(new MobEffectInstance(CHILLED.get(), effectDuration, effectAmplifier, false, false));
         }
     }
 
@@ -142,7 +145,7 @@ public class FrostArrow extends AbstractArrow {
         // The underlying Projectile and Entity tick() calls - we do NOT want to call super.tick().
         {
             if (!this.hasBeenShot) {
-                this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner(), this.blockPosition());
+                this.gameEvent(GameEvent.PROJECTILE_SHOOT, this.getOwner());
                 this.hasBeenShot = true;
             }
             if (!this.leftOwner) {
@@ -221,7 +224,7 @@ public class FrostArrow extends AbstractArrow {
             double d6 = vec3.y;
             double d1 = vec3.z;
 
-            this.level.addParticle(FROST_PARTICLE, this.getX() + d5 * 0.25D, this.getY() + d6 * 0.25D, this.getZ() + d1 * 0.25D, -d5, -d6 + 0.2D, -d1);
+            this.level.addParticle((SimpleParticleType) FROST.get(), this.getX() + d5 * 0.25D, this.getY() + d6 * 0.25D, this.getZ() + d1 * 0.25D, -d5, -d6 + 0.2D, -d1);
 
             double d7 = this.getX() + d5;
             double d2 = this.getY() + d6;
@@ -277,7 +280,7 @@ public class FrostArrow extends AbstractArrow {
 
         AreaEffectCloud cloud = new AreaEffectCloud(level, getX(), getY(), getZ());
         cloud.setRadius(1);
-        cloud.setParticle(FROST_PARTICLE);
+        cloud.setParticle((SimpleParticleType) FROST.get());
         cloud.setDuration(CLOUD_DURATION);
         cloud.setWaitTime(0);
         cloud.setRadiusPerTick((effectRadius - cloud.getRadius()) / (float) cloud.getDuration());
@@ -341,12 +344,12 @@ public class FrostArrow extends AbstractArrow {
             permanentWater = cfgPermanentWater.get();
         }
 
-        private ForgeConfigSpec.DoubleValue cfgDamage;
-        private ForgeConfigSpec.IntValue cfgDuration;
-        private ForgeConfigSpec.IntValue cfgRadius;
+        private Supplier<Double> cfgDamage;
+        private Supplier<Integer> cfgDuration;
+        private Supplier<Integer> cfgRadius;
 
-        private ForgeConfigSpec.BooleanValue cfgPermanentLava;
-        private ForgeConfigSpec.BooleanValue cfgPermanentWater;
+        private Supplier<Boolean> cfgPermanentLava;
+        private Supplier<Boolean> cfgPermanentWater;
     };
     // endregion
 }

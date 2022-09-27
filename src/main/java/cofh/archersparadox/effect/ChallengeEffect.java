@@ -1,15 +1,15 @@
 package cofh.archersparadox.effect;
 
-import cofh.lib.effect.EffectCoFH;
+import cofh.lib.effect.MobEffectCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-import static cofh.archersparadox.init.APReferences.CHALLENGE_COMPLETE;
+import static cofh.archersparadox.init.APEffects.CHALLENGE_COMPLETE;
 
-public class ChallengeEffect extends EffectCoFH {
+public class ChallengeEffect extends MobEffectCoFH {
 
     public static int maxExperience = 500;
 
@@ -28,7 +28,7 @@ public class ChallengeEffect extends EffectCoFH {
             if (Utils.isServerWorld(entityLivingBaseIn.level)) {
                 player.giveExperiencePoints(Math.min(level * level + level, maxExperience));
             }
-            player.addEffect(new MobEffectInstance(CHALLENGE_COMPLETE, 960 * level, 0, false, false));
+            player.addEffect(new MobEffectInstance(CHALLENGE_COMPLETE.get(), 960 * level, 0, false, false));
         }
     }
 

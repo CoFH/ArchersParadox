@@ -1,6 +1,6 @@
 package cofh.archersparadox.config;
 
-import cofh.lib.config.IBaseConfig;
+import cofh.core.config.IBaseConfig;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 public class APClientConfig implements IBaseConfig {

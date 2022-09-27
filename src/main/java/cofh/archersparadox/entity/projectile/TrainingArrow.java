@@ -17,7 +17,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.*;
+import static cofh.archersparadox.init.APEffects.TRAINING_MISS;
+import static cofh.archersparadox.init.APEffects.TRAINING_STREAK;
+import static cofh.archersparadox.init.APEntities.TRAINING_ARROW;
+import static cofh.archersparadox.init.APItems.TRAINING_ARROW_ITEM;
 
 public class TrainingArrow extends AbstractArrow {
 
@@ -37,14 +40,14 @@ public class TrainingArrow extends AbstractArrow {
 
     public TrainingArrow(Level worldIn, LivingEntity shooter) {
 
-        super(TRAINING_ARROW_ENTITY, shooter, worldIn);
+        super(TRAINING_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         this.origin = shooter.position();
     }
 
     public TrainingArrow(Level worldIn, double x, double y, double z) {
 
-        super(TRAINING_ARROW_ENTITY, x, y, z, worldIn);
+        super(TRAINING_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         this.origin = new Vec3(x, y, z);
     }
@@ -52,7 +55,7 @@ public class TrainingArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return new ItemStack(TRAINING_ARROW_ITEM);
+        return new ItemStack(TRAINING_ARROW_ITEM.get());
     }
 
     @Override
@@ -60,16 +63,16 @@ public class TrainingArrow extends AbstractArrow {
 
         if (raytraceResultIn.getType() == HitResult.Type.BLOCK) {
             if (getOwner() instanceof Player shooter && !Utils.isFakePlayer(getOwner())) {
-                if (shooter.hasEffect(TRAINING_STREAK)) {
-                    MobEffectInstance effect = shooter.getEffect(TRAINING_STREAK);
+                if (shooter.hasEffect(TRAINING_STREAK.get())) {
+                    MobEffectInstance effect = shooter.getEffect(TRAINING_STREAK.get());
                     shooter.onEffectRemoved(effect);
-                    shooter.removeEffectNoUpdate(TRAINING_STREAK);
+                    shooter.removeEffectNoUpdate(TRAINING_STREAK.get());
 
                     Vec3 originVec = origin == null ? shooter.position() : origin;
                     double distance = originVec.distanceTo(this.position());
                     int distanceBonus = (int) (DISTANCE_FACTOR * distance);
 
-                    shooter.addEffect(new MobEffectInstance(TRAINING_MISS, Math.max(MIN_DURATION, DURATION - distanceBonus), 0, false, false));
+                    shooter.addEffect(new MobEffectInstance(TRAINING_MISS.get(), Math.max(MIN_DURATION, DURATION - distanceBonus), 0, false, false));
                     shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.GLASS_BREAK, shooter.getSoundSource(), 1.0F, 1.2F / (this.random.nextFloat() * 0.2F + 0.9F));
                 }
             }
@@ -83,17 +86,17 @@ public class TrainingArrow extends AbstractArrow {
         Entity entity = raytraceResultIn.getEntity();
         if (entity instanceof LivingEntity target) {
             if (getOwner() instanceof Player shooter && !Utils.isFakePlayer(getOwner())) {
-                if (shooter != target && !shooter.hasEffect(TRAINING_MISS)) {
+                if (shooter != target && !shooter.hasEffect(TRAINING_MISS.get())) {
                     int trainingCount = 0;
-                    if (shooter.hasEffect(TRAINING_STREAK)) {
-                        trainingCount = shooter.getEffect(TRAINING_STREAK).getAmplifier() + 1;
+                    if (shooter.hasEffect(TRAINING_STREAK.get())) {
+                        trainingCount = shooter.getEffect(TRAINING_STREAK.get()).getAmplifier() + 1;
                     }
                     Vec3 originVec = origin == null ? shooter.position() : origin;
                     double distance = originVec.distanceTo(this.position());
 
                     if (distance >= Math.min(MAX_DISTANCE, trainingCount)) {
                         int distanceBonus = (int) (DISTANCE_FACTOR * distance);
-                        shooter.addEffect(new MobEffectInstance(TRAINING_STREAK, DURATION + distanceBonus, trainingCount, false, false));
+                        shooter.addEffect(new MobEffectInstance(TRAINING_STREAK.get(), DURATION + distanceBonus, trainingCount, false, false));
                         shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME, 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
                         shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME, shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
                     }

@@ -14,8 +14,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.LIGHTNING_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.LIGHTNING_ARROW_ITEM;
+import static cofh.archersparadox.init.APEntities.LIGHTNING_ARROW;
+import static cofh.archersparadox.init.APItems.LIGHTNING_ARROW_ITEM;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class LightningArrow extends AbstractArrow {
@@ -32,20 +32,20 @@ public class LightningArrow extends AbstractArrow {
 
     public LightningArrow(Level worldIn, LivingEntity shooter) {
 
-        super(LIGHTNING_ARROW_ENTITY, shooter, worldIn);
+        super(LIGHTNING_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
     }
 
     public LightningArrow(Level worldIn, double x, double y, double z) {
 
-        super(LIGHTNING_ARROW_ENTITY, x, y, z, worldIn);
+        super(LIGHTNING_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
     }
 
     @Override
     protected ItemStack getPickupItem() {
 
-        return discharged ? new ItemStack(Items.ARROW) : new ItemStack(LIGHTNING_ARROW_ITEM);
+        return discharged ? new ItemStack(Items.ARROW) : new ItemStack(LIGHTNING_ARROW_ITEM.get());
     }
 
     @Override

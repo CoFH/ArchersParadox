@@ -19,9 +19,9 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APReferences.ENDER_ARROW_ENTITY;
-import static cofh.archersparadox.init.APReferences.ENDER_ARROW_ITEM;
-import static cofh.core.util.references.CoreReferences.ENDERFERENCE;
+import static cofh.archersparadox.init.APEntities.ENDER_ARROW;
+import static cofh.archersparadox.init.APItems.ENDER_ARROW_ITEM;
+import static cofh.core.init.CoreMobEffects.ENDERFERENCE;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class EnderArrow extends AbstractArrow {
@@ -41,14 +41,14 @@ public class EnderArrow extends AbstractArrow {
 
     public EnderArrow(Level worldIn, LivingEntity shooter) {
 
-        super(ENDER_ARROW_ENTITY, shooter, worldIn);
+        super(ENDER_ARROW.get(), shooter, worldIn);
         this.baseDamage = defaultDamage;
         this.origin = shooter.blockPosition();
     }
 
     public EnderArrow(Level worldIn, double x, double y, double z) {
 
-        super(ENDER_ARROW_ENTITY, x, y, z, worldIn);
+        super(ENDER_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
         this.origin = new BlockPos(x, y, z);
     }
@@ -56,7 +56,7 @@ public class EnderArrow extends AbstractArrow {
     @Override
     protected ItemStack getPickupItem() {
 
-        return discharged ? new ItemStack(Items.ARROW) : new ItemStack(ENDER_ARROW_ITEM);
+        return discharged ? new ItemStack(Items.ARROW) : new ItemStack(ENDER_ARROW_ITEM.get());
     }
 
     @Override
@@ -70,19 +70,19 @@ public class EnderArrow extends AbstractArrow {
             if (raytraceResultIn.getType() == HitResult.Type.BLOCK) {
                 Utils.teleportEntityTo(shooter, this.blockPosition());
                 if (shooter instanceof LivingEntity && !Utils.isFakePlayer(shooter)) {
-                    ((LivingEntity) shooter).addEffect(new MobEffectInstance(ENDERFERENCE, duration, 0, false, false));
+                    ((LivingEntity) shooter).addEffect(new MobEffectInstance(ENDERFERENCE.get(), duration, 0, false, false));
                 }
             }
             if (raytraceResultIn.getType() == HitResult.Type.ENTITY) {
                 BlockPos originPos = origin == null ? shooter.blockPosition() : origin;
                 Utils.teleportEntityTo(shooter, blockPosition());
                 if (shooter instanceof LivingEntity && !Utils.isFakePlayer(shooter)) {
-                    ((LivingEntity) shooter).addEffect(new MobEffectInstance(ENDERFERENCE, duration, 0, false, false));
+                    ((LivingEntity) shooter).addEffect(new MobEffectInstance(ENDERFERENCE.get(), duration, 0, false, false));
                 }
                 Entity entity = ((EntityHitResult) raytraceResultIn).getEntity();
                 if (entity instanceof LivingEntity && entity.canChangeDimensions()) {
                     Utils.teleportEntityTo(entity, originPos);
-                    ((LivingEntity) entity).addEffect(new MobEffectInstance(ENDERFERENCE, duration, 0, false, false));
+                    ((LivingEntity) entity).addEffect(new MobEffectInstance(ENDERFERENCE.get(), duration, 0, false, false));
                 }
             }
             discharged = true;
