@@ -1,11 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "Y#Z",
-    "#X#",
-    "Z#Y"
-  ],
   "key": {
+    "#": {
+      "item": "minecraft:arrow"
+    },
     "X": {
       "item": "minecraft:grass_block"
     },
@@ -14,13 +12,15 @@
     },
     "Z": {
       "tag": "minecraft:small_flowers"
-    },
-    "#": {
-      "item": "minecraft:arrow"
     }
   },
+  "pattern": [
+    "Y#Z",
+    "#X#",
+    "Z#Y"
+  ],
   "result": {
-    "item": "archers_paradox:verdant_arrow",
-    "count": 4
+    "count": 4,
+    "item": "archers_paradox:verdant_arrow"
   }
 }

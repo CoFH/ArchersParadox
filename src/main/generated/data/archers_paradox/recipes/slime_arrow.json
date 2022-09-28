@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:arrow"
+    },
+    "X": {
+      "tag": "forge:slimeballs"
+    }
+  },
   "pattern": [
     " # ",
     "#X#",
     " # "
   ],
-  "key": {
-    "X": {
-      "tag": "forge:slimeballs"
-    },
-    "#": {
-      "item": "minecraft:arrow"
-    }
-  },
   "result": {
-    "item": "archers_paradox:slime_arrow",
-    "count": 4
+    "count": 4,
+    "item": "archers_paradox:slime_arrow"
   }
 }

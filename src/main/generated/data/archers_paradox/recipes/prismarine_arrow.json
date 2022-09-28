@@ -1,23 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "X",
-    "#",
-    "Y"
-  ],
   "key": {
-    "X": {
-      "item": "minecraft:prismarine_shard"
-    },
     "#": {
       "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:prismarine_shard"
     },
     "Y": {
       "item": "minecraft:feather"
     }
   },
+  "pattern": [
+    "X",
+    "#",
+    "Y"
+  ],
   "result": {
-    "item": "archers_paradox:prismarine_arrow",
-    "count": 4
+    "count": 4,
+    "item": "archers_paradox:prismarine_arrow"
   }
 }
