@@ -58,7 +58,7 @@
 //    @Override
 //    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
 //
-//        if (!showInGroups.getAsBoolean() || displayGroup != null && displayGroup.get() != null && displayGroup.get() != group) {
+//        if (!showInGroups.get() || displayGroup != null && displayGroup.get() != null && displayGroup.get() != group) {
 //            return;
 //        }
 //        super.fillItemCategory(group, items);
