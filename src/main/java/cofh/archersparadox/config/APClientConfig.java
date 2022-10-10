@@ -5,6 +5,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.function.Supplier;
 
+import static cofh.lib.util.Constants.TRUE;
+
 public class APClientConfig implements IBaseConfig {
 
     @Override
@@ -21,6 +23,6 @@ public class APClientConfig implements IBaseConfig {
     }
 
     // region VARIABLES
-    public static Supplier<Boolean> enableCreativeTab = () -> true;
+    public static Supplier<Boolean> enableCreativeTab = TRUE;
     // endregion
 }
