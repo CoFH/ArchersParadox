@@ -1,5 +1,6 @@
 package cofh.archersparadox.entity.projectile;
 
+import cofh.core.config.IBaseConfig;
 import cofh.lib.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.BlockPos;
@@ -12,7 +13,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.network.NetworkHooks;
+
+import java.util.function.Supplier;
 
 import static cofh.archersparadox.init.APEntities.LIGHTNING_ARROW;
 import static cofh.archersparadox.init.APItems.LIGHTNING_ARROW_ITEM;
@@ -21,6 +25,7 @@ import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 public class LightningArrow extends AbstractArrow {
 
     public static float defaultDamage = 1.5F;
+    public static boolean requireSky = true;
 
     public boolean discharged;
 
@@ -55,7 +60,7 @@ public class LightningArrow extends AbstractArrow {
 
         if (Utils.isServerWorld(level) && !discharged && !isInWater() && !isInLava()) {
             BlockPos pos = this.blockPosition();
-            if (this.level.canSeeSky(pos)) {
+            if (!requireSky || this.level.canSeeSky(pos)) {
                 Utils.spawnLightningBolt(level, pos, getOwner());
                 discharged = true;
             }
@@ -112,6 +117,36 @@ public class LightningArrow extends AbstractArrow {
 
             return new LightningArrow(world, posX, posY, posZ);
         }
+    };
+    // endregion
+
+    // region CONFIG
+    public static final IBaseConfig CONFIG = new IBaseConfig() {
+
+        @Override
+        public void apply(ForgeConfigSpec.Builder builder) {
+
+            String name = "Lightning Arrow";
+
+            builder.push(name);
+            cfgDamage = builder
+                    .comment("Adjust this to set the damage for the " + name + ". Vanilla Arrow value is 2.0.")
+                    .defineInRange("Damage", defaultDamage, 0.0, 16.0);
+            cfgRequireSky = builder
+                    .comment("If TRUE, a lightning bolt requires a clear path to the sky.")
+                    .define("Require Sky", requireSky);
+            builder.pop();
+        }
+
+        @Override
+        public void refresh() {
+
+            defaultDamage = cfgDamage.get().floatValue();
+            requireSky = cfgRequireSky.get();
+        }
+
+        private Supplier<Double> cfgDamage;
+        private Supplier<Boolean> cfgRequireSky;
     };
     // endregion
 }
