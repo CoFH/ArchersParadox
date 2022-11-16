@@ -61,6 +61,7 @@ public class ArchersParadox {
                 .addServerConfig(ExplosiveArrow.CONFIG)
                 .addServerConfig(QuartzArrow.CONFIG)
                 .addServerConfig(DiamondArrow.CONFIG)
+                .addServerConfig(LightningArrow.CONFIG)
                 .addServerConfig(PrismarineArrow.CONFIG)
                 .addServerConfig(SlimeArrow.CONFIG)
                 .addServerConfig(ShulkerArrow.CONFIG)
