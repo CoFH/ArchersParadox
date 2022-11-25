@@ -1,7 +1,6 @@
 package cofh.archersparadox;
 
 import cofh.archersparadox.client.renderer.entity.*;
-import cofh.archersparadox.config.APClientConfig;
 import cofh.archersparadox.entity.projectile.*;
 import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
@@ -19,7 +18,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
@@ -41,14 +39,21 @@ public class ArchersParadox {
     public static final DeferredRegisterCoFH<MobEffect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.MOB_EFFECTS, ID_ARCHERS_PARADOX);
     public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITY_TYPES, ID_ARCHERS_PARADOX);
 
-    public static CreativeModeTab itemGroup;
+    public static final CreativeModeTab AP_GROUP = new CreativeModeTab(-1, ID_ARCHERS_PARADOX) {
+
+        @Override
+        @OnlyIn (Dist.CLIENT)
+        public ItemStack makeIcon() {
+
+            return new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW));
+        }
+    };
 
     public ArchersParadox() {
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::entityRendererSetup);
-        modEventBus.addListener(this::clientSetup);
 
         ITEMS.register(modEventBus);
 
@@ -57,7 +62,6 @@ public class ArchersParadox {
         ENTITIES.register(modEventBus);
 
         CONFIG_MANAGER.register(modEventBus)
-                .addClientConfig(new APClientConfig())
                 .addServerConfig(ExplosiveArrow.CONFIG)
                 .addServerConfig(QuartzArrow.CONFIG)
                 .addServerConfig(DiamondArrow.CONFIG)
@@ -69,7 +73,6 @@ public class ArchersParadox {
                 .addServerConfig(FrostArrow.CONFIG)
                 .addServerConfig(VerdantArrow.CONFIG)
                 .addServerConfig(SporeArrow.CONFIG);
-        CONFIG_MANAGER.setupClient();
         CONFIG_MANAGER.setupServer();
 
         APItems.register();
@@ -96,26 +99,6 @@ public class ArchersParadox {
         event.registerEntityRenderer(LIGHTNING_ARROW.get(), LightningArrowRenderer::new);
         event.registerEntityRenderer(VERDANT_ARROW.get(), VerdantArrowRenderer::new);
         event.registerEntityRenderer(SPORE_ARROW.get(), SporeArrowRenderer::new);
-    }
-
-    private void clientSetup(final FMLClientSetupEvent event) {
-
-        event.enqueueWork(() -> {
-            if (APClientConfig.enableCreativeTab.get()) {
-                itemGroup = new CreativeModeTab(-1, ID_ARCHERS_PARADOX) {
-
-                    @Override
-                    @OnlyIn (Dist.CLIENT)
-                    public ItemStack makeIcon() {
-
-                        return new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW));
-                    }
-                };
-            } else {
-                itemGroup = CreativeModeTab.TAB_COMBAT;
-            }
-        });
-        // event.enqueueWork(() -> MenuScreens.register(QUIVER_CONTAINER.get(), QuiverScreen::new));
     }
     // endregion
 }
