@@ -7,6 +7,7 @@ import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
 import cofh.core.config.ConfigManager;
+import cofh.core.event.CoreClientEvents;
 import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -116,6 +117,8 @@ public class ArchersParadox {
             }
         });
         // event.enqueueWork(() -> MenuScreens.register(QUIVER_CONTAINER, QuiverScreen::new));
+
+        event.enqueueWork(() -> CoreClientEvents.addNamespace(ID_ARCHERS_PARADOX));
     }
     // endregion
 }
