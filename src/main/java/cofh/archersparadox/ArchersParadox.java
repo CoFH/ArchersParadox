@@ -6,6 +6,7 @@ import cofh.archersparadox.init.APEffects;
 import cofh.archersparadox.init.APEntities;
 import cofh.archersparadox.init.APItems;
 import cofh.core.config.ConfigManager;
+import cofh.core.event.CoreClientEvents;
 import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -18,6 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
@@ -54,6 +56,7 @@ public class ArchersParadox {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::entityRendererSetup);
+        modEventBus.addListener(this::clientSetup);
 
         ITEMS.register(modEventBus);
 
@@ -99,6 +102,11 @@ public class ArchersParadox {
         event.registerEntityRenderer(LIGHTNING_ARROW.get(), LightningArrowRenderer::new);
         event.registerEntityRenderer(VERDANT_ARROW.get(), VerdantArrowRenderer::new);
         event.registerEntityRenderer(SPORE_ARROW.get(), SporeArrowRenderer::new);
+    }
+
+    private void clientSetup(final FMLClientSetupEvent event) {
+
+        event.enqueueWork(() -> CoreClientEvents.addNamespace(ID_ARCHERS_PARADOX));
     }
     // endregion
 }

@@ -91,7 +91,7 @@
 //                ChatHelper.sendIndexedChatMessageToPlayer(player, Component.translatable("info.cofh.secure_item"));
 //                return false;
 //            }
-//            NetworkHooks.openGui((ServerPlayer) player, this);
+//            NetworkHooks.openScreen((ServerPlayer) player, this);
 //        }
 //        return true;
 //    }
