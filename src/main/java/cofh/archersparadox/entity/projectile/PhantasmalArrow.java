@@ -139,7 +139,7 @@ public class PhantasmalArrow extends AbstractArrow {
             if (hitresult != null && hitresult.getType() == HitResult.Type.ENTITY) {
                 Entity entity = ((EntityHitResult) hitresult).getEntity();
                 Entity entity1 = this.getOwner();
-                if (entity instanceof Player && entity1 instanceof Player && !((Player) entity1).canHarmPlayer((Player) entity)) {
+                if (entity instanceof Player && entity1 instanceof Player owner && !owner.canHarmPlayer((Player) entity)) {
                     hitresult = null;
                     entityhitresult = null;
                 }
