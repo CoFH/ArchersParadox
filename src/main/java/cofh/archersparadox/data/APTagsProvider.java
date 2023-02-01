@@ -105,6 +105,24 @@ public class APTagsProvider {
                     ENTITIES.get(ID_VERDANT_ARROW),
                     ENTITIES.get(ID_SPORE_ARROW)
             );
+
+            tag(EntityTypeTags.IMPACT_PROJECTILES).add(
+                    ENTITIES.get(ID_EXPLOSIVE_ARROW),
+                    ENTITIES.get(ID_QUARTZ_ARROW),
+                    ENTITIES.get(ID_DIAMOND_ARROW),
+                    ENTITIES.get(ID_PRISMARINE_ARROW),
+                    ENTITIES.get(ID_SLIME_ARROW),
+                    ENTITIES.get(ID_ENDER_ARROW),
+                    ENTITIES.get(ID_TRAINING_ARROW),
+                    ENTITIES.get(ID_CHALLENGE_ARROW),
+                    ENTITIES.get(ID_PHANTASMAL_ARROW),
+                    ENTITIES.get(ID_SHULKER_ARROW),
+                    ENTITIES.get(ID_BLAZE_ARROW),
+                    ENTITIES.get(ID_FROST_ARROW),
+                    ENTITIES.get(ID_LIGHTNING_ARROW),
+                    ENTITIES.get(ID_VERDANT_ARROW),
+                    ENTITIES.get(ID_SPORE_ARROW)
+            );
         }
 
     }
