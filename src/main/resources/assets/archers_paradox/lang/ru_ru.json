@@ -6,10 +6,10 @@
   "effect.archers_paradox.training_miss": "Промах",
   "effect.archers_paradox.training_streak": "Серия попаданий",
 
-  "itemGroup.archers_paradox": "Archer's Paradox",
+  "item.archers_paradox.quiver": "Колчан",
 
   "item.archers_paradox.blaze_arrow": "Поджигающая стрела",
-  "item.archers_paradox.blaze_arrow.desc": "Поджигает цель и близжайшие блоки при попадании.",
+  "item.archers_paradox.blaze_arrow.desc": "Поджигает цель и ближайшие блоки при попадании.",
   "item.archers_paradox.challenge_arrow": "Стрела испытания",
   "item.archers_paradox.challenge_arrow.desc": "Не наносит урона, используется для проверки мастерства лучника. Усложняет каждый выстрел.",
   "item.archers_paradox.diamond_arrow": "Алмазная стрела",
@@ -37,7 +37,7 @@
   "item.archers_paradox.shulker_arrow": "Стрела-шалкер",
   "item.archers_paradox.shulker_arrow.desc": "Заставляет цели левитировать.",
   "item.archers_paradox.slime_arrow": "Слизневая стрела",
-  "item.archers_paradox.slime_arrow.desc": "Отскивает от блоков несколько раз. Низкий урон, высокая отдача.",
+  "item.archers_paradox.slime_arrow.desc": "Отскакивает от блоков несколько раз. Низкий урон, высокая отдача.",
   "item.archers_paradox.spore_arrow": "Споровая стрела",
   "item.archers_paradox.spore_arrow.desc": "Распыляет споры грибов.",
   "item.archers_paradox.training_arrow": "Тренировочная стрела",
