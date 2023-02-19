@@ -15,8 +15,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -106,7 +104,6 @@ public class ArchersParadox {
                 itemGroup = new CreativeModeTab(-1, ID_ARCHERS_PARADOX) {
 
                     @Override
-                    @OnlyIn (Dist.CLIENT)
                     public ItemStack makeIcon() {
 
                         return new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW));
