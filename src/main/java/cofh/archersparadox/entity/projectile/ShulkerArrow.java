@@ -75,13 +75,9 @@ public class ShulkerArrow extends AbstractArrow {
     }
 
     @Override
-    protected void onHitEntity(EntityHitResult raytraceResultIn) {
+    protected void doPostHurtEffects(LivingEntity living) {
 
-        super.onHitEntity(raytraceResultIn);
-
-        Entity entity = raytraceResultIn.getEntity();
-        if (!entity.isInvulnerable() && entity instanceof LivingEntity && effectDuration > 0) {
-            LivingEntity living = (LivingEntity) entity;
+        if (effectDuration > 0) {
             living.addEffect(new MobEffectInstance(MobEffects.LEVITATION, effectDuration));
         }
     }
