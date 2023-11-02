@@ -14,8 +14,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.QUARTZ_ARROW;
-import static cofh.archersparadox.init.APItems.QUARTZ_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.QUARTZ_ARROW;
+import static cofh.archersparadox.init.ModItems.QUARTZ_ARROW_ITEM;
 
 public class QuartzArrow extends AbstractArrow {
 

@@ -2,19 +2,22 @@ package cofh.archersparadox;
 
 import cofh.archersparadox.client.renderer.entity.*;
 import cofh.archersparadox.entity.projectile.*;
-import cofh.archersparadox.init.APEffects;
-import cofh.archersparadox.init.APEntities;
-import cofh.archersparadox.init.APItems;
+import cofh.archersparadox.init.ModCreativeTabs;
+import cofh.archersparadox.init.ModEffects;
+import cofh.archersparadox.init.ModEntities;
+import cofh.archersparadox.init.ModItems;
 import cofh.core.config.ConfigManager;
 import cofh.core.event.CoreClientEvents;
 import cofh.lib.util.DeferredRegisterCoFH;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -23,8 +26,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static cofh.archersparadox.init.APEntities.*;
-import static cofh.archersparadox.init.APIDs.ID_PRISMARINE_ARROW;
+import static cofh.archersparadox.init.ModEntities.*;
 import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 @Mod (ID_ARCHERS_PARADOX)
@@ -34,19 +36,11 @@ public class ArchersParadox {
     public static final ConfigManager CONFIG_MANAGER = new ConfigManager();
 
     public static final DeferredRegisterCoFH<Item> ITEMS = DeferredRegisterCoFH.create(ForgeRegistries.ITEMS, ID_ARCHERS_PARADOX);
+    public static final DeferredRegisterCoFH<CreativeModeTab> CREATIVE_TABS = DeferredRegisterCoFH.create(Registries.CREATIVE_MODE_TAB, ID_ARCHERS_PARADOX);
 
     public static final DeferredRegisterCoFH<MenuType<?>> CONTAINERS = DeferredRegisterCoFH.create(ForgeRegistries.MENU_TYPES, ID_ARCHERS_PARADOX);
     public static final DeferredRegisterCoFH<MobEffect> EFFECTS = DeferredRegisterCoFH.create(ForgeRegistries.MOB_EFFECTS, ID_ARCHERS_PARADOX);
     public static final DeferredRegisterCoFH<EntityType<?>> ENTITIES = DeferredRegisterCoFH.create(ForgeRegistries.ENTITY_TYPES, ID_ARCHERS_PARADOX);
-
-    public static final CreativeModeTab AP_GROUP = new CreativeModeTab(-1, ID_ARCHERS_PARADOX) {
-
-        @Override
-        public ItemStack makeIcon() {
-
-            return new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW));
-        }
-    };
 
     public ArchersParadox() {
 
@@ -54,8 +48,10 @@ public class ArchersParadox {
 
         modEventBus.addListener(this::entityRendererSetup);
         modEventBus.addListener(this::clientSetup);
+        // modEventBus.addListener(this::creativeTabSetup);
 
         ITEMS.register(modEventBus);
+        CREATIVE_TABS.register(modEventBus);
 
         CONTAINERS.register(modEventBus);
         EFFECTS.register(modEventBus);
@@ -75,10 +71,11 @@ public class ArchersParadox {
                 .addServerConfig(SporeArrow.CONFIG);
         CONFIG_MANAGER.setupServer();
 
-        APItems.register();
+        ModItems.register();
+        ModCreativeTabs.register();
 
-        APEffects.register();
-        APEntities.register();
+        ModEffects.register();
+        ModEntities.register();
     }
 
     // region INITIALIZATION
@@ -104,6 +101,13 @@ public class ArchersParadox {
     private void clientSetup(final FMLClientSetupEvent event) {
 
         event.enqueueWork(() -> CoreClientEvents.addNamespace(ID_ARCHERS_PARADOX));
+    }
+
+    private void creativeTabSetup(final BuildCreativeModeTabContentsEvent event) {
+
+        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+
+        }
     }
     // endregion
 }

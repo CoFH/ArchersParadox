@@ -6,11 +6,11 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.RegistryObject;
 
 import static cofh.archersparadox.ArchersParadox.ENTITIES;
-import static cofh.archersparadox.init.APIDs.*;
+import static cofh.archersparadox.init.ModIDs.*;
 
-public class APEntities {
+public class ModEntities {
 
-    private APEntities() {
+    private ModEntities() {
 
     }
 

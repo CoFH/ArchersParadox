@@ -20,8 +20,8 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APEntities.ENDER_ARROW;
-import static cofh.archersparadox.init.APItems.ENDER_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.ENDER_ARROW;
+import static cofh.archersparadox.init.ModItems.ENDER_ARROW_ITEM;
 import static cofh.core.init.CoreMobEffects.ENDERFERENCE;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
@@ -51,7 +51,7 @@ public class EnderArrow extends AbstractArrow {
 
         super(ENDER_ARROW.get(), x, y, z, worldIn);
         this.baseDamage = defaultDamage;
-        this.origin = new BlockPos(x, y, z);
+        this.origin = new BlockPos((int) x, (int) y, (int) z);
     }
 
     @Override

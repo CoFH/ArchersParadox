@@ -18,10 +18,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APEffects.*;
-import static cofh.archersparadox.init.APEntities.CHALLENGE_ARROW;
-import static cofh.archersparadox.init.APItems.CHALLENGE_ARROW_ITEM;
-import static cofh.archersparadox.init.APItems.TRAINING_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEffects.*;
+import static cofh.archersparadox.init.ModEntities.CHALLENGE_ARROW;
+import static cofh.archersparadox.init.ModItems.CHALLENGE_ARROW_ITEM;
+import static cofh.archersparadox.init.ModItems.TRAINING_ARROW_ITEM;
 
 public class ChallengeArrow extends AbstractArrow {
 
@@ -95,8 +95,8 @@ public class ChallengeArrow extends AbstractArrow {
                     if (distance >= Math.min(MAX_DISTANCE, challengeCount)) {
                         int distanceBonus = (int) (DISTANCE_FACTOR * distance);
                         shooter.addEffect(new MobEffectInstance(CHALLENGE_STREAK.get(), DURATION + distanceBonus, challengeCount, false, false));
-                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME, 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
-                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME, shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
+                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME.get(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
+                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME.get(), shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
                         discharged = true;
                     }
                 }

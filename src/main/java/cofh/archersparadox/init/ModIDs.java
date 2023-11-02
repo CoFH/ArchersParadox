@@ -1,8 +1,8 @@
 package cofh.archersparadox.init;
 
-public class APIDs {
+public class ModIDs {
 
-    private APIDs() {
+    private ModIDs() {
 
     }
 

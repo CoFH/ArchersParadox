@@ -7,11 +7,11 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraftforge.registries.RegistryObject;
 
 import static cofh.archersparadox.ArchersParadox.EFFECTS;
-import static cofh.archersparadox.init.APIDs.*;
+import static cofh.archersparadox.init.ModIDs.*;
 
-public class APEffects {
+public class ModEffects {
 
-    private APEffects() {
+    private ModEffects() {
 
     }
 

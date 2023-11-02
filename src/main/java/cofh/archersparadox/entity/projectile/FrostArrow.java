@@ -36,8 +36,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.FROST_ARROW;
-import static cofh.archersparadox.init.APItems.FROST_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.FROST_ARROW;
+import static cofh.archersparadox.init.ModItems.FROST_ARROW_ITEM;
 import static cofh.core.init.CoreMobEffects.CHILLED;
 import static cofh.core.init.CoreParticles.FROST;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;

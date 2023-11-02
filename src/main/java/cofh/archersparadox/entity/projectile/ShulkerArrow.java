@@ -26,8 +26,8 @@ import net.minecraftforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.SHULKER_ARROW;
-import static cofh.archersparadox.init.APItems.SHULKER_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.SHULKER_ARROW;
+import static cofh.archersparadox.init.ModItems.SHULKER_ARROW_ITEM;
 
 public class ShulkerArrow extends AbstractArrow {
 

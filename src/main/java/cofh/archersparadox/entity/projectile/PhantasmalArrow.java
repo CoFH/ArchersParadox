@@ -19,8 +19,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APEntities.PHANTASMAL_ARROW;
-import static cofh.archersparadox.init.APItems.PHANTASMAL_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.PHANTASMAL_ARROW;
+import static cofh.archersparadox.init.ModItems.PHANTASMAL_ARROW_ITEM;
 
 public class PhantasmalArrow extends AbstractArrow {
 

@@ -7,7 +7,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-import static cofh.archersparadox.init.APEffects.CHALLENGE_COMPLETE;
+import static cofh.archersparadox.init.ModEffects.CHALLENGE_COMPLETE;
 
 public class ChallengeEffect extends MobEffectCoFH {
 

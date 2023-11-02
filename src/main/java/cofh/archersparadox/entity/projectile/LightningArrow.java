@@ -19,8 +19,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.LIGHTNING_ARROW;
-import static cofh.archersparadox.init.APItems.LIGHTNING_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.LIGHTNING_ARROW;
+import static cofh.archersparadox.init.ModItems.LIGHTNING_ARROW_ITEM;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class LightningArrow extends AbstractArrow {

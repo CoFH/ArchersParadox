@@ -18,10 +18,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-import static cofh.archersparadox.init.APEffects.TRAINING_MISS;
-import static cofh.archersparadox.init.APEffects.TRAINING_STREAK;
-import static cofh.archersparadox.init.APEntities.TRAINING_ARROW;
-import static cofh.archersparadox.init.APItems.TRAINING_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEffects.TRAINING_MISS;
+import static cofh.archersparadox.init.ModEffects.TRAINING_STREAK;
+import static cofh.archersparadox.init.ModEntities.TRAINING_ARROW;
+import static cofh.archersparadox.init.ModItems.TRAINING_ARROW_ITEM;
 
 public class TrainingArrow extends AbstractArrow {
 
@@ -98,8 +98,8 @@ public class TrainingArrow extends AbstractArrow {
                     if (distance >= Math.min(MAX_DISTANCE, trainingCount)) {
                         int distanceBonus = (int) (DISTANCE_FACTOR * distance);
                         shooter.addEffect(new MobEffectInstance(TRAINING_STREAK.get(), DURATION + distanceBonus, trainingCount, false, false));
-                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME, 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
-                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME, shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
+                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME.get(), 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
+                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME.get(), shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * trainingCount, 1.1F));
                     }
                 }
             }

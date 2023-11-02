@@ -28,8 +28,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.PRISMARINE_ARROW;
-import static cofh.archersparadox.init.APItems.PRISMARINE_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.PRISMARINE_ARROW;
+import static cofh.archersparadox.init.ModItems.PRISMARINE_ARROW_ITEM;
 
 public class PrismarineArrow extends AbstractArrow {
 

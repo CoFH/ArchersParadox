@@ -23,8 +23,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.SLIME_ARROW;
-import static cofh.archersparadox.init.APItems.SLIME_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.SLIME_ARROW;
+import static cofh.archersparadox.init.ModItems.SLIME_ARROW_ITEM;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class SlimeArrow extends AbstractArrow {

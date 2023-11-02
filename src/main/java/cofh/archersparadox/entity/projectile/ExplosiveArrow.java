@@ -10,7 +10,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -19,8 +18,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.EXPLOSIVE_ARROW;
-import static cofh.archersparadox.init.APItems.EXPLOSIVE_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.EXPLOSIVE_ARROW;
+import static cofh.archersparadox.init.ModItems.EXPLOSIVE_ARROW_ITEM;
 
 public class ExplosiveArrow extends AbstractArrow {
 
@@ -60,7 +59,7 @@ public class ExplosiveArrow extends AbstractArrow {
         super.onHit(raytraceResultIn);
 
         if (Utils.isServerWorld(level)) {
-            level.explode(this, this.getX(), this.getY(), this.getZ(), (float) (explosionStrength + (knockbackBoost ? knockback : 0)), explosionsCauseFire && isOnFire(), explosionsBreakBlocks ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE);
+            level.explode(this, this.getX(), this.getY(), this.getZ(), (float) (explosionStrength + (knockbackBoost ? knockback : 0)), explosionsCauseFire && isOnFire(), explosionsBreakBlocks ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE);
             this.level.broadcastEntityEvent(this, (byte) 3);
             this.discard();
         }

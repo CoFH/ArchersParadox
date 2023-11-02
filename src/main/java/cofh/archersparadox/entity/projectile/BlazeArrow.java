@@ -25,8 +25,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.BLAZE_ARROW;
-import static cofh.archersparadox.init.APItems.BLAZE_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.BLAZE_ARROW;
+import static cofh.archersparadox.init.ModItems.BLAZE_ARROW_ITEM;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class BlazeArrow extends AbstractArrow {

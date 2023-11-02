@@ -26,8 +26,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.SPORE_ARROW;
-import static cofh.archersparadox.init.APItems.SPORE_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.SPORE_ARROW;
+import static cofh.archersparadox.init.ModItems.SPORE_ARROW_ITEM;
 import static cofh.lib.util.constants.NBTTags.TAG_ARROW_DATA;
 
 public class SporeArrow extends AbstractArrow {

@@ -14,8 +14,8 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-import static cofh.archersparadox.init.APEntities.DIAMOND_ARROW;
-import static cofh.archersparadox.init.APItems.DIAMOND_ARROW_ITEM;
+import static cofh.archersparadox.init.ModEntities.DIAMOND_ARROW;
+import static cofh.archersparadox.init.ModItems.DIAMOND_ARROW_ITEM;
 
 public class DiamondArrow extends AbstractArrow {
 
