@@ -1,6 +1,7 @@
 package cofh.archersparadox;
 
 import cofh.archersparadox.client.renderer.entity.*;
+import cofh.archersparadox.config.ModConfig;
 import cofh.archersparadox.entity.projectile.*;
 import cofh.archersparadox.init.ModCreativeTabs;
 import cofh.archersparadox.init.ModEffects;
@@ -58,6 +59,7 @@ public class ArchersParadox {
         ENTITIES.register(modEventBus);
 
         CONFIG_MANAGER.register(modEventBus)
+                .addServerConfig(new ModConfig())
                 .addServerConfig(ExplosiveArrow.CONFIG)
                 .addServerConfig(QuartzArrow.CONFIG)
                 .addServerConfig(DiamondArrow.CONFIG)

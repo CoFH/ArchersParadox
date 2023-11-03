@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "#": {
       "item": "minecraft:arrow"
@@ -22,5 +23,6 @@
   "result": {
     "count": 4,
     "item": "archers_paradox:verdant_arrow"
-  }
+  },
+  "show_notification": true
 }
