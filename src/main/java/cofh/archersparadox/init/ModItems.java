@@ -32,7 +32,7 @@ public class ModItems {
 
     }
 
-    // ITEMS.register(ID_QUIVER, () -> new QuiverItem(new Item.Properties().stacksTo(1).tab(group), 5));
+    // ITEMS.register(ID_QUIVER, () -> new QuiverItem(new Item.Properties().stacksTo(1), 5));
     // CONTAINERS.register(ID_QUIVER,()->IForgeMenuType.create((windowId,inv,data)->new QuiverContainer(windowId, inv, ProxyUtils.getClientPlayer())));
 
     public static final RegistryObject<Item> EXPLOSIVE_ARROW_ITEM = registerWithTab(ID_EXPLOSIVE_ARROW, () -> new ArrowItemCoFH(ExplosiveArrow.FACTORY, new Item.Properties()));

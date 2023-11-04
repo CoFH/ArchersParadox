@@ -20,7 +20,7 @@ public class ModCreativeTabs {
 
     }
 
-    public static final RegistryObject<CreativeModeTab> TAB = CREATIVE_TABS.register(ID_ARCHERS_PARADOX, () -> CreativeModeTab.builder()
+    private static final RegistryObject<CreativeModeTab> TAB = CREATIVE_TABS.register(ID_ARCHERS_PARADOX, () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.archers_paradox"))
             .icon(() -> new ItemStack(ITEMS.get(ID_PRISMARINE_ARROW)))
             .displayItems((parameters, output) -> ModItems.CREATIVE_TAB_ITEMS.forEach((item) -> output.accept(item.get())))
