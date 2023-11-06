@@ -27,6 +27,7 @@ public class ModTagsProvider {
             super(output, lookupProvider, ID_ARCHERS_PARADOX, existingFileHelper);
         }
 
+        @SuppressWarnings ("unchecked")
         @Override
         protected void addTags(HolderLookup.Provider pProvider) {
 
@@ -41,12 +42,7 @@ public class ModTagsProvider {
             super(pOutput, pLookupProvider, pBlockTags, ID_ARCHERS_PARADOX, existingFileHelper);
         }
 
-        @Override
-        public String getName() {
-
-            return "Archer's Paradox: Item Tags";
-        }
-
+        @SuppressWarnings ("unchecked")
         @Override
         protected void addTags(HolderLookup.Provider pProvider) {
 
@@ -78,6 +74,7 @@ public class ModTagsProvider {
             super(pOutput, pProvider, ID_ARCHERS_PARADOX, existingFileHelper);
         }
 
+        @SuppressWarnings ("unchecked")
         @Override
         protected void addTags(HolderLookup.Provider pProvider) {
 

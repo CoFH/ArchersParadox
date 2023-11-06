@@ -23,7 +23,6 @@ public class ModDataGen {
         ExistingFileHelper exFileHelper = event.getExistingFileHelper();
 
         ModTagsProvider.Block blockTags = new ModTagsProvider.Block(pOutput, event.getLookupProvider(), exFileHelper);
-
         gen.addProvider(event.includeServer(), blockTags);
         gen.addProvider(event.includeServer(), new ModTagsProvider.Item(pOutput, event.getLookupProvider(), blockTags.contentsGetter(), exFileHelper));
         gen.addProvider(event.includeServer(), new ModTagsProvider.Entity(pOutput, event.getLookupProvider(), exFileHelper));
