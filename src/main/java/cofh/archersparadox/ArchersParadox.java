@@ -1,14 +1,14 @@
 package cofh.archersparadox;
 
 import cofh.archersparadox.client.renderer.entity.*;
-import cofh.archersparadox.config.ModConfig;
-import cofh.archersparadox.entity.projectile.*;
-import cofh.archersparadox.init.ModCreativeTabs;
-import cofh.archersparadox.init.ModEffects;
-import cofh.archersparadox.init.ModEntities;
-import cofh.archersparadox.init.ModItems;
-import cofh.core.config.ConfigManager;
-import cofh.core.event.CoreClientEvents;
+import cofh.archersparadox.common.config.ModConfig;
+import cofh.archersparadox.common.entity.projectile.*;
+import cofh.archersparadox.init.registries.ModCreativeTabs;
+import cofh.archersparadox.init.registries.ModEffects;
+import cofh.archersparadox.init.registries.ModEntities;
+import cofh.archersparadox.init.registries.ModItems;
+import cofh.core.client.event.CoreClientEvents;
+import cofh.core.common.config.ConfigManager;
 import cofh.lib.util.DeferredRegisterCoFH;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
@@ -27,7 +27,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static cofh.archersparadox.init.ModEntities.*;
+import static cofh.archersparadox.init.registries.ModEntities.*;
 import static cofh.lib.util.constants.ModIds.ID_ARCHERS_PARADOX;
 
 @Mod (ID_ARCHERS_PARADOX)
