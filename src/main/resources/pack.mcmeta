@@ -1,7 +1,8 @@
 {
-    "pack": {
-        "description": "CoFH - Archer's Paradox Resources",
-        "pack_format": 10,
-        "_comment": ""
-    }
+  "pack": {
+    "description": {
+      "translate": "pack.archers_paradox.description"
+    },
+    "pack_format": 15
+  }
 }
