@@ -2,7 +2,7 @@ package cofh.archersparadox.init.data.providers;
 
 import cofh.lib.init.data.ItemModelProviderCoFH;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import static cofh.archersparadox.ArchersParadox.ITEMS;
 import static cofh.archersparadox.init.registries.ModIDs.*;

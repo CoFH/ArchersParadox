@@ -14,8 +14,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -125,7 +125,7 @@ public class LightningArrow extends AbstractArrow {
     public static final IBaseConfig CONFIG = new IBaseConfig() {
 
         @Override
-        public void apply(ForgeConfigSpec.Builder builder) {
+        public void apply(ModConfigSpec.Builder builder) {
 
             String name = "Lightning Arrow";
 

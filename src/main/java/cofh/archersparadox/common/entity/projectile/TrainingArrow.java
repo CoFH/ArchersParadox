@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.network.NetworkHooks;
 
 import static cofh.archersparadox.init.registries.ModEffects.TRAINING_MISS;
 import static cofh.archersparadox.init.registries.ModEffects.TRAINING_STREAK;

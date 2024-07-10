@@ -30,10 +30,10 @@
 //import net.minecraft.world.item.DyeableLeatherItem;
 //import net.minecraft.world.item.ItemStack;
 //import net.minecraft.world.level.Level;
-//import net.minecraftforge.common.capabilities.Capability;
-//import net.minecraftforge.common.capabilities.ICapabilityProvider;
-//import net.minecraftforge.common.util.LazyOptional;
-//import net.minecraftforge.network.NetworkHooks;
+//import net.neoforged.neoforge.common.capabilities.Capability;
+//import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
+//import net.neoforged.neoforge.common.util.LazyOptional;
+//import net.neoforged.neoforge.network.NetworkHooks;
 //import org.jetbrains.annotations.NotNull;
 //
 //import javax.annotation.Nonnull;

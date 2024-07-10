@@ -4,7 +4,7 @@ import cofh.archersparadox.common.effect.ChallengeEffect;
 import cofh.core.common.effect.NeutralMobEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import static cofh.archersparadox.ArchersParadox.EFFECTS;
 import static cofh.archersparadox.init.registries.ModIDs.*;

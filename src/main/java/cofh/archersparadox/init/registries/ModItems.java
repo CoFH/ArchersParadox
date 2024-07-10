@@ -5,7 +5,7 @@ import cofh.lib.common.item.ArrowItemCoFH;
 import com.google.common.collect.Sets;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import java.util.LinkedHashSet;
 import java.util.function.Supplier;

@@ -3,7 +3,7 @@ package cofh.archersparadox.init.registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import static cofh.archersparadox.ArchersParadox.CREATIVE_TABS;
 import static cofh.archersparadox.ArchersParadox.ITEMS;

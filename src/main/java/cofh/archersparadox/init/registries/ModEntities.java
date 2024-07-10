@@ -3,7 +3,7 @@ package cofh.archersparadox.init.registries;
 import cofh.archersparadox.common.entity.projectile.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.RegistryObject;
 
 import static cofh.archersparadox.ArchersParadox.ENTITIES;
 import static cofh.archersparadox.init.registries.ModIDs.*;

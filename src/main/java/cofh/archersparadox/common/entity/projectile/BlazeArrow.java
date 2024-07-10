@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.network.NetworkHooks;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -185,7 +185,7 @@ public class BlazeArrow extends AbstractArrow {
     public static final IBaseConfig CONFIG = new IBaseConfig() {
 
         @Override
-        public void apply(ForgeConfigSpec.Builder builder) {
+        public void apply(ModConfigSpec.Builder builder) {
 
             String name = "Blaze Arrow";
 
