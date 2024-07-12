@@ -8,8 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.AreaEffectCloud;
@@ -32,7 +30,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
+import net.neoforged.neoforge.event.EventHooks;
 
 import java.util.function.Supplier;
 
@@ -57,19 +55,19 @@ public class FrostArrow extends AbstractArrow {
 
     public FrostArrow(EntityType<? extends FrostArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public FrostArrow(Level worldIn, LivingEntity shooter) {
 
-        super(FROST_ARROW.get(), shooter, worldIn);
+        super(FROST_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public FrostArrow(Level worldIn, double x, double y, double z) {
 
-        super(FROST_ARROW.get(), x, y, z, worldIn);
+        super(FROST_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
@@ -211,7 +209,7 @@ public class FrostArrow extends AbstractArrow {
                         entityhitresult = null;
                     }
                 }
-                if (hitresult != null && hitresult.getType() != HitResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+                if (hitresult != null && hitresult.getType() != HitResult.Type.MISS && !flag && !EventHooks.onProjectileImpact(this, hitresult)) {
                     this.onHit(hitresult);
                     this.hasImpulse = true;
                 }
@@ -269,12 +267,6 @@ public class FrostArrow extends AbstractArrow {
 
         super.readAdditionalSaveData(compound);
         discharged = compound.getBoolean(TAG_ARROW_DATA);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private void makeAreaOfEffectCloud() {

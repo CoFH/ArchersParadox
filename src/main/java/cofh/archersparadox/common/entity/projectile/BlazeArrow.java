@@ -6,8 +6,6 @@ import cofh.lib.common.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -21,7 +19,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -41,19 +38,19 @@ public class BlazeArrow extends AbstractArrow {
 
     public BlazeArrow(EntityType<? extends BlazeArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public BlazeArrow(Level worldIn, LivingEntity shooter) {
 
-        super(BLAZE_ARROW.get(), shooter, worldIn);
+        super(BLAZE_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public BlazeArrow(Level worldIn, double x, double y, double z) {
 
-        super(BLAZE_ARROW.get(), x, y, z, worldIn);
+        super(BLAZE_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
@@ -144,12 +141,6 @@ public class BlazeArrow extends AbstractArrow {
     public boolean isOnFire() {
 
         return !this.level.isClientSide;
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private void makeAreaOfEffectCloud() {

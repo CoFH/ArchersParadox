@@ -2,15 +2,12 @@ package cofh.archersparadox.common.entity.projectile;
 
 import cofh.core.common.config.IBaseConfig;
 import cofh.lib.common.item.ArrowItemCoFH;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -25,7 +22,7 @@ public class DiamondArrow extends AbstractArrow {
 
     public DiamondArrow(EntityType<DiamondArrow> type, Level worldIn) {
 
-        super(type, worldIn);
+        super(type, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -33,7 +30,7 @@ public class DiamondArrow extends AbstractArrow {
 
     public DiamondArrow(Level worldIn, LivingEntity shooter) {
 
-        super(DIAMOND_ARROW.get(), shooter, worldIn);
+        super(DIAMOND_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -41,7 +38,7 @@ public class DiamondArrow extends AbstractArrow {
 
     public DiamondArrow(Level worldIn, double x, double y, double z) {
 
-        super(DIAMOND_ARROW.get(), x, y, z, worldIn);
+        super(DIAMOND_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -63,12 +60,6 @@ public class DiamondArrow extends AbstractArrow {
     public void setPierceLevel(byte level) {
 
         super.setPierceLevel((byte) (defaultPierce + level));
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

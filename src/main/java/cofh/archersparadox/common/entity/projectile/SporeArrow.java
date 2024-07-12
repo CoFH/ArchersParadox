@@ -6,8 +6,6 @@ import cofh.lib.common.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -22,7 +20,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -43,19 +40,19 @@ public class SporeArrow extends AbstractArrow {
 
     public SporeArrow(EntityType<? extends SporeArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public SporeArrow(Level worldIn, LivingEntity shooter) {
 
-        super(SPORE_ARROW.get(), shooter, worldIn);
+        super(SPORE_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public SporeArrow(Level worldIn, double x, double y, double z) {
 
-        super(SPORE_ARROW.get(), x, y, z, worldIn);
+        super(SPORE_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
@@ -144,12 +141,6 @@ public class SporeArrow extends AbstractArrow {
 
         super.readAdditionalSaveData(compound);
         discharged = compound.getBoolean(TAG_ARROW_DATA);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private void makeAreaOfEffectCloud() {

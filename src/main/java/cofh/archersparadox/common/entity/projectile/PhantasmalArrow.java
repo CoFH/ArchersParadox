@@ -1,8 +1,6 @@
 package cofh.archersparadox.common.entity.projectile;
 
 import cofh.lib.common.item.ArrowItemCoFH;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -16,8 +14,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.event.ForgeEventFactory;
-import net.neoforged.neoforge.network.NetworkHooks;
+import net.neoforged.neoforge.event.EventHooks;
 
 import static cofh.archersparadox.init.registries.ModEntities.PHANTASMAL_ARROW;
 import static cofh.archersparadox.init.registries.ModItems.PHANTASMAL_ARROW_ITEM;
@@ -35,7 +32,7 @@ public class PhantasmalArrow extends AbstractArrow {
 
     public PhantasmalArrow(EntityType<? extends PhantasmalArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         setGlowingTag(GLOWING);
         setNoGravity(NO_GRAVITY);
         setPierceLevel(PIERCE);
@@ -43,7 +40,7 @@ public class PhantasmalArrow extends AbstractArrow {
 
     public PhantasmalArrow(Level worldIn, LivingEntity shooter) {
 
-        super(PHANTASMAL_ARROW.get(), shooter, worldIn);
+        super(PHANTASMAL_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         setGlowingTag(GLOWING);
         setNoGravity(NO_GRAVITY);
         setPierceLevel(PIERCE);
@@ -51,7 +48,7 @@ public class PhantasmalArrow extends AbstractArrow {
 
     public PhantasmalArrow(Level worldIn, double x, double y, double z) {
 
-        super(PHANTASMAL_ARROW.get(), x, y, z, worldIn);
+        super(PHANTASMAL_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         setGlowingTag(GLOWING);
         setNoGravity(NO_GRAVITY);
         setPierceLevel(PIERCE);
@@ -145,7 +142,7 @@ public class PhantasmalArrow extends AbstractArrow {
                     entityhitresult = null;
                 }
             }
-            if (hitresult != null && hitresult.getType() == HitResult.Type.ENTITY && !ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+            if (hitresult != null && hitresult.getType() == HitResult.Type.ENTITY && !EventHooks.onProjectileImpact(this, hitresult)) {
                 this.onHit(hitresult);
                 this.hasImpulse = true;
             }
@@ -174,12 +171,6 @@ public class PhantasmalArrow extends AbstractArrow {
         this.setYRot(lerpRotation(this.yRotO, this.getYRot()));
 
         this.setPos(d7, d2, d3);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

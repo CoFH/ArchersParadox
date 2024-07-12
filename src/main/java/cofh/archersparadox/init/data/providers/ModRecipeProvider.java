@@ -2,14 +2,12 @@ package cofh.archersparadox.init.data.providers;
 
 import cofh.lib.init.data.RecipeProviderCoFH;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
-
-import java.util.function.Consumer;
 
 import static cofh.archersparadox.ArchersParadox.ITEMS;
 import static cofh.archersparadox.init.registries.ModIDs.*;
@@ -23,7 +21,7 @@ public class ModRecipeProvider extends RecipeProviderCoFH {
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(RecipeOutput consumer) {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ITEMS.get(ID_EXPLOSIVE_ARROW), 4)
                 .define('X', Items.TNT)

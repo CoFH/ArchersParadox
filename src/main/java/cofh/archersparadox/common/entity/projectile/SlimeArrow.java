@@ -5,8 +5,6 @@ import cofh.lib.common.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -19,7 +17,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -42,21 +39,21 @@ public class SlimeArrow extends AbstractArrow {
 
     public SlimeArrow(EntityType<? extends SlimeArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
     }
 
     public SlimeArrow(Level worldIn, LivingEntity shooter) {
 
-        super(SLIME_ARROW.get(), shooter, worldIn);
+        super(SLIME_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
     }
 
     public SlimeArrow(Level worldIn, double x, double y, double z) {
 
-        super(SLIME_ARROW.get(), x, y, z, worldIn);
+        super(SLIME_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
     }
@@ -157,12 +154,6 @@ public class SlimeArrow extends AbstractArrow {
 
         super.readAdditionalSaveData(compound);
         curBounces = compound.getInt(TAG_ARROW_DATA);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

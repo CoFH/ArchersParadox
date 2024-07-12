@@ -4,8 +4,6 @@ import cofh.core.common.config.IBaseConfig;
 import cofh.lib.common.item.ArrowItemCoFH;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -24,7 +22,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
+import net.neoforged.neoforge.event.EventHooks;
 
 import java.util.function.Supplier;
 
@@ -39,7 +37,7 @@ public class PrismarineArrow extends AbstractArrow {
 
     public PrismarineArrow(EntityType<PrismarineArrow> type, Level worldIn) {
 
-        super(type, worldIn);
+        super(type, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -47,7 +45,7 @@ public class PrismarineArrow extends AbstractArrow {
 
     public PrismarineArrow(Level worldIn, LivingEntity shooter) {
 
-        super(PRISMARINE_ARROW.get(), shooter, worldIn);
+        super(PRISMARINE_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -55,7 +53,7 @@ public class PrismarineArrow extends AbstractArrow {
 
     public PrismarineArrow(Level worldIn, double x, double y, double z) {
 
-        super(PRISMARINE_ARROW.get(), x, y, z, worldIn);
+        super(PRISMARINE_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         setKnockback(0);
         setPierceLevel((byte) 0);
@@ -157,7 +155,7 @@ public class PrismarineArrow extends AbstractArrow {
                         entityhitresult = null;
                     }
                 }
-                if (hitresult != null && hitresult.getType() != HitResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, hitresult)) {
+                if (hitresult != null && hitresult.getType() != HitResult.Type.MISS && !flag && !EventHooks.onProjectileImpact(this, hitresult)) {
                     this.onHit(hitresult);
                     this.hasImpulse = true;
                 }
@@ -205,12 +203,6 @@ public class PrismarineArrow extends AbstractArrow {
             this.setPos(d7, d2, d3);
             this.checkInsideBlocks();
         }
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

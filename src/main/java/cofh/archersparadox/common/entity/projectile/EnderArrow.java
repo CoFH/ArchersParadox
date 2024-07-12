@@ -5,8 +5,6 @@ import cofh.lib.util.Utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -18,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import static cofh.archersparadox.init.registries.ModEntities.ENDER_ARROW;
 import static cofh.archersparadox.init.registries.ModItems.ENDER_ARROW_ITEM;
@@ -36,20 +33,20 @@ public class EnderArrow extends AbstractArrow {
 
     public EnderArrow(EntityType<? extends EnderArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public EnderArrow(Level worldIn, LivingEntity shooter) {
 
-        super(ENDER_ARROW.get(), shooter, worldIn);
+        super(ENDER_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         this.origin = shooter.blockPosition();
     }
 
     public EnderArrow(Level worldIn, double x, double y, double z) {
 
-        super(ENDER_ARROW.get(), x, y, z, worldIn);
+        super(ENDER_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         this.origin = new BlockPos((int) x, (int) y, (int) z);
     }
@@ -138,12 +135,6 @@ public class EnderArrow extends AbstractArrow {
 
         super.readAdditionalSaveData(compound);
         discharged = compound.getBoolean(TAG_ARROW_DATA);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

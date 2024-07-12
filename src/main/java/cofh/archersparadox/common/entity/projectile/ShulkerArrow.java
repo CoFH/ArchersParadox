@@ -4,8 +4,6 @@ import cofh.core.common.config.IBaseConfig;
 import cofh.lib.common.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -45,19 +42,19 @@ public class ShulkerArrow extends AbstractArrow {
 
     public ShulkerArrow(EntityType<? extends ShulkerArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public ShulkerArrow(Level worldIn, LivingEntity shooter) {
 
-        super(SHULKER_ARROW.get(), shooter, worldIn);
+        super(SHULKER_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public ShulkerArrow(Level worldIn, double x, double y, double z) {
 
-        super(SHULKER_ARROW.get(), x, y, z, worldIn);
+        super(SHULKER_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
@@ -120,12 +117,6 @@ public class ShulkerArrow extends AbstractArrow {
             }
         }
         super.tick();
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region HELPERS

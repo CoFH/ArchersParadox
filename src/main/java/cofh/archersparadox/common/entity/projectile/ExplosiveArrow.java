@@ -3,8 +3,6 @@ package cofh.archersparadox.common.entity.projectile;
 import cofh.core.common.config.IBaseConfig;
 import cofh.lib.common.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +12,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
@@ -31,19 +28,19 @@ public class ExplosiveArrow extends AbstractArrow {
 
     public ExplosiveArrow(EntityType<? extends ExplosiveArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public ExplosiveArrow(Level worldIn, LivingEntity shooter) {
 
-        super(EXPLOSIVE_ARROW.get(), shooter, worldIn);
+        super(EXPLOSIVE_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public ExplosiveArrow(Level worldIn, double x, double y, double z) {
 
-        super(EXPLOSIVE_ARROW.get(), x, y, z, worldIn);
+        super(EXPLOSIVE_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
@@ -82,12 +79,6 @@ public class ExplosiveArrow extends AbstractArrow {
     @Override
     public void setPierceLevel(byte level) {
 
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

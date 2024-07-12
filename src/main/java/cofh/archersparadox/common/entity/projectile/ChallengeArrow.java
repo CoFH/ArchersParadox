@@ -2,8 +2,6 @@ package cofh.archersparadox.common.entity.projectile;
 
 import cofh.lib.common.item.ArrowItemCoFH;
 import cofh.lib.util.Utils;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -16,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.network.NetworkHooks;
 
 import static cofh.archersparadox.init.registries.ModEffects.*;
 import static cofh.archersparadox.init.registries.ModEntities.CHALLENGE_ARROW;
@@ -36,20 +33,20 @@ public class ChallengeArrow extends AbstractArrow {
 
     public ChallengeArrow(EntityType<? extends ChallengeArrow> entityIn, Level worldIn) {
 
-        super(entityIn, worldIn);
+        super(entityIn, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
     }
 
     public ChallengeArrow(Level worldIn, LivingEntity shooter) {
 
-        super(CHALLENGE_ARROW.get(), shooter, worldIn);
+        super(CHALLENGE_ARROW.get(), shooter, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         this.origin = shooter.position();
     }
 
     public ChallengeArrow(Level worldIn, double x, double y, double z) {
 
-        super(CHALLENGE_ARROW.get(), x, y, z, worldIn);
+        super(CHALLENGE_ARROW.get(), x, y, z, worldIn, ItemStack.EMPTY);
         this.baseDamage = defaultDamage;
         this.origin = new Vec3(x, y, z);
     }
@@ -95,8 +92,8 @@ public class ChallengeArrow extends AbstractArrow {
                     if (distance >= Math.min(MAX_DISTANCE, challengeCount)) {
                         int distanceBonus = (int) (DISTANCE_FACTOR * distance);
                         shooter.addEffect(new MobEffectInstance(CHALLENGE_STREAK.get(), DURATION + distanceBonus, challengeCount, false, false));
-                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME.get(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
-                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME.get(), shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
+                        shooter.playSound(SoundEvents.NOTE_BLOCK_CHIME.value(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
+                        shooter.level.playSound(null, shooter.getX(), shooter.getY(), shooter.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), shooter.getSoundSource(), 1.0F, Math.min(0.6F + 0.05F * challengeCount, 1.1F));
                         discharged = true;
                     }
                 }
@@ -122,12 +119,6 @@ public class ChallengeArrow extends AbstractArrow {
     @Override
     public void setPierceLevel(byte level) {
 
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     // region FACTORY

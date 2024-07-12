@@ -33,7 +33,7 @@ public class ChallengeEffect extends MobEffectCoFH {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
 
         return duration == 1;
     }
