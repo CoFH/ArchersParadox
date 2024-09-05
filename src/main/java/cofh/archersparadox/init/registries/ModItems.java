@@ -34,7 +34,7 @@ public class ModItems {
     }
 
     // ITEMS.register(ID_QUIVER, () -> new QuiverItem(properties().stacksTo(1), 5));
-    // CONTAINERS.register(ID_QUIVER,()->IForgeMenuType.create((windowId,inv,data)->new QuiverContainer(windowId, inv, ProxyUtils.getClientPlayer())));
+    // CONTAINERS.register(ID_QUIVER,()->IMenuTypeExtension.create((windowId,inv,data)->new QuiverContainer(windowId, inv, ProxyUtils.getClientPlayer())));
 
     public static final DeferredHolder<Item, Item> EXPLOSIVE_ARROW_ITEM = registerWithTab(ID_EXPLOSIVE_ARROW, () -> new ArrowItemCoFH(ExplosiveArrow.FACTORY, itemProperties()));
     public static final DeferredHolder<Item, Item> QUARTZ_ARROW_ITEM = registerWithTab(ID_QUARTZ_ARROW, () -> new ArrowItemCoFH(QuartzArrow.FACTORY, itemProperties()));
